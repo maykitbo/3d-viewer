@@ -11,10 +11,17 @@ namespace s21 {
 class Controller {
 
   private:
-    Command * command;
+    Shell command_;
 
   public:
-    void FileOpen(std::string file_name);
+    void FileOpen(std::string file_name)  {
+      command_.AddCommand<OpenCommand>(file_name);
+    }
+
+    // void test() {
+    //   command_.AddCommand<Test>();
+    // }
+
     void ObjectRotate(double x, double y, double z);
     void ObjectMove(double x, double y, double z);
     void ObjectZoom(double scale);

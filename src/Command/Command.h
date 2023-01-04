@@ -2,17 +2,47 @@
 #define VIEWER_COMMAND_H
 
 #include <list>
-#include  <iostream>
+#include <memory>
+#include <iostream>
+
+#include "../Fasade/Fasade.h"
 
 namespace s21 {
 
 class Command {
-    virtual void Execute()=0;
-    virtual void Cancel()=0;
-    virtual void Name()=0;
+  public:
+      virtual void Execute(Fasade &f) = 0;
+      virtual void Cancel() = 0;
+      // virtual void Name() = 0;
 };
 
-class OpenCommand : Command {
+class Shell {
+
+    using node_type = std::shared_ptr<Command>;
+    using list_type = std::list<node_type>;
+
+    Fasade model_;
+
+    list_type History;
+    // queue_type Trash;
+
+    public:
+      template<class T, class... Args>
+      void AddCommand(Args &&...args) {
+        auto com = std::static_pointer_cast<Command>(std::make_shared<T>(args...));
+        History.push_back(com);
+        com->Execute(model_);
+        if (History.size() > BUFFER_SIZE) History.pop_front();
+      }
+      void Undo() {
+        History.back()->Cancel();
+        History.pop_back();
+      }
+      // void launch();
+
+};
+
+class OpenCommand : public Command {
 
   private:
     std::string file_path_;
@@ -20,26 +50,25 @@ class OpenCommand : Command {
     OpenCommand() = delete;
     OpenCommand(std::string path) : file_path_(path) {}
 
-    void Execute();
-    void Name();
+    void Execute(Fasade &f) override { f.Parse(file_path_); }
+    void Cancel() override {} // undo
+    // void Name() {}
 };
 
 class RotateCommand : Command {
     RotateCommand() = delete;
 };
 
-class Shell {
-
-    using queue_type = std::list<Command>;
-
+// class Test : public Command {
+//   public:
     
-
-    queue_type History;
-    queue_type Trash;
-
-    void launch();
-
-};
+//     void Execute(Fasade &f) override {
+//       // std::cout << "+++\n" << file_path_ << "\n";
+//       for (int k = 0; k < 1000000000; ++k) {}
+//       std::cout << "Test done\n";
+//     }
+//     void Name() {}
+// };
 
 // 1. Открытие файла(string)
 // 2. поворот(double,double,double)
@@ -55,4 +84,4 @@ class Shell {
 
 }  // namespace s21
 
-#endif VIEWER_COMMAND_H
+#endif // VIEWER_COMMAND_H

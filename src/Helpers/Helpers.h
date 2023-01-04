@@ -1,5 +1,7 @@
-#ifndef VIEWER_HELPERS_H
-#define VIEWER_HELPERS_H
+#ifndef HELPERS_HELPERS_H
+#define HELPERS_HELPERS_H
+
+#include <vector>
 
 namespace s21 {
 
@@ -14,6 +16,11 @@ struct Color {
     int blue;
 };
 
+#define BUFFER_SIZE 20
+
+typedef std::vector<double> VerticesVector;
+typedef std::vector<uint> EdgesVector;
+
 }  // namespace s21
 
-#endif VIEWER_HELPERS_H
+#endif // HELPERS_HELPERS_H
