@@ -95,7 +95,7 @@ void MainWindow::projectionBoxIndexChanged(int index) {
 }
 
 void MainWindow::vTypeBoxIndexChanged(int index) {
-    switch ((VType)index) {
+    switch ((VerticesType)index) {
         case none:
             std::cout << "none\n";
             break;
@@ -119,7 +119,7 @@ void MainWindow::vColorButtonClicked() {
 }
 
 void MainWindow::eTypeBoxIndexChanged(int index) {
-    switch ((EType)index) {
+    switch ((EdgesType)index) {
         case solid:
             std::cout << "solid\n";
             break;

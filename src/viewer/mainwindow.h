@@ -7,14 +7,13 @@
 //#include <gl.h>
 //#include <QtOpenGL>
 
+#include "../Helpers/Helpers.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-enum Projection : int { parallel, central };
-enum VType : int { none, circle, square };
-enum EType : int { solid, dashed };
-enum RenderType : int { jpeg, bmp, gif };
+
 
 class MainWindow : public QMainWindow
 {

@@ -4,11 +4,17 @@
 #include <string>
 
 #include "../Helpers/Helpers.h"
+#include "../Command/Command.h"
 
 namespace s21 {
 
 class Controller {
-    void FileOpen(std::string filename);
+
+  private:
+    Command * command;
+
+  public:
+    void FileOpen(std::string file_name);
     void ObjectRotate(double x, double y, double z);
     void ObjectMove(double x, double y, double z);
     void ObjectZoom(double scale);
