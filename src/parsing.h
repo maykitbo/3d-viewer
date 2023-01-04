@@ -13,7 +13,7 @@ struct Point {
     Point(double x_, double y_, double z_) noexcept : x(x_), y(y_), z(z_) {}
 };
 
-typedef std::vector<Point> v_vec;
+typedef std::vector<double> v_vec;
 typedef std::vector<Point*> f_1_vec;
 typedef std::vector<f_1_vec> f_vec;
 
