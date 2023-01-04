@@ -424,12 +424,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
              <item>
               <widget class="QPushButton" name="renderButton">
                <property name="text">
-                <string>rendered</string>
+                <string>rendere</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox">
+              <widget class="QComboBox" name="renderBox">
                <property name="currentIndex">
                 <number>0</number>
                </property>

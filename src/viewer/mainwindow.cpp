@@ -38,7 +38,19 @@ void MainWindow::openButtonClicked() {
 }
 
 void MainWindow::renderButtonClicked() {
+    switch ((RenderType)ui->renderBox->currentIndex()) {
+        case jpeg:
 
+            break;
+        case bmp:
+
+            break;
+        case gif:
+
+            break;
+        default:
+            break;
+    }
 }
 
 void MainWindow::moveXSpinValueChanged(double arg1) {

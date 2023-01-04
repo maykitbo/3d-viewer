@@ -14,6 +14,7 @@ QT_END_NAMESPACE
 enum Projection : int { parallel, central };
 enum VType : int { none, circle, square };
 enum EType : int { solid, dashed };
+enum RenderType : int { jpeg, bmp, gif };
 
 class MainWindow : public QMainWindow
 {
