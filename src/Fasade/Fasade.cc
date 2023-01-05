@@ -9,6 +9,7 @@ void Fasade::Parse(std::string &file_path) {
 
 // действия после парсинга
 
+
     std::cout << pars_.getVertex().size() << "\n";
     for (auto i : pars_.getVertex()) {
         std::cout << i << " ";

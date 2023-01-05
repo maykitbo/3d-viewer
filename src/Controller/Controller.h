@@ -4,7 +4,7 @@
 #include <string>
 
 #include "../Helpers/Helpers.h"
-#include "../Command/Command.h"
+#include "../Commands/Commands.h"
 
 namespace s21 {
 

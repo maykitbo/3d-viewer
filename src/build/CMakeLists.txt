@@ -14,10 +14,18 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         ../main.cpp
-        ../viewer/mainwindow.cpp
+        ../Commands/Commands.cc
+        ../Commands/Commands.h
+        ../Controller/Controller.cc
+        ../Controller/Controller.h
+        ../Fasade/Fasade.cc
+        ../Fasade/Fasade.h
+        ../Helpers/Helpers.h
+        ../Parser/Parser.h
+        ../Parser/Parser.cc
+        ../viewer/mainwindow.cc
         ../viewer/mainwindow.h
         ../viewer/mainwindow.ui
-#        ../parser/parsing.cc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

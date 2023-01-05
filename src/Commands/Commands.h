@@ -1,5 +1,5 @@
-#ifndef VIEWER_COMMAND_H
-#define VIEWER_COMMAND_H
+#ifndef COMMANDS_COMMANDS_H
+#define COMMANDS_COMMANDS_H
 
 #include <list>
 #include <memory>
@@ -200,8 +200,9 @@ class Test : public Command {
 // 8. Цвет вершин(int,int,int)
 // 9. Цвет фона (int,int,int)
 // 10. Сохранение изображения(int)
+// 11. проекция
 
 
 }  // namespace s21
 
-#endif // VIEWER_COMMAND_H
+#endif // COMMANDS_COMMANDS_H

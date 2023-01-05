@@ -6,6 +6,7 @@
 // #define GL_GLEXT_PROTOTYPES
 
 // using namespace gl;
+using namespace s21;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainWindow) {
     ui->setupUi(this);
