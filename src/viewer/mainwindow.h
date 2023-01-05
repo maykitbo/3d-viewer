@@ -26,13 +26,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void ColorButton();
+    QColor ColorButton();
 
 private:
     // double prev_value;
     Ui::MainWindow *ui;
     Controller *control_;
-    QColor Connects();
+    void Connects();
     std::string FileDialog();
 };
 

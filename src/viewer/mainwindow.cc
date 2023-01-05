@@ -79,7 +79,7 @@ void MainWindow::Connects() {
     connect(ui->eSizeSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
         [=] (double c) { control_->ChangeLineSize(c); });
     
-    connect(ui->eColorButton, &QPushButton::clicked, this, &MainWindow::ColorButton);
+    // connect(ui->eColorButton, &QPushButton::clicked, this, &MainWindow::ColorButton);
 }
 
 QColor MainWindow::ColorButton() {
