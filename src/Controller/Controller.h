@@ -20,8 +20,17 @@ class Controller {
     void ObjectRotate(double x, double y, double z) {
       shell_.Launch<RotateCommand>(x, y, z);
     }
-    void ObjectMove(double x, double y, double z) {
-      shell_.Launch<MoveCommand>(x, y, z);
+    void ObjectMove(double x, double y, double z, double xp, double yp, double zp) {
+      shell_.Launch<MoveCommand>(x, y, z, xp, yp, zp);
+    }
+    void ObjectMoveX(double x, double y, double z, double xp) {
+      shell_.Launch<MoveXCommand>(x, y, z, xp);
+    }
+    void ObjectMoveY(double x, double y, double z, double yp) {
+      shell_.Launch<MoveYCommand>(x, y, z, yp);
+    }
+    void ObjectMoveZ(double x, double y, double z, double zp) {
+      shell_.Launch<MoveZCommand>(x, y, z, zp);
     }
     void ObjectZoom(double scale) {
       shell_.Launch<ZoomCommand>(scale);
@@ -50,11 +59,12 @@ class Controller {
     void SaveImage(RenderType type) {
       shell_.Launch<RenderCommand>(type);
     }
+    void SaveGif(GifType type) {
+      shell_.Launch<GifCommand>(type);
+    }
     void ChangeProjection(Projection type) {
       shell_.Launch<ProjectionCommand>(type);
     }
-    
-
 
     void test() {
       shell_.Launch<Test>();

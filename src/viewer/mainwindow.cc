@@ -19,36 +19,29 @@ MainWindow::MainWindow(Controller *control, QWidget *parent) :\
     ui->setupUi(this);
     Connects();
 
-    // connect(ui->vColorButton, SIGNAL(clicked()), this, SLOT(vColorButtonClicked()));
-    // connect(ui->eTypeBox, SIGNAL(currentIndexChanged(int)), this, SLOT(eTypeBoxIndexChanged(int)));
-    // connect(ui->eSizeSpin, SIGNAL(valueChanged(double)), this, SLOT(eSizeSpinValueChanged(double)));
-    // connect(ui->eColorButton, SIGNAL(clicked()), this, SLOT(eColorButtonClicked()));
-    // connect(ui->bgColorButton, SIGNAL(clicked()), this, SLOT(bgColorButtonClicked()));
     // connect(ui->resetButton, SIGNAL(clicked()), this, SLOT(resetButtonClicked()));
 }
 
 void MainWindow::Connects() {
-    connect(ui->openButton, &QPushButton::clicked, [=]\
-        { control_->FileOpen(FileDialog()); });
-        
-    connect(ui->renderButton, &QPushButton::clicked, [=]\
-        { control_->SaveImage((RenderType)ui->renderBox->currentIndex()); });
-    
-    // connect(ui->moveXSpin,
-    //     static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
-    //         [prev_value = ui->moveXSpin->value(), contr = control_] (double c) mutable {
-    //             contr->ObjectMove(c - prev_value, 0, 0);
-    //             prev_value = c;
-    //         });
+    connect(ui->openButton, &QPushButton::clicked,
+        [=] { control_->FileOpen(FileDialog()); });
 
+    connect(ui->renderButton, &QPushButton::clicked, this, &MainWindow::SaveImg);
+    
     connect(ui->moveXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ObjectMove(c, 0, 0); });
+        [prev_value = ui->moveXSpin->value(), th = this] (double c) mutable {
+        th->control_->ObjectMoveX(c, th->ui->moveYSpin->value(), th->ui->moveZSpin->value(), prev_value);
+        prev_value = c; });
     
     connect(ui->moveYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ObjectMove(0, c, 0); });
-    
+        [prev_value = ui->moveYSpin->value(), th = this] (double c) mutable {
+        th->control_->ObjectMoveY(th->ui->moveXSpin->value(), c, th->ui->moveZSpin->value(), prev_value);
+        prev_value = c; });
+
     connect(ui->moveZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ObjectMove(0, 0, c); });
+        [prev_value = ui->moveZSpin->value(), th = this] (double c) mutable {
+        th->control_->ObjectMoveZ(th->ui->moveXSpin->value(), th->ui->moveYSpin->value(), c, prev_value);
+        prev_value = c; });
 
     connect(ui->rotateXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
         [=] (double c) { control_->ObjectRotate(c, 0, 0); });
@@ -71,7 +64,8 @@ void MainWindow::Connects() {
     connect(ui->vSizeSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
         [=] (double c) { control_->ChangeVerticesSize(c); });
     
-    connect(ui->vColorButton, &QPushButton::clicked, this, &MainWindow::ColorButton);
+    connect(ui->vColorButton, &QPushButton::clicked,
+        [=] { control_->ChangeVerticesColor(ColorButton(ui->vColorButton)); });
 
     connect(ui->eTypeBox, qOverload<int>(&QComboBox::currentIndexChanged),
         [=] (int c) { control_->ChangeLineType((EdgesType)c); });
@@ -79,19 +73,26 @@ void MainWindow::Connects() {
     connect(ui->eSizeSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
         [=] (double c) { control_->ChangeLineSize(c); });
     
-    // connect(ui->eColorButton, &QPushButton::clicked, this, &MainWindow::ColorButton);
+    connect(ui->eColorButton, &QPushButton::clicked,
+        [=] { control_->ChangeLineColor(ColorButton(ui->eColorButton)); });
+    
+    connect(ui->bgColorButton, &QPushButton::clicked,
+        [=] { control_->ChangeBackgroundColor(ColorButton(ui->bgColorButton)); });
 }
 
-QColor MainWindow::ColorButton() {
+void MainWindow::SaveImg() {
+    RenderType rt = (RenderType)ui->renderBox->currentIndex();
+    if (rt == gif6448)
+        control_->SaveGif(GifType(ui->timeSpin->value(), ui->fpsSpin->value(), 640, 480));
+    else
+        control_->SaveImage(rt);
+}
+
+Color MainWindow::ColorButton(QPushButton *qpb) {
     QColor col = QColorDialog::getColor(Qt::white, this, "Choose color");
-    qobject_cast<QPushButton*>(sender())->setStyleSheet(QString("background-color: %1").arg(col.name()));
-    // control_->ChangeVerticesColor(Color(col));
-    return col;
+    qpb->setStyleSheet(QString("background-color: %1").arg(col.name()));
+    return Color(col);
 }
-
-// QColor MainWindow::ColorDialog() {
-//     return QColorDialog::getColor(Qt::white, this, "Choose color");
-// }
 
 std::string MainWindow::FileDialog() {
     return QFileDialog::getOpenFileName(this, \

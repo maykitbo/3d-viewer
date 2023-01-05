@@ -15,6 +15,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 set(PROJECT_SOURCES
         ../main.cpp
         # ../Commands/Commands.cc
+        ../Commands/Moves.h
+        ../Commands/Rotates.h
+        ../Commands/Vertices.h
+        ../Commands/Lines.h
+        ../Commands/ProgCommands.h
+        ../Commands/BaseCommand.h
         ../Commands/Commands.h
         # ../Controller/Controller.cc
         ../Controller/Controller.h

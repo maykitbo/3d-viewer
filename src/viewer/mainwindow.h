@@ -26,14 +26,14 @@ public:
     ~MainWindow();
 
 private slots:
-    QColor ColorButton();
+    void SaveImg();
 
 private:
-    // double prev_value;
     Ui::MainWindow *ui;
     Controller *control_;
     void Connects();
     std::string FileDialog();
+    Color ColorButton(QPushButton *qpb);
 };
 
 };
