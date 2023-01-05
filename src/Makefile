@@ -1,12 +1,12 @@
 all: install start
 
+r: uninstall install start
+
 # test:
 # 	$(MAKE) -C tests
 
 # clean:
 # 	$(MAKE) -C tests clean
-
-clean: uninstall
 
 install:
 	cmake -B"build" -H"build"

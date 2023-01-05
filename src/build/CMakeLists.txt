@@ -14,9 +14,9 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         ../main.cpp
-        ../Commands/Commands.cc
+        # ../Commands/Commands.cc
         ../Commands/Commands.h
-        ../Controller/Controller.cc
+        # ../Controller/Controller.cc
         ../Controller/Controller.h
         ../Fasade/Fasade.cc
         ../Fasade/Fasade.h
