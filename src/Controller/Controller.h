@@ -38,6 +38,12 @@ class Controller {
     void ChangeVerticesColor(Color color) {
       shell_.Launch<VerticesColorCommand>(color);
     }
+    void ChangeLineSize(double size) {
+      shell_.Launch<LineSizeCommand>(size);
+    }
+    void ChangeVerticesSize(double size) {
+      shell_.Launch<VerticesSizeCommand>(size);
+    }
     void ChangeBackgroundColor(Color color) {
       shell_.Launch<BackgroundColorCommand>(color);
     }
@@ -47,6 +53,7 @@ class Controller {
     void ChangeProjection(Projection type) {
       shell_.Launch<ProjectionCommand>(type);
     }
+    
 
 
     void test() {

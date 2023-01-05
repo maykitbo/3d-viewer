@@ -2,6 +2,7 @@
 #define HELPERS_HELPERS_H
 
 #include <vector>
+#include <QColor>
 
 namespace s21 {
 
@@ -14,7 +15,8 @@ struct Color {
     int red;
     int green;
     int blue;
-    Color (int r, int g, int b) : red(r), green(g), blue(b) {}
+    Color(int r, int g, int b) : red(r), green(g), blue(b) {}
+    Color(QColor qc) : red(qc.red()), green(qc.green()), blue(qc.blue()) {}
 };
 
 #define BUFFER_SIZE 20

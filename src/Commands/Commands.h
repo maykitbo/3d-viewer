@@ -138,6 +138,30 @@ class VerticesColorCommand : public Command {
     void Cancel(Fasade &f) override { std::cout << "undo v color\n"; }
 };
 
+class LineSizeCommand : public Command {
+  private:
+    double size_;
+  public:
+    LineSizeCommand() = delete;
+    LineSizeCommand(double size) : size_(size) {}
+
+    void Execute(Fasade &f) override { std::cout << "LineSize: " << \
+                                                    size_ << "\n"; }
+    void Cancel(Fasade &f) override { std::cout << "undo LineSize\n"; }
+};
+
+class VerticesSizeCommand : public Command {
+  private:
+    double size_;
+  public:
+    VerticesSizeCommand() = delete;
+    VerticesSizeCommand(double size) : size_(size) {}
+
+    void Execute(Fasade &f) override { std::cout << "VerticesSize: " << \
+                                                    size_ << "\n"; }
+    void Cancel(Fasade &f) override { std::cout << "undo VerticesSize\n"; }
+};
+
 class BackgroundColorCommand : public Command {
   private:
     Color color_;
