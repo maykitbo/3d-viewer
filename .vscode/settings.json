@@ -35,6 +35,10 @@
         "bit": "cpp",
         "list": "cpp",
         "memory": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "thread": "cpp"
     }
 }
