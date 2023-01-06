@@ -9,6 +9,7 @@
 
 #include "../Helpers/Helpers.h"
 #include "../Controller/Controller.h"
+#include "../OGLWidget/OGLWidget.h"
 #include "./ui_mainwindow.h"
 
 QT_BEGIN_NAMESPACE

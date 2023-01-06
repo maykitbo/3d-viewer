@@ -10,10 +10,23 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+
+set(OpenGL_GL_PREFERENCE GLVND)
+find_package(OpenGL REQUIRED)
+
+find_package(GLUT REQUIRED)
+find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
+
+
+
 
 set(PROJECT_SOURCES
         ../main.cpp
+        ../ShaderStrategy/ShaderStrategy.h
+        ../ShaderStrategy/ShaderStrategy.cc
+        ../OGLWidget/OGLWidget.h
+        ../OGLWidget/OGLWidget.cc
         # ../Commands/Commands.cc
         ../Commands/Commands.h
         # ../Controller/Controller.cc
@@ -26,6 +39,7 @@ set(PROJECT_SOURCES
         ../viewer/mainwindow.cc
         ../viewer/mainwindow.h
         ../viewer/mainwindow.ui
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -51,7 +65,11 @@ else()
     endif()
 endif()
 
+target_include_directories(viewer PUBLIC ../OGLWidget)
+
 target_link_libraries(viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(viewer PRIVATE Qt6::OpenGLWidgets)
+
 
 set_target_properties(viewer PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

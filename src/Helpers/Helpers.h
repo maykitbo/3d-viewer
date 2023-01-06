@@ -3,6 +3,14 @@
 
 #include <vector>
 #include <QColor>
+//#include <QOpenGLWidget>
+#include <QtOpenGL>
+#include <QOpenGLBuffer>
+#include <QOpenGLFunctions>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLVertexArrayObject>
+#include <QTimer>
+
 
 namespace s21 {
 
