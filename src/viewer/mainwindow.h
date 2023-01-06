@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QColor>
 //#include <QPushButton>
 //#include "ui_mainwindow.h"
 //#include <gl.h>

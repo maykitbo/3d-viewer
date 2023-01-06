@@ -8,13 +8,13 @@ namespace s21 {
 
 class ZoomCommand : public Command {
   private:
-    double scale_;
+    double scale_, prev_scale_;
   public:
     ZoomCommand() = delete;
-    ZoomCommand(double scale) : scale_(scale) {}
+    ZoomCommand(double scale, double ps) : scale_(scale), prev_scale_(ps) {}
 
     void Execute(Fasade &f) override { std::cout << "zoom: " << \
-                                                  scale_ << "\n"; }
+                            scale_ << " : " << prev_scale_ << "\n"; }
     void Cancel(Fasade &f) override { std::cout << "undo zoom\n"; }
 };
 

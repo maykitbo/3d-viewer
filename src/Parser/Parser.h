@@ -15,12 +15,7 @@ class Parser {
         std::ifstream file_;
         VerticesVector vertex_;
         EdgesVector lines_;
-        template<class T>
-        T ftot() {
-            T n;
-            file_ >> n;
-            return n;
-        }
+        int vertex_i_, lines_i_;
         void caseV();
         void caseF();
     public:

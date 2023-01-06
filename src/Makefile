@@ -30,3 +30,4 @@ uninstall:
 	rm -rf build/.cmake
 	rm -rf build/viewer.cbp
 	rm -rf build-build-Desktop-Debug
+	rm -rf build/CPack*

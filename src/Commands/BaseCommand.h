@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "../Fasade/Fasade.h"
+#include "CommandsQueue.h"
 
 namespace s21 {
 

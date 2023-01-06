@@ -29,32 +29,52 @@ void MainWindow::Connects() {
     connect(ui->renderButton, &QPushButton::clicked, this, &MainWindow::SaveImg);
     
     connect(ui->moveXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [prev_value = ui->moveXSpin->value(), th = this] (double c) mutable {
-        th->control_->ObjectMoveX(c, th->ui->moveYSpin->value(), th->ui->moveZSpin->value(), prev_value);
+        [&, prev_value = ui->moveXSpin->value()] (double c) mutable {
+        control_->ObjectMoveX(c, ui->moveYSpin->value(), ui->moveZSpin->value(), prev_value);
         prev_value = c; });
     
     connect(ui->moveYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [prev_value = ui->moveYSpin->value(), th = this] (double c) mutable {
-        th->control_->ObjectMoveY(th->ui->moveXSpin->value(), c, th->ui->moveZSpin->value(), prev_value);
+        [&, prev_value = ui->moveYSpin->value()] (double c) mutable {
+        control_->ObjectMoveY(ui->moveXSpin->value(), c, ui->moveZSpin->value(), prev_value);
         prev_value = c; });
 
     connect(ui->moveZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [prev_value = ui->moveZSpin->value(), th = this] (double c) mutable {
-        th->control_->ObjectMoveZ(th->ui->moveXSpin->value(), th->ui->moveYSpin->value(), c, prev_value);
+        [&, prev_value = ui->moveZSpin->value()] (double c) mutable {
+        control_->ObjectMoveZ(ui->moveXSpin->value(), ui->moveYSpin->value(), c, prev_value);
         prev_value = c; });
-
+    
     connect(ui->rotateXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ObjectRotate(c, 0, 0); });
+        [&, prev_value = ui->rotateXSpin->value()] (double c) mutable {
+        control_->ObjectRotateX(c, ui->rotateYSpin->value(), ui->rotateZSpin->value(), prev_value);
+        prev_value = c; });
     
     connect(ui->rotateYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ObjectRotate(0, c, 0); });
-    
+        [&, prev_value = ui->rotateYSpin->value()] (double c) mutable {
+        control_->ObjectRotateY(ui->rotateXSpin->value(), c, ui->rotateZSpin->value(), prev_value);
+        prev_value = c; });
+
     connect(ui->rotateZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ObjectRotate(0, 0, c); });
+        [&, prev_value = ui->rotateZSpin->value()] (double c) mutable {
+        control_->ObjectRotateZ(ui->rotateXSpin->value(), ui->rotateYSpin->value(), c, prev_value);
+        prev_value = c; });
+
+    // connect(ui->rotateXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
+    //     [=] (double c) { control_->ObjectRotate(c, 0, 0); });
+    
+    // connect(ui->rotateYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
+    //     [=] (double c) { control_->ObjectRotate(0, c, 0); });
+    
+    // connect(ui->rotateZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
+    //     [=] (double c) { control_->ObjectRotate(0, 0, c); });
+    
+    // connect(ui->scaleSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
+    //     [=] (double c) { control_->ObjectZoom(c); });
     
     connect(ui->scaleSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ObjectZoom(c); });
-    
+        [prev_value = ui->scaleSpin->value(), th = this] (double c) mutable {
+        th->control_->ObjectZoom(c, prev_value);
+        prev_value = c; });
+
     connect(ui->projectionBox, qOverload<int>(&QComboBox::currentIndexChanged),
         [=] (int c) { control_->ChangeProjection((Projection)c); });
     
@@ -91,7 +111,7 @@ void MainWindow::SaveImg() {
 Color MainWindow::ColorButton(QPushButton *qpb) {
     QColor col = QColorDialog::getColor(Qt::white, this, "Choose color");
     qpb->setStyleSheet(QString("background-color: %1").arg(col.name()));
-    return Color(col);
+    return Color(col.red(), col.green(), col.blue());
 }
 
 std::string MainWindow::FileDialog() {

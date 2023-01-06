@@ -17,8 +17,17 @@ class Controller {
     void FileOpen(std::string file_name)  {
       shell_.Launch<OpenCommand>(file_name);
     }
-    void ObjectRotate(double x, double y, double z) {
-      shell_.Launch<RotateCommand>(x, y, z);
+    void ObjectRotate(double x, double y, double z, double xp, double yp, double zp) {
+      shell_.Launch<RotateCommand>(x, y, z, xp, yp, zp);
+    }
+    void ObjectRotateX(double x, double y, double z, double xp) {
+      shell_.Launch<RotateXCommand>(x, y, z, xp);
+    }
+    void ObjectRotateY(double x, double y, double z, double yp) {
+      shell_.Launch<RotateYCommand>(x, y, z, yp);
+    }
+    void ObjectRotateZ(double x, double y, double z, double zp) {
+      shell_.Launch<RotateZCommand>(x, y, z, zp);
     }
     void ObjectMove(double x, double y, double z, double xp, double yp, double zp) {
       shell_.Launch<MoveCommand>(x, y, z, xp, yp, zp);
@@ -32,8 +41,8 @@ class Controller {
     void ObjectMoveZ(double x, double y, double z, double zp) {
       shell_.Launch<MoveZCommand>(x, y, z, zp);
     }
-    void ObjectZoom(double scale) {
-      shell_.Launch<ZoomCommand>(scale);
+    void ObjectZoom(double scale, double prescale) {
+      shell_.Launch<ZoomCommand>(scale, prescale);
     }
     void ChangeLineType(EdgesType type) {
       shell_.Launch<LineTypeCommand>(type);
