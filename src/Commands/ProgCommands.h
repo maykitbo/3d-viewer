@@ -6,92 +6,81 @@
 
 namespace s21 {
 
-class ZoomCommand : public Command {
-  private:
-    double scale_, prev_scale_;
+class ZoomCommand : public BaseOneValCommand<double> {
   public:
-    ZoomCommand() = delete;
-    ZoomCommand(double scale, double ps) : scale_(scale), prev_scale_(ps) {}
+    template<class T>
+    ZoomCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "zoom: " << \
-                            scale_ << " : " << prev_scale_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo zoom\n"; }
-};
-
-class OpenCommand : public Command {
-  private:
-    std::string file_path_;
-  public:
-    OpenCommand() = delete;
-    OpenCommand(std::string path) : file_path_(path) {}
-
-    void Execute(Fasade &f) override { f.Parse(file_path_); }
-    void Cancel(Fasade &f) override {} // undo
-    // void Name() {}
-};
-
-
-class BackgroundColorCommand : public Command {
-  private:
-    Color color_;
-  public:
-    BackgroundColorCommand() = delete;
-    BackgroundColorCommand(Color color) : color_(color) {}
-
-    void Execute(Fasade &f) override { std::cout << "BackgroundColor: " << \
-        color_.blue << " " << color_.green << " " << color_.red << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo background\n"; }
-};
-
-class RenderCommand : public Command {
-  private:
-    RenderType type_;
-  public:
-    RenderCommand() = delete;
-    RenderCommand(RenderType type) : type_(type) {}
-
-    void Execute(Fasade &f) override { std::cout << "Render: " << \
-                                                  (int)type_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo render\n"; }
-};
-
-class GifCommand : public Command {
-  private:
-    GifType type_;
-  public:
-    GifCommand() = delete;
-    GifCommand(GifType type) : type_(type) {}
-
-    void Execute(Fasade &f) override { std::cout << "Gif: " << \
-      type_.fps << " " << type_.time << " " << type_.height << "x" << type_.width << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo Gif\n"; }
-};
-
-class ProjectionCommand : public Command {
-  private:
-    Projection type_;
-  public:
-    ProjectionCommand() = delete;
-    ProjectionCommand(Projection type) : type_(type) {}
-
-    void Execute(Fasade &f) override { std::cout << "Projection: " << \
-                                                  (int)type_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo Projection\n"; }
-};
-
-class Test : public Command {
-  public:
-  
     void Execute(Fasade &f) override {
-      for (int k = 0; k < 1e9; ++k) {}
-      std::cout << "Test done\n";
+        std::cout << "zoom: " << execute_val_ << "\n\n";
     }
-    void Cancel(Fasade &f) override {
-      for (int k = 0; k < 1e9; ++k) {}
-      std::cout << "Test undo\n";
-    }
-    void Name() {}
 };
+
+class OpenCommand : public BaseNotUndoCommand<std::string> {
+  public:
+    OpenCommand(Type val) : BaseNotUndoCommand(val) {}
+
+    void Execute(Fasade &f) override {
+      f.Parse(execute_val_);
+    }
+};
+
+class BackgroundColorCommand : public BaseOneValCommand<Color> {
+  public:
+    template<class T>
+    BackgroundColorCommand(const T &func, Color val, Color pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
+
+    void Execute(Fasade &f) override {
+        std::cout << "Line Color: " << execute_val_.red << " " << execute_val_.green << " " << execute_val_.blue << "\n\n";
+    }
+};
+
+class RenderCommand : public BaseNotUndoCommand<RenderType> {
+  public:
+    RenderCommand(Type val) : BaseNotUndoCommand(val) {}
+
+    void Execute(Fasade &f) override {
+      std::cout << "Render type: " << execute_val_ << "\n\n";
+    }
+};
+
+class GifCommand : public BaseNotUndoCommand<GifType> {
+  public:
+    GifCommand(Type val) : BaseNotUndoCommand(val) {}
+
+    void Execute(Fasade &f) override {
+      std::cout << "Render type: " << execute_val_.fps << " " << execute_val_.time << "\n\n";
+    }
+};
+
+
+
+class ProjectionCommand : public BaseOneValCommand<Projection> {
+  public:
+    template<class T>
+    ProjectionCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
+
+    void Execute(Fasade &f) override {
+        std::cout << "Line type: " << (int)execute_val_ << "\n\n";
+    }
+};
+
+// class Test : public Command {
+//   public:
+  
+//     void Execute(Fasade &f) override {
+//       for (int k = 0; k < 1e9; ++k) {}
+//       std::cout << "Test done\n";
+//     }
+//     UndoPair Cancel(Fasade &f) override {
+//       for (int k = 0; k < 1e9; ++k) {}
+//       std::cout << "Test undo\n";
+//     }
+//     // void Name() {}
+// };
 
 } // namespace s21
 

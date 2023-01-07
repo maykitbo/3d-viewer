@@ -35,6 +35,7 @@ set(PROJECT_SOURCES
         ../Parser/Parser.cc
         ../viewer/mainwindow.cc
         ../viewer/mainwindow.h
+        # ../viewer/CostomBoxes.h
         ../viewer/mainwindow.ui
 )
 
@@ -60,6 +61,8 @@ else()
         )
     endif()
 endif()
+
+target_include_directories(viewer PUBLIC ../viewer)
 
 target_link_libraries(viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 

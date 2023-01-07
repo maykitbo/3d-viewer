@@ -6,40 +6,37 @@
 
 namespace s21 {
 
-class VerticesColorCommand : public Command {
-  private:
-    Color color_;
+class VerticesTypeCommand : public BaseOneValCommand<VerticesType> {
   public:
-    VerticesColorCommand() = delete;
-    VerticesColorCommand(Color color) : color_(color) {}
+    template<class T>
+    VerticesTypeCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "VerticesColor: " << \
-        color_.blue << " " << color_.green << " " << color_.red << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo v color\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "Vertices type: " << (int)execute_val_ << "\n\n";
+    }
 };
 
-class VerticesTypeCommand : public Command {
-  private:
-    VerticesType type_;
+class VerticesColorCommand : public BaseOneValCommand<Color> {
   public:
-    VerticesTypeCommand() = delete;
-    VerticesTypeCommand(VerticesType type) : type_(type) {}
+    template<class T>
+    VerticesColorCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "VerticesType: " << \
-                                                    (int)type_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo v type\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "Vertices Color: " << execute_val_.red << " " << execute_val_.green << " " << execute_val_.blue << "\n\n";
+    }
 };
 
-class VerticesSizeCommand : public Command {
-  private:
-    double size_;
+class VerticesSizeCommand : public BaseOneValCommand<double> {
   public:
-    VerticesSizeCommand() = delete;
-    VerticesSizeCommand(double size) : size_(size) {}
+    template<class T>
+    VerticesSizeCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "VerticesSize: " << \
-                                                    size_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo VerticesSize\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "Vertices Size: " << execute_val_ << "\n\n";
+    }
 };
 
 } // namespace s21

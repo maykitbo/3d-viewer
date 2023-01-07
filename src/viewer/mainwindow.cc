@@ -1,16 +1,9 @@
 #include <QFileDialog>
 #include <QColorDialog>
 #include "mainwindow.h"
-// #include "./ui_mainwindow.h"
-
-// #include <memory>
-// #include <QColor>
 
 #include <iostream>
 
-// #define GL_GLEXT_PROTOTYPES
-
-// using namespace gl;
 using namespace s21;
 
 MainWindow::MainWindow(Controller *control, QWidget *parent) :\
@@ -27,78 +20,128 @@ void MainWindow::Connects() {
         [=] { control_->FileOpen(FileDialog()); });
 
     connect(ui->renderButton, &QPushButton::clicked, this, &MainWindow::SaveImg);
-    
-    connect(ui->moveXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [&, prev_value = ui->moveXSpin->value()] (double c) mutable {
-        control_->ObjectMoveX(c, ui->moveYSpin->value(), ui->moveZSpin->value(), prev_value);
-        prev_value = c; });
-    
-    connect(ui->moveYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [&, prev_value = ui->moveYSpin->value()] (double c) mutable {
-        control_->ObjectMoveY(ui->moveXSpin->value(), c, ui->moveZSpin->value(), prev_value);
-        prev_value = c; });
 
-    connect(ui->moveZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [&, prev_value = ui->moveZSpin->value()] (double c) mutable {
-        control_->ObjectMoveZ(ui->moveXSpin->value(), ui->moveYSpin->value(), c, prev_value);
-        prev_value = c; });
-    
-    connect(ui->rotateXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [&, prev_value = ui->rotateXSpin->value()] (double c) mutable {
-        control_->ObjectRotateX(c, ui->rotateYSpin->value(), ui->rotateZSpin->value(), prev_value);
-        prev_value = c; });
-    
-    connect(ui->rotateYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [&, prev_value = ui->rotateYSpin->value()] (double c) mutable {
-        control_->ObjectRotateY(ui->rotateXSpin->value(), c, ui->rotateZSpin->value(), prev_value);
-        prev_value = c; });
+    connect(ui->rotateXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::RotateX);
+    connect(ui->rotateYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::RotateY);
+    connect(ui->rotateZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::RotateZ);
+    connect(ui->moveXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::MoveX);
+    connect(ui->moveYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::MoveY);
+    connect(ui->moveZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::MoveZ);
+    connect(ui->scaleSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::Scale);
+    connect(ui->eSizeSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::ESize);
+    connect(ui->vSizeSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::VSize);
+    connect(ui->eTypeBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &MainWindow::EType);
+    connect(ui->vTypeBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &MainWindow::VType);
+    connect(ui->eColorButton, &QPushButton::clicked, this, &MainWindow::EColor);
+    connect(ui->vColorButton, &QPushButton::clicked, this, &MainWindow::VColor);
+    connect(ui->bgColorButton, &QPushButton::clicked, this, &MainWindow::BGColor);
+    connect(ui->projectionBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &MainWindow::PType);
 
-    connect(ui->rotateZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [&, prev_value = ui->rotateZSpin->value()] (double c) mutable {
-        control_->ObjectRotateZ(ui->rotateXSpin->value(), ui->rotateYSpin->value(), c, prev_value);
-        prev_value = c; });
-
-    // connect(ui->rotateXSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-    //     [=] (double c) { control_->ObjectRotate(c, 0, 0); });
-    
-    // connect(ui->rotateYSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-    //     [=] (double c) { control_->ObjectRotate(0, c, 0); });
-    
-    // connect(ui->rotateZSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-    //     [=] (double c) { control_->ObjectRotate(0, 0, c); });
-    
-    // connect(ui->scaleSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-    //     [=] (double c) { control_->ObjectZoom(c); });
-    
-    connect(ui->scaleSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [prev_value = ui->scaleSpin->value(), th = this] (double c) mutable {
-        th->control_->ObjectZoom(c, prev_value);
-        prev_value = c; });
-
-    connect(ui->projectionBox, qOverload<int>(&QComboBox::currentIndexChanged),
-        [=] (int c) { control_->ChangeProjection((Projection)c); });
-    
-    connect(ui->vTypeBox, qOverload<int>(&QComboBox::currentIndexChanged),
-        [=] (int c) { control_->ChangeVerticesType((VerticesType)c); });
-    
-    connect(ui->vSizeSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ChangeVerticesSize(c); });
-    
-    connect(ui->vColorButton, &QPushButton::clicked,
-        [=] { control_->ChangeVerticesColor(ColorButton(ui->vColorButton)); });
-
-    connect(ui->eTypeBox, qOverload<int>(&QComboBox::currentIndexChanged),
-        [=] (int c) { control_->ChangeLineType((EdgesType)c); });
-    
-    connect(ui->eSizeSpin, qOverload<double>(&QDoubleSpinBox::valueChanged),
-        [=] (double c) { control_->ChangeLineSize(c); });
-    
-    connect(ui->eColorButton, &QPushButton::clicked,
-        [=] { control_->ChangeLineColor(ColorButton(ui->eColorButton)); });
-    
-    connect(ui->bgColorButton, &QPushButton::clicked,
-        [=] { control_->ChangeBackgroundColor(ColorButton(ui->bgColorButton)); });
 }
+
+void MainWindow::RotateX(double rx) {
+    static double prev_value;
+    control_->ObjectRotateX(rx, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->rotateXSpin, to_undo); });
+    prev_value = rx;
+}
+
+void MainWindow::RotateY(double ry) {
+    static double prev_value;
+    control_->ObjectRotateY(ry, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->rotateYSpin, to_undo); });
+    prev_value = ry;
+}
+
+void MainWindow::RotateZ(double rz) {
+    static double prev_value;
+    control_->ObjectRotateZ(rz, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->rotateZSpin, to_undo); });
+    prev_value = rz;
+}
+
+void MainWindow::MoveX(double rx) {
+    static double prev_value;
+    control_->ObjectMoveX(rx, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->moveXSpin, to_undo); });
+    prev_value = rx;
+}
+
+void MainWindow::MoveY(double ry) {
+    static double prev_value;
+    control_->ObjectMoveX(ry, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->moveYSpin, to_undo); });
+    prev_value = ry;
+}
+
+void MainWindow::MoveZ(double rz) {
+    static double prev_value;
+    control_->ObjectMoveZ(rz, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->moveZSpin, to_undo); });
+    prev_value = rz;
+}
+
+void MainWindow::Scale(double scale) {
+    static double prev_value;
+    control_->ObjectZoom(scale, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->scaleSpin, to_undo); });
+    prev_value = scale;
+}
+
+void MainWindow::ESize(double size) {
+    static double prev_value;
+    control_->ObjectZoom(size, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->eSizeSpin, to_undo); });
+    prev_value = size;
+}
+
+void MainWindow::VSize(double size) {
+    static double prev_value;
+    control_->ObjectZoom(size, prev_value, [&] (double to_undo)\
+            { NoSignal(ui->vSizeSpin, to_undo); });
+    prev_value = size;
+}
+
+void MainWindow::EType(int type) {
+    static int prev_type;
+    control_->ChangeLineType((EdgesType)type, (EdgesType)prev_type,\
+        [&] (int to_undo) { NoSignal(ui->eTypeBox, to_undo); });
+    prev_type = type;
+}
+
+void MainWindow::VType(int type) {
+    static int prev_type;
+    control_->ChangeVerticesType((VerticesType)type, (VerticesType)prev_type,\
+        [&] (int to_undo) { NoSignal(ui->vTypeBox, to_undo); });
+    prev_type = type;
+}
+
+void MainWindow::PType(int type) {
+    static int prev_type;
+    control_->ChangeProjection((Projection)type, (Projection)prev_type,\
+        [&] (int to_undo) { NoSignal(ui->projectionBox, to_undo); });
+    prev_type = type;
+}
+
+void MainWindow::EColor() {
+    Color prev_color = QtoMColor(ui->eColorButton->palette().color(QPalette::Button));
+    control_->ChangeLineColor(ColorButton(ui->eColorButton), prev_color, [&] (Color to_undo) {
+        ui->eColorButton->setStyleSheet(QString("background-color: %1").arg(MtoQColor(to_undo).name()));
+    });
+}
+
+void MainWindow::VColor() {
+    Color prev_color = QtoMColor(ui->vColorButton->palette().color(QPalette::Button));
+    control_->ChangeVerticesColor(ColorButton(ui->vColorButton), prev_color, [&] (Color to_undo) {
+        ui->vColorButton->setStyleSheet(QString("background-color: %1").arg(MtoQColor(to_undo).name()));
+    });
+}
+
+void MainWindow::BGColor() {
+
+}
+
+
 
 void MainWindow::SaveImg() {
     RenderType rt = (RenderType)ui->renderBox->currentIndex();
@@ -111,12 +154,23 @@ void MainWindow::SaveImg() {
 Color MainWindow::ColorButton(QPushButton *qpb) {
     QColor col = QColorDialog::getColor(Qt::white, this, "Choose color");
     qpb->setStyleSheet(QString("background-color: %1").arg(col.name()));
-    return Color(col.red(), col.green(), col.blue());
+    return QtoMColor(col);
 }
 
 std::string MainWindow::FileDialog() {
     return QFileDialog::getOpenFileName(this, \
         "Выбрать файл для открытия", 0, "Text Files (*.obj)").toStdString();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+    if (event->modifiers() & Qt::ControlModifier) {
+        if (event->key() & Qt::Key_Z) {
+            if (event->modifiers() & Qt::ShiftModifier)
+                control_->Redo();
+            else
+                control_->Undo();
+        }
+    }
 }
 
 MainWindow::~MainWindow() {

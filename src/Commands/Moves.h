@@ -5,56 +5,53 @@
 
 namespace s21 {
 
-class MoveCommand : public Command {
-  private:
-    double x_, y_, z_, xp_, yp_, zp_;
-  public:
-    MoveCommand() = delete;
-    MoveCommand(double x, double y, double z, double xp, double yp, double zp)\
-        : x_(x), y_(y), z_(z), xp_(xp), yp_(yp), zp_(zp) {}
+// class MoveCommand : public Command {
+//   private:
+//     double x_, y_, z_, xp_, yp_, zp_;
+//   public:
+//     MoveCommand() = delete;
+//     MoveCommand(double x, double y, double z, double xp, double yp, double zp)\
+//         : x_(x), y_(y), z_(z), xp_(xp), yp_(yp), zp_(zp), code(move) {}
 
-    void Execute(Fasade &f) override { std::cout << "move: " << \
-      x_ << " " << y_ << " " << z_ << " : " << xp_ << " " << yp_ << " " << zp_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo move\n"; }
+//     void Execute(Fasade &f) override { std::cout << "move: " << \
+//       x_ << " " << y_ << " " << z_ << " : " << xp_ << " " << yp_ << " " << zp_ << "\n"; }
+//     UndoPair Cancel(Fasade &f) override {
+//       std::cout << "undo move\n";
+
+//     }
+// };
+
+class MoveXCommand : public BaseOneValCommand<double> {
+  public:
+    template<class T>
+    MoveXCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
+
+    void Execute(Fasade &f) override {
+        std::cout << "movex: " << execute_val_ << "\n\n";
+    }
 };
 
-class MoveXCommand : public Command {
-  private:
-    double x_, y_, z_, xp_, yp_, zp_;
+class MoveYCommand : public BaseOneValCommand<double> {
   public:
-    MoveXCommand() = delete;
-    MoveXCommand(double x, double y, double z, double xp)\
-        : x_(x), y_(y), z_(z), xp_(xp), yp_(y), zp_(z) {}
+    template<class T>
+    MoveYCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "movex: " << \
-      x_ << " " << y_ << " " << z_ << " : " << xp_ << " " << yp_ << " " << zp_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo move\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "movey: " << execute_val_ << "\n\n";
+    }
 };
 
-class MoveYCommand : public Command {
-  private:
-    double x_, y_, z_, xp_, yp_, zp_;
+class MoveZCommand : public BaseOneValCommand<double> {
   public:
-    MoveYCommand() = delete;
-    MoveYCommand(double x, double y, double z, double yp)\
-        : x_(x), y_(y), z_(z), xp_(x), yp_(yp), zp_(z) {}
+    template<class T>
+    MoveZCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "movey: " << \
-      x_ << " " << y_ << " " << z_ << " : " << xp_ << " " << yp_ << " " << zp_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo move\n"; }
-};
-
-class MoveZCommand : public Command {
-  private:
-    double x_, y_, z_, xp_, yp_, zp_;
-  public:
-    MoveZCommand() = delete;
-    MoveZCommand(double x, double y, double z, double zp)\
-        : x_(x), y_(y), z_(z), xp_(x), yp_(y), zp_(zp) {}
-
-    void Execute(Fasade &f) override { std::cout << "movez: " << \
-      x_ << " " << y_ << " " << z_ << " : " << xp_ << " " << yp_ << " " << zp_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo move\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "movez: " << execute_val_ << "\n\n";
+    }
 };
 
 } // namespace s21

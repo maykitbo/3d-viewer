@@ -14,56 +14,82 @@ class Controller {
     Shell shell_;
 
   public:
+
+    // template<class T, class F, class... Args>
+    // void DoCommand(const F &func, Args &&...args) {
+    //   shell_->Launch<T>(func, args);
+    // }
+
     void FileOpen(std::string file_name)  {
       shell_.Launch<OpenCommand>(file_name);
     }
-    void ObjectRotate(double x, double y, double z, double xp, double yp, double zp) {
-      shell_.Launch<RotateCommand>(x, y, z, xp, yp, zp);
+
+    // void ObjectRotate(double x, double y, double z, double xp, double yp, double zp) {
+    //   shell_.Launch<RotateCommand>(x, y, z, xp, yp, zp);
+    // }
+    template<class T>
+    void ObjectRotateX(double x, double xp, const T &undoFunc) {
+      shell_.Launch<RotateXCommand>(undoFunc, x, xp);
     }
-    void ObjectRotateX(double x, double y, double z, double xp) {
-      shell_.Launch<RotateXCommand>(x, y, z, xp);
+    template<class T>
+    void ObjectRotateY(double y, double yp, const T &undoFunc) {
+      shell_.Launch<RotateYCommand>(undoFunc, y, yp);
     }
-    void ObjectRotateY(double x, double y, double z, double yp) {
-      shell_.Launch<RotateYCommand>(x, y, z, yp);
+    template<class T>
+    void ObjectRotateZ(double z, double zp, const T &undoFunc) {
+      shell_.Launch<RotateZCommand>(undoFunc, z, zp);
     }
-    void ObjectRotateZ(double x, double y, double z, double zp) {
-      shell_.Launch<RotateZCommand>(x, y, z, zp);
+
+    // void ObjectMove(double x, double y, double z, double xp, double yp, double zp) {
+    //   shell_.Launch<MoveCommand>(x, y, z, xp, yp, zp);
+    // }
+    template<class T>
+    void ObjectMoveX(double x, double xp, const T &undoFunc) {
+      shell_.Launch<MoveXCommand>(undoFunc, x, xp);
     }
-    void ObjectMove(double x, double y, double z, double xp, double yp, double zp) {
-      shell_.Launch<MoveCommand>(x, y, z, xp, yp, zp);
+    template<class T>
+    void ObjectMoveY(double y, double yp, const T &undoFunc) {
+      shell_.Launch<MoveYCommand>(undoFunc, y, yp);
     }
-    void ObjectMoveX(double x, double y, double z, double xp) {
-      shell_.Launch<MoveXCommand>(x, y, z, xp);
+    template<class T>
+    void ObjectMoveZ(double z, double zp, const T &undoFunc) {
+      shell_.Launch<MoveZCommand>(undoFunc, z, zp);
     }
-    void ObjectMoveY(double x, double y, double z, double yp) {
-      shell_.Launch<MoveYCommand>(x, y, z, yp);
+    template<class T>
+    void ObjectZoom(double scale, double prescale, const T &undoFunc) {
+      shell_.Launch<ZoomCommand>(undoFunc, scale, prescale);
     }
-    void ObjectMoveZ(double x, double y, double z, double zp) {
-      shell_.Launch<MoveZCommand>(x, y, z, zp);
+    template<class T>
+    void ChangeLineType(EdgesType type, EdgesType prev, const T &undoFunc) {
+      shell_.Launch<LineTypeCommand>(undoFunc, type, prev);
     }
-    void ObjectZoom(double scale, double prescale) {
-      shell_.Launch<ZoomCommand>(scale, prescale);
+    template<class T>
+    void ChangeVerticesType(VerticesType type, VerticesType prev, const T &undoFunc) {
+      shell_.Launch<VerticesTypeCommand>(undoFunc, type, prev);
     }
-    void ChangeLineType(EdgesType type) {
-      shell_.Launch<LineTypeCommand>(type);
+    template<class T>
+    void ChangeLineColor(Color color, Color prev, const T &undoFunc) {
+      shell_.Launch<LineColorCommand>(undoFunc, color, prev);
     }
-    void ChangeVerticesType(VerticesType type) {
-      shell_.Launch<VerticesTypeCommand>(type);
+    template<class T>
+    void ChangeVerticesColor(Color color, Color prev, const T &undoFunc) {
+      shell_.Launch<VerticesColorCommand>(undoFunc, color, prev);
     }
-    void ChangeLineColor(Color color) {
-      shell_.Launch<LineColorCommand>(color);
+    template<class T>
+    void ChangeLineSize(double size, double prev, const T &undoFunc) {
+      shell_.Launch<LineSizeCommand>(undoFunc, size, prev);
     }
-    void ChangeVerticesColor(Color color) {
-      shell_.Launch<VerticesColorCommand>(color);
+    template<class T>
+    void ChangeVerticesSize(double size, double prev, const T &undoFunc) {
+      shell_.Launch<VerticesSizeCommand>(undoFunc, size, prev);
     }
-    void ChangeLineSize(double size) {
-      shell_.Launch<LineSizeCommand>(size);
+    template<class T>
+    void ChangeProjection(Projection type, Projection prev, const T &undoFunc) {
+      shell_.Launch<ProjectionCommand>(undoFunc, type, prev);
     }
-    void ChangeVerticesSize(double size) {
-      shell_.Launch<VerticesSizeCommand>(size);
-    }
-    void ChangeBackgroundColor(Color color) {
-      shell_.Launch<BackgroundColorCommand>(color);
+    template<class T>
+    void ChangeBackgroundColor(Color color, Color prev, const T &undoFunc) {
+      shell_.Launch<BackgroundColorCommand>(undoFunc, color, prev);
     }
     void SaveImage(RenderType type) {
       shell_.Launch<RenderCommand>(type);
@@ -71,13 +97,13 @@ class Controller {
     void SaveGif(GifType type) {
       shell_.Launch<GifCommand>(type);
     }
-    void ChangeProjection(Projection type) {
-      shell_.Launch<ProjectionCommand>(type);
-    }
 
-    void test() {
-      shell_.Launch<Test>();
-    }
+    void Undo() { shell_.Undo(); }
+    void Redo() { shell_.Redo(); }
+
+    // void test() {
+    //   shell_.Launch<Test>();
+    // }
 };
 
 }  // namespace s21

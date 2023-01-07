@@ -6,40 +6,37 @@
 
 namespace s21 {
 
-class LineTypeCommand : public Command {
-  private:
-    EdgesType type_;
+class LineTypeCommand : public BaseOneValCommand<EdgesType> {
   public:
-    LineTypeCommand() = delete;
-    LineTypeCommand(EdgesType type) : type_(type) {}
+    template<class T>
+    LineTypeCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "LineType: " << \
-                                                    (int)type_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo e type\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "Line type: " << (int)execute_val_ << "\n\n";
+    }
 };
 
-class LineColorCommand : public Command {
-  private:
-    Color color_;
+class LineColorCommand : public BaseOneValCommand<Color> {
   public:
-    LineColorCommand() = delete;
-    LineColorCommand(Color color) : color_(color) {}
+    template<class T>
+    LineColorCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "LineColor: " << \
-        color_.blue << " " << color_.green << " " << color_.red << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo e color\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "Line Color: " << execute_val_.red << " " << execute_val_.green << " " << execute_val_.blue << "\n\n";
+    }
 };
 
-class LineSizeCommand : public Command {
-  private:
-    double size_;
+class LineSizeCommand : public BaseOneValCommand<double> {
   public:
-    LineSizeCommand() = delete;
-    LineSizeCommand(double size) : size_(size) {}
+    template<class T>
+    LineSizeCommand(const T &func, Type val, Type pre_val) :
+                BaseOneValCommand(func, val, pre_val) {}
 
-    void Execute(Fasade &f) override { std::cout << "LineSize: " << \
-                                                    size_ << "\n"; }
-    void Cancel(Fasade &f) override { std::cout << "undo LineSize\n"; }
+    void Execute(Fasade &f) override {
+        std::cout << "Line Size: " << execute_val_ << "\n\n";
+    }
 };
 
 } // namespace s21
