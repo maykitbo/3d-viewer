@@ -19,37 +19,27 @@ namespace s21 {
 //     UndoPair Cancel(Fasade &f) override { std::cout << "undo rotate\n"; }
 // };
 
-class RotateXCommand : public BaseOneValCommand<double> {
+class RotateXCommand : public CleanableOneValCommand<double> {
   public:
-    template<class T>
-    RotateXCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
+    RotateXCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    void Execute() override { fasade_->RotateX(value_); }
+    void Cancel() override { fasade_->SetRotateX(value_); }
+};
 
-    void Execute(Fasade &f) override {
-        std::cout << "rotatex: " << execute_val_ << "\n\n";
+class RotateYCommand : public CleanableOneValCommand<double> {
+  public:
+    RotateYCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    void Execute() override { fasade_->RotateY(value_); }
+    void Cancel() override {
+      fasade_->SetRotateY(value_);
     }
 };
 
-class RotateYCommand : public BaseOneValCommand<double> {
+class RotateZCommand : public CleanableOneValCommand<double> {
   public:
-    template<class T>
-    RotateYCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "rotatey: " << execute_val_ << "\n\n";
-    }
-};
-
-class RotateZCommand : public BaseOneValCommand<double> {
-  public:
-    template<class T>
-    RotateZCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "rotatez: " << execute_val_ <<  "\n\n";
-    }
+    RotateZCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    void Execute() override { fasade_->RotateZ(value_); }
+    void Cancel() override { fasade_->SetRotateZ(value_); }
 };
 
 }  // namespace s21

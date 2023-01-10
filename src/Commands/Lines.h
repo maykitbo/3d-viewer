@@ -8,35 +8,25 @@ namespace s21 {
 
 class LineTypeCommand : public BaseOneValCommand<EdgesType> {
   public:
-    template<class T>
-    LineTypeCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "Line type: " << (int)execute_val_ << "\n\n";
-    }
+    LineTypeCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    void Execute() override { fasade_->EType(value_); }
+    void Cancel() override { fasade_->SetEType(value_); }
 };
 
 class LineColorCommand : public BaseOneValCommand<Color> {
   public:
-    template<class T>
-    LineColorCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "Line Color: " << execute_val_.red << " " << execute_val_.green << " " << execute_val_.blue << "\n\n";
+    LineColorCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    void Execute() override {
+        std::cout << "Line Color: " << value_.red << " " << value_.green << " " << value_.blue << "\n\n";
     }
+    void Cancel() override {}
 };
 
 class LineSizeCommand : public BaseOneValCommand<double> {
   public:
-    template<class T>
-    LineSizeCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "Line Size: " << execute_val_ << "\n\n";
-    }
+    LineSizeCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    void Execute() override { fasade_->ESize(value_); }
+    void Cancel() override { fasade_->SetESize(value_); }
 };
 
 } // namespace s21

@@ -6,57 +6,66 @@
 #include <iostream>
 #include <functional>
 
-// #include "../Helpers/Helpers.h"
+#include "../Helpers/Helpers.h"
 
 #include "../Fasade/Fasade.h"
 // #include "CommandsQueue.h"
 
+
+
 namespace s21 {
 
 class Command {
-  public:
-      virtual void Execute(Fasade &f) = 0;
-      virtual void Undo(Fasade &f) = 0;
-      virtual void Redo(Fasade &f) = 0;
-      virtual bool isUndo() = 0;
+    protected:
+        std::shared_ptr<Command> *prev_ = nullptr;
+    public:
+        virtual void Execute() = 0;
+        virtual void Undo() = 0;
+        virtual void Cancel() = 0;
+        // virtual void Redo(Fasade *f) = 0;
+        virtual bool Cleanable() { return false; };
+        void SetPrev(std::shared_ptr<Command> *c) { prev_ = c; }
+        std::shared_ptr<Command> *GetPrev() const { return prev_; }
       // virtual void Name() = 0;
 };
 
+
 template<class T>
 class BaseOneValCommand : public Command {
-    private:
-        T val_, pre_val_;
-        std::function<void(T)> undo_func_;
     protected:
-        using Type = T;
-        Type &execute_val_ = val_;
+        Fasade *fasade_;
+        T value_;
     public:
-        template<class F>
-        BaseOneValCommand(const F &func, Type val, Type pre_val)\
-            : val_(val), pre_val_(pre_val), undo_func_(func) {}
-        void Undo(Fasade &f) override {
-            execute_val_ = pre_val_;
-            undo_func_(execute_val_);
-            Execute(f);
-        }
-        void Redo(Fasade &f) override {
-            execute_val_ = val_;
-            undo_func_(execute_val_);
-            Execute(f);
-        }
-        bool isUndo() override { return true; }
+        using Type = T;
+        BaseOneValCommand(Type val, Fasade *f) : value_(val), fasade_(f) {}
+        void Undo() override { prev_->get()->Cancel(); }
 };
+
+template<class T>
+class CleanableOneValCommand : public BaseOneValCommand<T> {
+    public:
+        using Type = T;
+        using Parent = BaseOneValCommand<T>;
+        CleanableOneValCommand(Type val, Fasade *f) : Parent::BaseOneValCommand(val, f) {}
+        bool Cleanable() override {
+            std::cout << "123\n";
+            Parent::value_ = 0;
+            this->Cancel();
+            return true;
+        }
+};
+
 
 template<class T>
 class BaseNotUndoCommand : public Command {
     protected:
+        Fasade *fasade_;
         using Type = T;
-        Type execute_val_;
+        Type value_;
     public:
-        BaseNotUndoCommand(Type val) : execute_val_(val) {}
-        void Undo(Fasade &f) override {}
-        void Redo(Fasade &f) override {}
-        bool isUndo() override { return false; }
+        BaseNotUndoCommand(Type val, Fasade *f) : value_(val), fasade_(f) {}
+        void Undo() override { std::runtime_error("Not-undo command undid"); }
+        void Cancel() override { std::runtime_error("Not-undo command canceled"); }
 };
 
 }  // namespace s21

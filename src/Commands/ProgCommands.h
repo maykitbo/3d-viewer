@@ -6,52 +6,42 @@
 
 namespace s21 {
 
-class ZoomCommand : public BaseOneValCommand<double> {
+class ZoomCommand : public CleanableOneValCommand<double> { // double execute_val_
   public:
-    template<class T>
-    ZoomCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "zoom: " << execute_val_ << "\n\n";
-    }
+    ZoomCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    void Execute() override { fasade_->Scale(value_); }
+    void Cancel() override { fasade_->SetScale(value_); }
 };
 
-class OpenCommand : public BaseNotUndoCommand<std::string> {
+class OpenCommand : public BaseNotUndoCommand<std::string> { // std::string execute_val_ 
   public:
-    OpenCommand(Type val) : BaseNotUndoCommand(val) {}
-
-    void Execute(Fasade &f) override {
-      f.Parse(execute_val_);
-    }
+    OpenCommand(Type val, Fasade *f) : BaseNotUndoCommand(val, f) {}
+    void Execute() override { fasade_->Parse(value_); }
 };
 
 class BackgroundColorCommand : public BaseOneValCommand<Color> {
   public:
-    template<class T>
-    BackgroundColorCommand(const T &func, Color val, Color pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
+    BackgroundColorCommand(Color val, Fasade *f) : BaseOneValCommand(val, f) {}
 
-    void Execute(Fasade &f) override {
-        std::cout << "Line Color: " << execute_val_.red << " " << execute_val_.green << " " << execute_val_.blue << "\n\n";
+    void Execute() override {
+        std::cout << "Line Color: " << value_.red << " " << value_.green << " " << value_.blue << "\n\n";
     }
+    void Cancel() override {}
 };
 
 class RenderCommand : public BaseNotUndoCommand<RenderType> {
   public:
-    RenderCommand(Type val) : BaseNotUndoCommand(val) {}
-
-    void Execute(Fasade &f) override {
-      std::cout << "Render type: " << execute_val_ << "\n\n";
+    RenderCommand(Type val, Fasade *f) : BaseNotUndoCommand(val, f) {}
+    void Execute() override {
+      std::cout << "Render type: " << value_ << "\n\n";
     }
 };
 
 class GifCommand : public BaseNotUndoCommand<GifType> {
   public:
-    GifCommand(Type val) : BaseNotUndoCommand(val) {}
-
-    void Execute(Fasade &f) override {
-      std::cout << "Render type: " << execute_val_.fps << " " << execute_val_.time << "\n\n";
+    GifCommand(Type val, Fasade *f) : BaseNotUndoCommand(val, f) {}
+    void Execute() override {
+      std::cout << "Render type: " << value_.fps << " " << value_.time << "\n\n";
     }
 };
 
@@ -59,13 +49,9 @@ class GifCommand : public BaseNotUndoCommand<GifType> {
 
 class ProjectionCommand : public BaseOneValCommand<Projection> {
   public:
-    template<class T>
-    ProjectionCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "Line type: " << (int)execute_val_ << "\n\n";
-    }
+    ProjectionCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    void Execute() override { fasade_->PType(value_); }
+    void Cancel() override { fasade_->SetPType(value_); }
 };
 
 // class Test : public Command {

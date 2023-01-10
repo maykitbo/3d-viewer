@@ -21,37 +21,25 @@ namespace s21 {
 //     }
 // };
 
-class MoveXCommand : public BaseOneValCommand<double> {
+class MoveXCommand : public CleanableOneValCommand<double> {
   public:
-    template<class T>
-    MoveXCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "movex: " << execute_val_ << "\n\n";
-    }
+    MoveXCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    void Execute() override { fasade_->MoveX(value_); }
+    void Cancel() override { fasade_->SetMoveX(value_); }
 };
 
-class MoveYCommand : public BaseOneValCommand<double> {
+class MoveYCommand : public CleanableOneValCommand<double> {
   public:
-    template<class T>
-    MoveYCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "movey: " << execute_val_ << "\n\n";
-    }
+    MoveYCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    void Execute() override { fasade_->MoveY(value_); }
+    void Cancel() override { fasade_->SetMoveY(value_); }
 };
 
-class MoveZCommand : public BaseOneValCommand<double> {
+class MoveZCommand : public CleanableOneValCommand<double> {
   public:
-    template<class T>
-    MoveZCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "movez: " << execute_val_ << "\n\n";
-    }
+    MoveZCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    void Execute() override { fasade_->MoveZ(value_); }
+    void Cancel() override { fasade_->SetMoveZ(value_); }
 };
 
 } // namespace s21

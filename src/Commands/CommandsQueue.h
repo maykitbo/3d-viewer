@@ -1,40 +1,71 @@
-#ifndef COMMANDS_LINES_H
-#define COMMANDS_LINES_H
+#ifndef COMMANDS_COMMANDSQUEUE_H
+#define COMMANDS_COMMANDSQUEUE_H
 
 #include <list>
+#include <functional>
+#include <memory>
 
-// #include "BaseCommand.h"
+// #include "../Helpers/Helpers.h"
+// #include "../Fasade/Fasade.h"
+
+#include "BaseCommand.h"
 
 
 namespace s21 {
 
-template<class FirstType>
+// typedef std::list<std::shared_ptr<Command>> OwnerList;
+
+// class MList : CommandList {
+//     // private:
+//     //     CommandList list_;
+//     public:
+//         MList *PushFront(std::shared_ptr<Command> com) {
+//             push_front(com);
+//             return this;
+//         }
+//         // void Undo()
+
+// };
+
+template<class OneType, class... Types>
 class BaseQueues {
     private:
-        std::list<FirstType*> list_one_command_;
+        // std::list<std::shared_ptr<OneType>> list_one_command_;
+        std::shared_ptr<Command> *last_command_;
+        BaseQueues<Types...> other_;
     public:
-        template<class Type>
-        void addCommand(Type *command) {
-            list_one_command_.push_back(command);
+        template<class T>
+        void AddCommand(T *com, std::shared_ptr<Command> *new_command) {
+            if (std::is_same<T, OneType>::value) {
+                new_command->get()->SetPrev(last_command_);
+                last_command_ = new_command;
+            } else {
+                other_.AddCommand(com, new_command);
+            }
         }
 };
 
-template<class FirstType, class... Types>
-class BaseQueues {
+template<class Last>
+class BaseQueues<Last> {
     private:
-        std::list<FirstType*> list_one_command_;
-        BaseQueues<Types> other_;
+        // std::list<std::shared_ptr<Last>> list_one_command_;
+        std::shared_ptr<Command> *last_command_;
     public:
-        template<class Type>
-        void addCommand(Type *command) {
-            if (list_one_command_.get_allocator() == std::allocator<Type>())
-                list_one_command_.push_back(command);
-            else
-                other_.addCommand();
+        template<class T>
+        void AddCommand(T *com, std::shared_ptr<Command> *new_command) {
+            if (std::is_same<T, Last>::value) {
+                new_command->get()->SetPrev(last_command_);
+                last_command_ = new_command;
+            } else {
+                return;
+                // throw std::runtime_error("Command not found");
+            }
         }
 };
+
+
 
 
 } // namespace s21
 
-#endif // COMMANDS_LINES_H
+#endif // COMMANDS_COMMANDSQUEUE_H

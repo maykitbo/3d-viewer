@@ -6,37 +6,28 @@
 
 namespace s21 {
 
-class VerticesTypeCommand : public BaseOneValCommand<VerticesType> {
+class VerticesTypeCommand : public BaseOneValCommand<VerticesType> { // VerticesType execute_val_
   public:
-    template<class T>
-    VerticesTypeCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "Vertices type: " << (int)execute_val_ << "\n\n";
-    }
+    VerticesTypeCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    void Execute() override { fasade_->VType(value_); }
+    void Cancel() override { fasade_->SetVType(value_); }
 };
 
-class VerticesColorCommand : public BaseOneValCommand<Color> {
+class VerticesColorCommand : public BaseOneValCommand<Color> {  // Color execute_val_
   public:
-    template<class T>
-    VerticesColorCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "Vertices Color: " << execute_val_.red << " " << execute_val_.green << " " << execute_val_.blue << "\n\n";
+    VerticesColorCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    void Execute() override {
+        std::cout << "Vertices Color: " << value_.red << " " << value_.green << " " << value_.blue << "\n\n";
+        // f.you_vertices_color_method(execute_val_);
     }
+    void Cancel() override {}
 };
 
-class VerticesSizeCommand : public BaseOneValCommand<double> {
+class VerticesSizeCommand : public BaseOneValCommand<double> {  // double execute_val_
   public:
-    template<class T>
-    VerticesSizeCommand(const T &func, Type val, Type pre_val) :
-                BaseOneValCommand(func, val, pre_val) {}
-
-    void Execute(Fasade &f) override {
-        std::cout << "Vertices Size: " << execute_val_ << "\n\n";
-    }
+    VerticesSizeCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    void Execute() override { fasade_->VSize(value_); }
+    void Cancel() override { fasade_->SetVSize(value_); }
 };
 
 } // namespace s21

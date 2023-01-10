@@ -13,22 +13,27 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++17")# -Wall -Werror -Wextra")
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         ../main.cpp
-        # ../Commands/Commands.cc
+        ../Commands/Commands.cc
         ../Commands/Moves.h
         ../Commands/Rotates.h
         ../Commands/Vertices.h
         ../Commands/Lines.h
         ../Commands/ProgCommands.h
         ../Commands/BaseCommand.h
+        ../Commands/CommandsQueue.h
         ../Commands/Commands.h
+        ../Commands/settingscomm
         # ../Controller/Controller.cc
         ../Controller/Controller.h
         ../Fasade/Fasade.cc
+        ../Fasade/UndoRedoFasade.cc
         ../Fasade/Fasade.h
         ../Helpers/Helpers.h
         ../Parser/Parser.h
@@ -63,6 +68,7 @@ else()
 endif()
 
 target_include_directories(viewer PUBLIC ../viewer)
+target_include_directories(viewer PUBLIC ../Commands)
 
 target_link_libraries(viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
