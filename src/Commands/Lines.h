@@ -8,23 +8,25 @@ namespace s21 {
 
 class LineTypeCommand : public BaseOneValCommand<EdgesType> {
   public:
-    LineTypeCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    LineTypeCommand() : BaseOneValCommand() {}
+    LineTypeCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->EType(value_); }
     void Cancel() override { fasade_->SetEType(value_); }
 };
 
-class LineColorCommand : public BaseOneValCommand<Color> {
+class LineColorCommand : public BaseDialogCommand<QColor> {
   public:
-    LineColorCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
-    void Execute() override {
-        std::cout << "Line Color: " << value_.red << " " << value_.green << " " << value_.blue << "\n\n";
-    }
-    void Cancel() override {}
+    LineColorCommand() : BaseDialogCommand(Qt::red) {}
+    LineColorCommand(DialogButton gate) : BaseDialogCommand(gate) {}
+    LineColorCommand(Type val) : BaseDialogCommand(val) {}
+    void Execute() override { fasade_->EColor(value_); }
+    // void Cancel() override {}
 };
 
 class LineSizeCommand : public BaseOneValCommand<double> {
   public:
-    LineSizeCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    LineSizeCommand() : BaseOneValCommand(0.5) {}
+    LineSizeCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->ESize(value_); }
     void Cancel() override { fasade_->SetESize(value_); }
 };

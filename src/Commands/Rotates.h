@@ -19,25 +19,26 @@ namespace s21 {
 //     UndoPair Cancel(Fasade &f) override { std::cout << "undo rotate\n"; }
 // };
 
-class RotateXCommand : public CleanableOneValCommand<double> {
+class RotateXCommand : public BaseOneValCommand<double> {
   public:
-    RotateXCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    RotateXCommand() : BaseOneValCommand() {}
+    RotateXCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->RotateX(value_); }
     void Cancel() override { fasade_->SetRotateX(value_); }
 };
 
-class RotateYCommand : public CleanableOneValCommand<double> {
+class RotateYCommand : public BaseOneValCommand<double> {
   public:
-    RotateYCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    RotateYCommand() : BaseOneValCommand() {}
+    RotateYCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->RotateY(value_); }
-    void Cancel() override {
-      fasade_->SetRotateY(value_);
-    }
+    void Cancel() override { fasade_->SetRotateY(value_); }
 };
 
-class RotateZCommand : public CleanableOneValCommand<double> {
+class RotateZCommand : public BaseOneValCommand<double> {
   public:
-    RotateZCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    RotateZCommand() : BaseOneValCommand() {}
+    RotateZCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->RotateZ(value_); }
     void Cancel() override { fasade_->SetRotateZ(value_); }
 };

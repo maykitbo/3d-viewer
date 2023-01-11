@@ -2,12 +2,14 @@
 #define COMMANDS_COMMANDS_H
 
 #include <fstream>
+#include <tuple>
+#include <chrono>
 
 
-#include "Lines.h"
+// #include "Lines.h"
 #include "CommandsQueue.h"
-#include "ProgCommands.h"
-#include "Vertices.h"
+// #include "ProgCommands.h"
+// #include "Vertices.h"
 #include "Moves.h"
 #include "Rotates.h"
 
@@ -16,54 +18,77 @@
 namespace s21 {
 
 class Shell {
-    // using node_type = std::shared_ptr<Command>;
-    // using list_type = std::list<node_type>;
-    using CommandsList = std::list<std::shared_ptr<Command>>;
-    Fasade *model_;
-    CommandsList history_;
-    CommandsList trash_;
-    CommandsList last_commands_;
-    std::ifstream file_;
-    BaseQueues<MoveXCommand, MoveYCommand, MoveZCommand, RotateXCommand, RotateYCommand, RotateZCommand,\
-              ZoomCommand, BackgroundColorCommand, ProjectionCommand, LineTypeCommand, LineColorCommand,\
-              LineSizeCommand, VerticesTypeCommand, VerticesColorCommand, VerticesSizeCommand> queues_;
+    private:
+      std::chrono::_V2::system_clock::time_point first_ = std::chrono::high_resolution_clock::now();
+      const int64_t delete_time_ = 500;
+      using CommandsList = std::list<AbstractQueue*>;
+      Fasade *model_ = nullptr;
+      CommandsList history_;
+      CommandsList::iterator iter_ = history_.begin();
+      std::ifstream file_;
     public:
-      // friend 
-      void AddFasade(Fasade *f);
-      Shell() : history_(), trash_(), model_() {}
-      template<class T = OpenCommand>
-      void Launch(std::string &str) {
-        T com(str, model_);
-        com.Execute();
-        for (auto i = history_.begin(); i != history_.end();) {
-          if (i->get()->Cleanable()) i = history_.erase(i);
-          else ++i;
-        }
+      void AddFasade(Fasade *f) {
+        model_ = f;
+        Command::fasade_ = f;
+        Initialize<MoveXCommand, MoveYCommand, MoveZCommand, RotateXCommand, RotateYCommand, RotateZCommand,\
+              ZoomCommand, LineSizeCommand, LineTypeCommand, VerticesSizeCommand, VerticesTypeCommand,\
+              ProjectionCommand, LineColorCommand, VerticesColorCommand, BackgroundColorCommand>();
       }
-      template<class T, class... Args>
-      void Launch(Args &&...args) {
-        history_.push_front(std::dynamic_pointer_cast<Command>(std::make_shared<T>(args..., model_)));
-        T *ptr = nullptr;
-        queues_.AddCommand(ptr, &history_.front());
-        history_.front()->Execute();
-        if (history_.size() > BUFFER_SIZE) {
-          auto com = history_.back();
-          delete com->GetPrev();
-          last_commands_.push_front(com);
+      Shell() : history_() {}
+      template<class C> void Launch(C com) {
+        auto second = std::chrono::high_resolution_clock::now();
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(second - first_).count() < delete_time_) {
+          history_.pop_front();
+          BaseQueues<C>::list_.Pop();
+          iter_  = history_.begin();
+        }
+        BaseQueues<C>::list_.Insert(com);
+        iter_ = history_.insert(iter_, (AbstractQueue*)&BaseQueues<C>::list_);
+        if (iter_ != history_.begin()) {
+          history_.erase(history_.begin(), iter_);
+        } else if (history_.size() > BUFFER_SIZE) {
+          history_.back()->Shorten();
           history_.pop_back();
         }
+        first_ = std::chrono::high_resolution_clock::now();
       }
+      void Launch(OpenCommand com) {
+        com.Execute();
+        Clear<MoveXCommand, MoveYCommand, MoveZCommand, RotateXCommand, RotateYCommand, RotateZCommand,\
+              ZoomCommand>();
+        for (iter_ = history_.begin(); iter_ != history_.end(); ) {
+          if ((*iter_)->Cleared()) iter_ =  history_.erase(iter_);
+          else ++iter_;
+        }
+        iter_ = history_.begin();
+      }
+      
 
-      void Undo();
-      void Redo();
-      template<class C>
-      void FileToCommand() {
-        // Val num;
-        // file_ >> num;
-        C *ptr = nullptr;
-        last_commands_.push_front(std::dynamic_pointer_cast<Command>(std::make_shared<C>(typename C::Type(0), model_)));
-        queues_.AddCommand(ptr, &last_commands_.front());
-        last_commands_.front()->Cancel();
+      void Undo() {
+        if (iter_ != history_.end()) {
+          (*(iter_++))->Undo();
+        }
+      }
+      void Redo() {
+        if (iter_ != history_.begin())
+          (*(--iter_))->Redo();
+      }
+    private:
+      // template<class C>
+      // void FileToCommand() {
+
+      // }
+      template<class T> void OneTypeInit() {
+        BaseQueues<T>::list_.Initialize();
+      }
+      template<class ...Args> void Initialize() {
+        [](...){}((OneTypeInit<Args>(), 0)...);
+      }
+      template<class T> void OneCommandClear() {
+        BaseQueues<T>::list_.Clear();
+      }
+      template<class ...Args> void Clear() {
+        [](...){}((OneCommandClear<Args>(), 0)...);
       }
 
 };

@@ -21,23 +21,26 @@ namespace s21 {
 //     }
 // };
 
-class MoveXCommand : public CleanableOneValCommand<double> {
+class MoveXCommand : public BaseOneValCommand<double> {
   public:
-    MoveXCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    MoveXCommand() : BaseOneValCommand() {}
+    MoveXCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->MoveX(value_); }
     void Cancel() override { fasade_->SetMoveX(value_); }
 };
 
-class MoveYCommand : public CleanableOneValCommand<double> {
+class MoveYCommand : public BaseOneValCommand<double> {
   public:
-    MoveYCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    MoveYCommand() : BaseOneValCommand() {}
+    MoveYCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->MoveY(value_); }
     void Cancel() override { fasade_->SetMoveY(value_); }
 };
 
-class MoveZCommand : public CleanableOneValCommand<double> {
+class MoveZCommand : public BaseOneValCommand<double> {
   public:
-    MoveZCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    MoveZCommand() : BaseOneValCommand() {}
+    MoveZCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->MoveZ(value_); }
     void Cancel() override { fasade_->SetMoveZ(value_); }
 };

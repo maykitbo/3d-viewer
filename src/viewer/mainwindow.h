@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QColor>
 #include <QKeyEvent>
+#include <QColorDialog>
 
 #include <functional>
 
@@ -25,6 +26,7 @@ public:
     ~MainWindow();
 
 private slots:
+    void test() { std::cout << "test color\n"; }
     // void SaveImg();
     // void RotateX(double rx);
     // void RotateY(double ry);
@@ -44,14 +46,17 @@ private slots:
 
 
 private:
+    QColorDialog bg_color_;
+    QColorDialog vertices_color_;
+    QColorDialog edges_color_;
     Ui::MainWindow *ui;
     Controller *control_;
     void Connects();
     std::string FileDialog();
     // Color ColorButton(QPushButton *qpb);
     void keyPressEvent(QKeyEvent *event) override;
-    Color QtoMColor(const QColor &col) const { return Color(col.redF(), col.greenF(), col.blueF()); }
-    QColor MtoQColor(Color &col) const { return QColor(col.red, col.green, col.blue); }
+    // Color QtoMColor(const QColor &col) const { return Color(col.redF(), col.greenF(), col.blueF()); }
+    // QColor MtoQColor(Color &col) const { return QColor(col.red, col.green, col.blue); }
     void NoSignal(QDoubleSpinBox *object, double val) {
         object->blockSignals(true);
         object->setValue(val);

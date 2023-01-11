@@ -4,6 +4,7 @@
 #include "../Parser/Parser.h"
 // #include "../Controller/Controller.h"
 #include "../Helpers/Helpers.h"
+#include <QString>
 
 #include <iostream>
 
@@ -15,6 +16,7 @@ class Fasade {
     private:
         Parser pars_;
         Controller *control_;
+        QString ClolorToString(QColor col) { return QString("background-color: %1").arg(col.name()); }
     public:
         Fasade(Controller *c) : control_(c) {}
         void Parse(std::string &file_path);
@@ -32,6 +34,10 @@ class Fasade {
         void EType(EdgesType t);
         void VType(VerticesType t);
         void PType(Projection t);
+
+        void VColor(QColor c);
+        void EColor(QColor c);
+        void BgColor(QColor c);
 
         void SetRotateZ(double z);
         void SetRotateY(double y);

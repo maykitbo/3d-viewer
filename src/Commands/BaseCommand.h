@@ -5,6 +5,7 @@
 #include <memory>
 #include <iostream>
 #include <functional>
+#include <QColor>
 
 #include "../Helpers/Helpers.h"
 
@@ -16,56 +17,48 @@
 namespace s21 {
 
 class Command {
-    protected:
-        std::shared_ptr<Command> *prev_ = nullptr;
     public:
+        inline static Fasade *fasade_;
+        inline friend void SetCommandFasade(Fasade *f) { fasade_ = f; }
         virtual void Execute() = 0;
-        virtual void Undo() = 0;
         virtual void Cancel() = 0;
-        // virtual void Redo(Fasade *f) = 0;
-        virtual bool Cleanable() { return false; };
-        void SetPrev(std::shared_ptr<Command> *c) { prev_ = c; }
-        std::shared_ptr<Command> *GetPrev() const { return prev_; }
-      // virtual void Name() = 0;
+        [[nodiscard]] virtual DialogButton CloseDialog() const { return DialogButton::cancel; }
 };
-
 
 template<class T>
 class BaseOneValCommand : public Command {
     protected:
-        Fasade *fasade_;
         T value_;
     public:
         using Type = T;
-        BaseOneValCommand(Type val, Fasade *f) : value_(val), fasade_(f) {}
-        void Undo() override { prev_->get()->Cancel(); }
+        BaseOneValCommand() : value_() {}
+        BaseOneValCommand(Type val) : value_(val) {}
+        bool operator==(BaseOneValCommand &other) const { return value_ == other.value_; }
 };
 
 template<class T>
-class CleanableOneValCommand : public BaseOneValCommand<T> {
+class BaseDialogCommand : public Command {
+    protected:
+        DialogButton close_ = isopen;
+        T value_;
     public:
         using Type = T;
-        using Parent = BaseOneValCommand<T>;
-        CleanableOneValCommand(Type val, Fasade *f) : Parent::BaseOneValCommand(val, f) {}
-        bool Cleanable() override {
-            std::cout << "123\n";
-            Parent::value_ = 0;
-            this->Cancel();
-            return true;
-        }
+        BaseDialogCommand(DialogButton gate) : close_(gate) {}
+        BaseDialogCommand(Type val) : value_(val) {}
+        [[nodiscard]] DialogButton CloseDialog() const { return close_; }
+        void Cancel() override { Execute(); }
+        bool operator==(BaseDialogCommand &other) const { return value_ == other.value_; }
 };
-
 
 template<class T>
 class BaseNotUndoCommand : public Command {
     protected:
-        Fasade *fasade_;
         using Type = T;
         Type value_;
     public:
-        BaseNotUndoCommand(Type val, Fasade *f) : value_(val), fasade_(f) {}
-        void Undo() override { std::runtime_error("Not-undo command undid"); }
+        BaseNotUndoCommand(Type val) : value_(val) {}
         void Cancel() override { std::runtime_error("Not-undo command canceled"); }
+        bool operator==(BaseNotUndoCommand &other) const { return value_ == other.value_; }
 };
 
 }  // namespace s21

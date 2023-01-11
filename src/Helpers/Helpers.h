@@ -2,6 +2,7 @@
 #define HELPERS_HELPERS_H
 
 #include <vector>
+#include <QColor>
 
 // #include "../Fasade/Fasade.h"
 // #include "../Controller/Controller.h"
@@ -17,21 +18,23 @@ namespace s21 {
 // class RotateYCommand;
 // class RotateZCommand;
 
+
 // class Controller;
 
 enum Projection : int { parallel, central };
 enum VerticesType : int { none, circle, square };
 enum EdgesType : int { solid, dashed };
 enum RenderType : int { jpeg, bmp, gif6448 };
+enum DialogButton : int { cancel, select, isopen };
 
 // typedef std::pair<ViewObjects, void*> UndoPair;
 
-struct Color {
-    float red;
-    float green;
-    float blue;
-    Color(float r, float g, float b) : red(r), green(g), blue(b) {}
-};
+// struct Color {
+//     float red;
+//     float green;
+//     float blue;
+//     Color(float r, float g, float b) : red(r), green(g), blue(b) {}
+// };
 
 struct GifType {
     double time;
@@ -39,7 +42,7 @@ struct GifType {
     GifType(double s, int f, int h, int w) : time(s), fps(f), height(h), width(w) {}
 };
 
-#define BUFFER_SIZE 200
+#define BUFFER_SIZE 2000
 
 typedef std::vector<double> VerticesVector;
 typedef std::vector<unsigned int> EdgesVector;

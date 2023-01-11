@@ -69,3 +69,17 @@ void Fasade::PType(Projection t) {
     std::cout << "p type: " << (int)t << "\n";
 }
 
+void Fasade::VColor(QColor c) {
+    std::cout << "Vertices Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
+    control_->SetVColor(ClolorToString(c));
+}
+
+void Fasade::EColor(QColor c) {
+    std::cout << "Vertices Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
+    control_->SetEColor(ClolorToString(c));
+}
+
+void Fasade::BgColor(QColor c) {
+    std::cout << "Vertices Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
+    control_->SetBgColor(ClolorToString(c));
+}

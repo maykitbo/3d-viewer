@@ -6,32 +6,32 @@
 
 namespace s21 {
 
-class ZoomCommand : public CleanableOneValCommand<double> { // double execute_val_
+class ZoomCommand : public BaseOneValCommand<double> { // double execute_val_
   public:
-    ZoomCommand(Type val, Fasade *f) : CleanableOneValCommand(val, f) {}
+    ZoomCommand() : BaseOneValCommand() {}
+    ZoomCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->Scale(value_); }
     void Cancel() override { fasade_->SetScale(value_); }
 };
 
 class OpenCommand : public BaseNotUndoCommand<std::string> { // std::string execute_val_ 
   public:
-    OpenCommand(Type val, Fasade *f) : BaseNotUndoCommand(val, f) {}
+    OpenCommand(Type val) : BaseNotUndoCommand(val) {}
     void Execute() override { fasade_->Parse(value_); }
 };
 
-class BackgroundColorCommand : public BaseOneValCommand<Color> {
+class BackgroundColorCommand : public BaseDialogCommand<QColor> {
   public:
-    BackgroundColorCommand(Color val, Fasade *f) : BaseOneValCommand(val, f) {}
-
-    void Execute() override {
-        std::cout << "Line Color: " << value_.red << " " << value_.green << " " << value_.blue << "\n\n";
-    }
-    void Cancel() override {}
+    BackgroundColorCommand() : BaseDialogCommand(Qt::white) {}
+    BackgroundColorCommand(DialogButton gate) : BaseDialogCommand(gate) {}
+    BackgroundColorCommand(Type val) : BaseDialogCommand(val) {}
+    void Execute() override { fasade_->BgColor(value_); }
+    // void Cancel() override {}
 };
 
 class RenderCommand : public BaseNotUndoCommand<RenderType> {
   public:
-    RenderCommand(Type val, Fasade *f) : BaseNotUndoCommand(val, f) {}
+    RenderCommand(Type val) : BaseNotUndoCommand(val) {}
     void Execute() override {
       std::cout << "Render type: " << value_ << "\n\n";
     }
@@ -39,7 +39,7 @@ class RenderCommand : public BaseNotUndoCommand<RenderType> {
 
 class GifCommand : public BaseNotUndoCommand<GifType> {
   public:
-    GifCommand(Type val, Fasade *f) : BaseNotUndoCommand(val, f) {}
+    GifCommand(Type val) : BaseNotUndoCommand(val) {}
     void Execute() override {
       std::cout << "Render type: " << value_.fps << " " << value_.time << "\n\n";
     }
@@ -49,7 +49,8 @@ class GifCommand : public BaseNotUndoCommand<GifType> {
 
 class ProjectionCommand : public BaseOneValCommand<Projection> {
   public:
-    ProjectionCommand(Type val, Fasade *f) : BaseOneValCommand(val, f) {}
+    ProjectionCommand() : BaseOneValCommand() {}
+    ProjectionCommand(Type val) : BaseOneValCommand(val) {}
     void Execute() override { fasade_->PType(value_); }
     void Cancel() override { fasade_->SetPType(value_); }
 };
