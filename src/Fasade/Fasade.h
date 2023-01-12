@@ -12,7 +12,7 @@ namespace s21
 
   class Fasade {
   private:
-    Parser *Parsку;
+    Parser *Parser;
     OGLWidget *Widget;
 
   public:
