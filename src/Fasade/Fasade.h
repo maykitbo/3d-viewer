@@ -12,21 +12,25 @@ namespace s21
 
   class Fasade {
   private:
-    Parser *Parser;
+    Parser pars_;
     OGLWidget *Widget;
 
   public:
-    void OpenFile(std::string &file_path);
-    void MoveObject(float x, float y, float z);
-    void RotateObject(float x, float y, float z);
-    void ScaleObject(float scale);
-    void SetProjection(Projection type);
-    void SetLineType(EdgesType type);
-    void SetLineColor(QColor color);
-    void SetPointType(VerticesType type);
-    void SetPointColor(QColor color);
-    void SetBgColor(QColor color);
-    void SaveImage(RenderType type);
+    void Parse(std::string &file_path);
+    // Parser Parse;
+    // Parse(std::string &file_path);
+
+    // void OpenFile(std::string &file_path);
+    // void MoveObject(float x, float y, float z);
+    // void RotateObject(float x, float y, float z);
+    // void ScaleObject(float scale);
+    // void SetProjection(Projection type);
+    // void SetLineType(EdgesType type);
+    // void SetLineColor(QColor color);
+    // void SetPointType(VerticesType type);
+    // void SetPointColor(QColor color);
+    // void SetBgColor(QColor color);
+    // void SaveImage(RenderType type);
   };
 
 } // namespace s21

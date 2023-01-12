@@ -23,10 +23,12 @@ find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 
 set(PROJECT_SOURCES
         ../main.cpp
-        ../ShaderStrategy/ShaderStrategy.h
-        ../ShaderStrategy/ShaderStrategy.cc
+        # ../ShaderStrategy/ShaderStrategy.h
+        # ../ShaderStrategy/ShaderStrategy.cc
         ../OGLWidget/OGLWidget.h
         ../OGLWidget/OGLWidget.cc
+        ../AfinTransformStrategy/AfinTransformStrategy.h
+        ../AfinTransformStrategy/AfinTransformStrategy.cc
         # ../Commands/Commands.cc
         ../Commands/Commands.h
         # ../Controller/Controller.cc

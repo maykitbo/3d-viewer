@@ -24,6 +24,14 @@ enum RenderType : int { jpeg, bmp, gif };
 typedef std::vector<double> VerticesVector;
 typedef std::vector<uint> EdgesVector;
 
+struct Color {
+    int red;
+    int green;
+    int blue;
+    Color(int r, int g, int b) : red(r), green(g), blue(b) {}
+    Color(QColor qc) : red(qc.red()), green(qc.green()), blue(qc.blue()) {}
+};
+
 }  // namespace s21
 
 #endif // HELPERS_HELPERS_H

@@ -30,7 +30,7 @@ void s21::OGLWidget::paintGL() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   vao.bind();
   prog->setUniformValue(color_address, lineColor);
-  glDrawElementsBaseVertex(GL_LINES, 12Projection type, GL_UNSIGNED_INT,0,0);
+  glDrawElementsBaseVertex(GL_LINES, 12, GL_UNSIGNED_INT,0,0);
   vao.release();
 }
 
@@ -59,7 +59,7 @@ void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_
   ibo.bind();
   ibo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
   lines_count_ = lines_array.size();
-  ibo.allocate(lines_array.data(), sizeof(unsigned int) * lines_count_);
+  ibo.allocate(lines_array.data(), sizeof(unsigned int) * 12);
 
   vao.release();
 }

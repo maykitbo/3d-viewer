@@ -18,7 +18,7 @@ class AfinTransformStrategy {
   QMatrix4x4 projection_matrix_;
   int width_;
   int heigth_;
-  Projection projection_type_;
+  Projection projection_type_ = parallel;
 
   void SetProjection();
 
