@@ -5,21 +5,13 @@
 
 namespace s21 {
 
-// class MoveCommand : public Command {
-//   private:
-//     double x_, y_, z_, xp_, yp_, zp_;
-//   public:
-//     MoveCommand() = delete;
-//     MoveCommand(double x, double y, double z, double xp, double yp, double zp)\
-//         : x_(x), y_(y), z_(z), xp_(xp), yp_(yp), zp_(zp), code(move) {}
-
-//     void Execute(Fasade &f) override { std::cout << "move: " << \
-//       x_ << " " << y_ << " " << z_ << " : " << xp_ << " " << yp_ << " " << zp_ << "\n"; }
-//     UndoPair Cancel(Fasade &f) override {
-//       std::cout << "undo move\n";
-
-//     }
-// };
+class MoveCommand : public BaseCoordinatesValCommand {
+  public:
+    MoveCommand() : BaseCoordinatesValCommand() {}
+    MoveCommand(double x, double y, double z) :\
+      BaseCoordinatesValCommand(x, y, z) {}
+    void Execute() override { fasade_->Move(x_, y_, z_); }
+};
 
 class MoveXCommand : public BaseOneValCommand<double> {
   public:

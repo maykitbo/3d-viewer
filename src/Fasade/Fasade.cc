@@ -21,6 +21,16 @@ void Fasade::Parse(std::string &file_path) {
     std::cout << "\n";
 }
 
+void Fasade::Move(double x, double y, double z) {
+    std::cout << "move: " << x << " " << y << " " << z << "\n";
+    control_->SetMove(x, y, z);
+}
+
+void Fasade::Rotate(double x, double y, double z) {
+    std::cout << "rotate: " << x << " " << y << " " << z << "\n";
+    control_->SetRotate(x, y, z);
+}
+
 void Fasade::RotateX(double x) {
     std::cout << "rotate x: " << x << "\n";
 }

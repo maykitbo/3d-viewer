@@ -35,6 +35,9 @@ class Fasade {
         void VType(VerticesType t);
         void PType(Projection t);
 
+        void Move(double x, double y, double z);
+        void Rotate(double x, double y, double z);
+
         void VColor(QColor c);
         void EColor(QColor c);
         void BgColor(QColor c);

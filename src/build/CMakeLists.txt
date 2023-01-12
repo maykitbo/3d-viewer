@@ -10,6 +10,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -40,7 +42,8 @@ set(PROJECT_SOURCES
         ../Parser/Parser.cc
         ../viewer/mainwindow.cc
         ../viewer/mainwindow.h
-        # ../viewer/CostomBoxes.h
+        ../viewer/EventFilter.h
+        ../viewer/EventFilter.cc
         ../viewer/mainwindow.ui
 )
 

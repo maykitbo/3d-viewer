@@ -10,6 +10,23 @@ MainWindow::MainWindow(Controller *control, QWidget *parent) :\
         QMainWindow(parent) , ui(new Ui::MainWindow), control_(control) {
 
     ui->setupUi(this);
+    event_.SetController(control_);
+    event_.SetButtons(ui->handButton, ui->rotateMouseButton, ui->xyzMouseButton,\
+        ui->xMouseButton, ui->yMouseButton, ui->zMouseButton);
+    ui->widget->installEventFilter(&event_);
+    ui->rotateXSpin->installEventFilter(&event_);
+    ui->rotateYSpin->installEventFilter(&event_);
+    ui->rotateZSpin->installEventFilter(&event_);
+    ui->moveXSpin->installEventFilter(&event_);
+    ui->moveYSpin->installEventFilter(&event_);
+    ui->moveZSpin->installEventFilter(&event_);
+    ui->scaleSpin->installEventFilter(&event_);
+    ui->eSizeSpin->installEventFilter(&event_);
+    ui->vSizeSpin->installEventFilter(&event_);
+    vertices_color_.installEventFilter(&event_);
+    edges_color_.installEventFilter(&event_);
+    bg_color_.installEventFilter(&event_);
+    installEventFilter(&event_);
     Connects();
 
     // connect(ui->resetButton, SIGNAL(clicked()), this, SLOT(resetButtonClicked()));
@@ -55,18 +72,33 @@ void MainWindow::Connects() {
     connect(control_, qOverload<int>(&Controller::SetPType), [&](int t) { NoSignal(ui->projectionBox, t); });
 }
 
-// void MainWindow::SaveImg() {
-//     RenderType rt = (RenderType)ui->renderBox->currentIndex();
-//     if (rt == gif6448)
-//         control_->SaveGif(GifType(ui->timeSpin->value(), ui->fpsSpin->value(), 640, 480));
-//     else
-//         control_->SaveImage(rt);
+// void QWidget::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
+//   if (mouseEvent->button() == Qt::LeftButton) moveMouse = true;
+//   if (mouseEvent->modifiers() & Qt::ControlModifier) {
+//     controlMove(mouseEvent->scenePos().x());
+//   }
 // }
 
-// Color MainWindow::ColorButton(QPushButton *qpb) {
-//     QColor col = QColorDialog::getColor(Qt::white, this, "Choose color");
-//     qpb->setStyleSheet(QString("background-color: %1").arg(col.name()));
-//     return QtoMColor(col);
+// void QWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) {
+//   if (mouseEvent->button() == Qt::LeftButton) moveMouse = false;
+//   if (pointDone) {
+//     removeItem(pointEllips);
+//     removeItem(pointText);
+//     pointDone = false;
+//   }
+// }
+
+// void QWidget::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {
+//   if (!moveMouse) return;
+//   qreal x = mouseEvent->screenPos().rx() - mouseEvent->lastScreenPos().rx();
+//   qreal y = mouseEvent->lastScreenPos().ry() - mouseEvent->screenPos().ry();
+//   if (mouseEvent->modifiers() & Qt::ControlModifier) {
+//     controlMove(mouseEvent->scenePos().x());
+//   } else if (mouseEvent->modifiers() & Qt::ShiftModifier) {
+//     shiftMove(x, y);
+//   } else {
+//     normalMove(x, y);
+//   }
 // }
 
 std::string MainWindow::FileDialog() {
@@ -74,16 +106,16 @@ std::string MainWindow::FileDialog() {
         "Выбрать файл для открытия", 0, "Text Files (*.obj)").toStdString();
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event) {
-    if (event->modifiers() & Qt::ControlModifier) {
-        if (event->key() & Qt::Key_Z) {
-            if (event->modifiers() & Qt::ShiftModifier)
-                control_->Redo();
-            else
-                control_->Undo();
-        }
-    }
-}
+// void MainWindow::keyPressEvent(QKeyEvent *event) {
+//     if (event->modifiers() & Qt::ControlModifier) {
+//         if (event->key() & Qt::Key_Z) {
+//             if (event->modifiers() & Qt::ShiftModifier)
+//                 control_->Redo();
+//             else
+//                 control_->Undo();
+//         }
+//     }
+// }
 
 MainWindow::~MainWindow() {
     delete ui;

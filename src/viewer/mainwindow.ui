@@ -178,7 +178,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="zMouseBotton">
+             <widget class="QToolButton" name="zMouseButton">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -375,7 +375,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-142</y>
+         <y>-228</y>
          <width>184</width>
          <height>997</height>
         </rect>
@@ -1179,7 +1179,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="saveRadio">
+            <widget class="QCheckBox" name="saveRadio">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -1233,11 +1233,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup">
    <property name="exclusive">
     <bool>true</bool>
    </property>
   </buttongroup>
-  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

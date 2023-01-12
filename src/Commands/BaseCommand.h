@@ -33,7 +33,16 @@ class BaseOneValCommand : public Command {
         using Type = T;
         BaseOneValCommand() : value_() {}
         BaseOneValCommand(Type val) : value_(val) {}
-        bool operator==(BaseOneValCommand &other) const { return value_ == other.value_; }
+};
+
+class BaseCoordinatesValCommand : public Command {
+    protected:
+        double x_, y_, z_;
+    public:
+        BaseCoordinatesValCommand() : x_(0), y_(0), z_(0) {}
+        BaseCoordinatesValCommand(double x, double y, double z) :\
+                                x_(x), y_(y), z_(z) {}
+        void Cancel() override { Execute(); }
 };
 
 template<class T>
@@ -58,7 +67,6 @@ class BaseNotUndoCommand : public Command {
     public:
         BaseNotUndoCommand(Type val) : value_(val) {}
         void Cancel() override { std::runtime_error("Not-undo command canceled"); }
-        bool operator==(BaseNotUndoCommand &other) const { return value_ == other.value_; }
 };
 
 }  // namespace s21

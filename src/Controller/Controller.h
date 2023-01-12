@@ -20,6 +20,8 @@ class Controller : public QObject {
     Controller(Shell *sh) : shell_(sh) {}
     void OpenFile(std::string str) { if (!str.empty()) shell_->Launch(OpenCommand(str)); }
   public slots:
+    void Move(double x, double y, double z) { shell_->Launch(MoveCommand(x, y, z)); }
+    void Rotate(double x, double y, double z) { shell_->Launch(RotateCommand(x, y, z)); }
     void RotateX(double x) { shell_->Launch(RotateXCommand(x)); }
     void RotateY(double y) { shell_->Launch(RotateYCommand(y)); }
     void RotateZ(double z) { shell_->Launch(RotateZCommand(z)); }
@@ -44,6 +46,8 @@ class Controller : public QObject {
 
 
   signals:
+    void SetMove(double x, double y, double z);
+    void SetRotate(double x, double y, double z);
     void SetRotateX(double x);
     void SetRotateY(double y);
     void SetRotateZ(double z);

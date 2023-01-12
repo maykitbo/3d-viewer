@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QColor>
-#include <QKeyEvent>
 #include <QColorDialog>
 
 #include <functional>
@@ -11,6 +10,7 @@
 #include "../Helpers/Helpers.h"
 #include "../Controller/Controller.h"
 #include "./ui_mainwindow.h"
+#include "EventFilter.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,6 +46,7 @@ private slots:
 
 
 private:
+    MEvent event_;
     QColorDialog bg_color_;
     QColorDialog vertices_color_;
     QColorDialog edges_color_;
@@ -54,7 +55,7 @@ private:
     void Connects();
     std::string FileDialog();
     // Color ColorButton(QPushButton *qpb);
-    void keyPressEvent(QKeyEvent *event) override;
+    // void keyPressEvent(QKeyEvent *event) override;
     // Color QtoMColor(const QColor &col) const { return Color(col.redF(), col.greenF(), col.blueF()); }
     // QColor MtoQColor(Color &col) const { return QColor(col.red, col.green, col.blue); }
     void NoSignal(QDoubleSpinBox *object, double val) {

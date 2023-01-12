@@ -66,7 +66,7 @@ class CommandQueue : public AbstractQueue {
         }
         void Clear() override {
             list_.clear();
-            list_.push_back(C(typename C::Type()));
+            list_.push_back(C());
             iter_ = list_.begin();
             iter_->Cancel();
         }
