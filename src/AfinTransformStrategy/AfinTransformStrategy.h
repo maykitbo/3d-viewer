@@ -6,6 +6,8 @@
 #include <QVector4D>
 #include <QOpenGLWidget>
 
+#include "../Helpers/Helpers.h"
+
 namespace s21 {
 
 class AfinTransformStrategy {
@@ -16,17 +18,17 @@ class AfinTransformStrategy {
   QMatrix4x4 projection_matrix_;
   int width_;
   int heigth_;
-  int projection_type_;
+  Projection projection_type_;
 
+  void SetProjection();
 
  public:
   AfinTransformStrategy();
   
-  void SetMove(double x, double y, double z);
+  void SetMove(double x, double y, double z) noexcept;
   void SetRotate(double x_r, double y_r, double z_r);
   void SetZoom(double zoom);
-  void ChangeProjection();
-  void SetProjection();
+  void ChangeProjection(Projection type);
   void ChangeScreenSize(int width, int heigth);
   void ResetMatrix();
 

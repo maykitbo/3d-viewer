@@ -4,7 +4,8 @@
 #include <string>
 
 #include "../Helpers/Helpers.h"
-#include "../ShaderStrategy/ShaderStrategy.h"
+#include "../AfinTransformStrategy/AfinTransformStrategy.h"
+
 
 #include <QColorDialog>
 #include <QMouseEvent>
@@ -15,6 +16,7 @@
 
 #include <QGraphicsSceneMouseEvent>
 #include <initializer_list>
+#include <vector>
 
 #include <iostream>
 #include <fstream>
@@ -32,21 +34,40 @@ class OGLWidget : public QOpenGLWidget {
   Q_OBJECT
 
  public:
- OGLWidget(QWidget *parent = 0);
+  OGLWidget(QWidget *parent = 0);
 
+  ~OGLWidget();
 
+  void set_buffers(VerticesVector vertex_array, EdgesVector lines_array);
+  void set_coeff_matrix(QMatrix4x4 matrix);
 
  private:
-  ShaderStrategy * Shaders;
-  unsigned lines_count = 0;
 
-  void add_example();
+  QOpenGLShaderProgram *prog;
+  QOpenGLVertexArrayObject vao;
+  int coeff_address = 0;
+  int color_address = 0;
 
+  AfinTransformStrategy * Afin;
 
+  QVector3D lineColor = {1, 1, 0};
+  QVector3D verticleColor = {0, 0, 1};
+  unsigned lines_count_;
 
-  void initializeGL();
-  void paintGL();
-  void resizeGL(int w, int h);
+  void initializeGL() override;
+  void paintGL() override;
+  void resizeGL(int w, int h) override;
+
+  void initialize_shaders();
+  void set_addresses();
+  void add_example_vectors();
+
+  // ------------------------------
+
+  void rotate_object(float x, float y, float z);
+  void move_object(float x, float y, float z);
+  void zoom_object(float zoom);
+  void change_perspective(Projection type);
 
 };
 

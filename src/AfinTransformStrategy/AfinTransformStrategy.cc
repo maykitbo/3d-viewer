@@ -4,7 +4,7 @@ s21::AfinTransformStrategy::AfinTransformStrategy() : width_(100), heigth_(100){
   ResetMatrix();
 }
 
-void s21::AfinTransformStrategy::SetMove(double x, double y, double z) {
+void s21::AfinTransformStrategy::SetMove(double x, double y, double z) noexcept {
 
   QVector4D move_col;
   move_col.setX(x);
@@ -48,9 +48,10 @@ void s21::AfinTransformStrategy::SetZoom(double zoom) {
   zoom_matrix_ *= zoom;
 }
 
-void s21::AfinTransformStrategy::ChangeProjection() {
-  projection_type_ = !projection_type_;
-  SetProjection();
+void s21::AfinTransformStrategy::ChangeProjection(Projection type) {
+  if (type != projection_type_) {
+    SetProjection();
+  }
 }
 
 
@@ -73,7 +74,7 @@ void s21::AfinTransformStrategy::SetProjection() {
       top = right / aratio;
       bottom = -top;
     }
-    projection_matrix_.ortho(left, right, bottom, top, -10.0f, 10.0f);
+    projection_matrix_.ortho(left, right, bottom, top, -100.0f, 100.0f);
   }
 }
 
@@ -81,11 +82,13 @@ QMatrix4x4 s21::AfinTransformStrategy::GetMatrix() {
   return projection_matrix_ * move_matrix_ * rotate_matrix_ * zoom_matrix_;
 }
 
+
 void s21::AfinTransformStrategy::ChangeScreenSize(int width, int heigth) {
   width_ = width;
   heigth_ = heigth;
   SetProjection();
 }
+
 
 void s21::AfinTransformStrategy::ResetMatrix() {
   move_matrix_.setToIdentity();
