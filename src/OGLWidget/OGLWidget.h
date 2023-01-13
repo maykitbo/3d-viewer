@@ -38,36 +38,42 @@ class OGLWidget : public QOpenGLWidget {
 
   ~OGLWidget();
 
-  void set_buffers(VerticesVector vertex_array, EdgesVector lines_array);
+  void set_buffers(VerticesVector, EdgesVector);
   void set_coeff_matrix(QMatrix4x4 matrix);
+  void rotate_object(float x, float y, float z);
+  void move_object(float x, float y, float z);
+  void zoom_object(float zoom);
+  void change_projection(Projection type);
+  //  -------------------------------------------
+  void change_vertices_type(VerticesType type);
+  void change_vertices_color(QColor color);
+  void change_line_type(EdgesType type);
+  void change_line_color(QColor color);
+  void change_bg_color(QColor color);
 
  private:
-
   QOpenGLShaderProgram *prog;
   QOpenGLVertexArrayObject vao;
-  int coeff_address = 0;
-  int color_address = 0;
+  int coeff_address;
+  int color_address;
 
   AfinTransformStrategy * Afin;
-
-  QVector3D lineColor = {1, 1, 0};
-  QVector3D verticleColor = {0, 0, 1};
   unsigned lines_count_;
 
-  void initializeGL() override;
-  void paintGL() override;
-  void resizeGL(int w, int h) override;
+  QColor bg_color_;
+  QColor line_color_;
+  VerticesType vertices_type_;
+  QColor verticle_color_;
+  EdgesType edges_type_;
+
+  void initializeGL();
+  void paintGL();
+  void resizeGL(int w, int h);
 
   void initialize_shaders();
   void set_addresses();
   void add_example_vectors();
-
-  // ------------------------------
-
-  void rotate_object(float x, float y, float z);
-  void move_object(float x, float y, float z);
-  void zoom_object(float zoom);
-  void change_perspective(Projection type);
+  void set_default_settings();
 
 };
 

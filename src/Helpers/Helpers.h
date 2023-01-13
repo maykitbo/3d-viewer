@@ -21,7 +21,7 @@ enum RenderType : int { jpeg, bmp, gif };
 
 #define BUFFER_SIZE 20
 
-typedef std::vector<double> VerticesVector;
+typedef std::vector<float> VerticesVector;
 typedef std::vector<uint> EdgesVector;
 
 struct Color {

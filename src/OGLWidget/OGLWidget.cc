@@ -13,8 +13,9 @@ void s21::OGLWidget::initializeGL() {
   initialize_shaders();
   set_addresses();
   Afin = new AfinTransformStrategy;
-
   add_example_vectors();
+  set_default_settings();
+
 }
 
 void s21::OGLWidget::resizeGL(int w, int h) {
@@ -22,15 +23,19 @@ void s21::OGLWidget::resizeGL(int w, int h) {
 }
 
 void s21::OGLWidget::paintGL() {
-  glClearColor(0,0,0,1);
+  glClearColor(1,1,1,1);
+
   prog->bind();
   QMatrix4x4 MnojMatrix = Afin->GetMatrix();
   prog->setUniformValue(coeff_address, MnojMatrix);
 
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   vao.bind();
-  prog->setUniformValue(color_address, lineColor);
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  prog->setUniformValue(color_address, line_color_);
   glDrawElementsBaseVertex(GL_LINES, 12, GL_UNSIGNED_INT,0,0);
+
   vao.release();
 }
 
@@ -38,7 +43,7 @@ void s21::OGLWidget::set_coeff_matrix(QMatrix4x4 matrix) {
   prog->setUniformValue(coeff_address, matrix);
 }
 
-void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_array ) {
+void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_array) {
 
   if (vao.isCreated()) vao.destroy();
 
@@ -59,12 +64,11 @@ void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_
   ibo.bind();
   ibo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
   lines_count_ = lines_array.size();
-  ibo.allocate(lines_array.data(), sizeof(unsigned int) * 12);
+
+  ibo.allocate(lines_array.data(), sizeof(uint) * lines_array.size());
 
   vao.release();
 }
-
-
 
 void s21::OGLWidget::initialize_shaders() {
   const char *vertexShaderSource =
@@ -76,10 +80,10 @@ void s21::OGLWidget::initialize_shaders() {
       "}\0";
 
   const char *fragmentShaderSource =
-      "uniform vec3 color;\n"
+      "uniform vec4 color;\n"
       "void main()\n"
       "{\n"
-      "gl_FragColor = vec4(color.x, color.y, color.z, 1);\n"
+      "gl_FragColor = color;\n"
       "}\n\0";
 
     prog = new QOpenGLShaderProgram;
@@ -99,8 +103,18 @@ void s21::OGLWidget::set_addresses() {
 
 
 void s21::OGLWidget::add_example_vectors() {
-  VerticesVector verts{-0.5,0,-0.5,0.5,0,-0.5,0,0.5,-0.5,0,-0.5,-1};
-  EdgesVector lines{0, 1, 1, 2, 2, 0, 0, 3, 1, 3, 2, 3};
+  VerticesVector verts{-0.5, 0,    -0.5,
+                        0.5, 0,    -0.5,
+                        0,   0.5,  -0.5,
+                        0,   -0.5, -1,
+                        0.9, 0.9,  0.9};
+
+  EdgesVector lines{0, 1,
+                    1, 2,
+                    2, 0,
+                    0, 3,
+                    1, 3,
+                    2, 3};
   set_buffers(verts, lines);
 }
 
@@ -119,8 +133,16 @@ void s21::OGLWidget::zoom_object(float zoom) {
   update();
 }
 
-void s21::OGLWidget::change_perspective(Projection type) {
+void s21::OGLWidget::change_projection(Projection type) {
   Afin->ChangeProjection(type);
   update();
 }
 
+void s21::OGLWidget::set_default_settings() {
+  bg_color_.setRgbF(1,1,1,1);
+  line_color_.setRgbF(1,0,0,1)
+  verticle_color_.setRgbF(1,0,0,1);
+  vertices_type_ = none;
+  edges_type_ = solid;
+
+}

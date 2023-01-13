@@ -4,7 +4,7 @@ s21::AfinTransformStrategy::AfinTransformStrategy() : width_(100), heigth_(100){
   ResetMatrix();
 }
 
-void s21::AfinTransformStrategy::SetMove(double x, double y, double z) noexcept {
+void s21::AfinTransformStrategy::SetMove(double x, double y, double z) {
 
   QVector4D move_col;
   move_col.setX(x);
@@ -57,7 +57,7 @@ void s21::AfinTransformStrategy::ChangeProjection(Projection type) {
 
 void s21::AfinTransformStrategy::SetProjection() {
   projection_matrix_.setToIdentity();
-  if (projection_type_) {
+  if (projection_type_ == central) {
     projection_matrix_.perspective(45.0f, GLfloat(width_) / heigth_, 0.01f, 100.0f);
     projection_matrix_.translate(0, 0, -10);
   } else {
@@ -74,7 +74,7 @@ void s21::AfinTransformStrategy::SetProjection() {
       top = right / aratio;
       bottom = -top;
     }
-    projection_matrix_.ortho(left, right, bottom, top, -100.0f, 100.0f);
+    projection_matrix_.ortho(left, right, bottom, top, -10.0f, 10.0f);
   }
 }
 

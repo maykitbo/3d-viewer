@@ -25,7 +25,7 @@ class AfinTransformStrategy {
  public:
   AfinTransformStrategy();
   
-  void SetMove(double x, double y, double z) noexcept;
+  void SetMove(double x, double y, double z);
   void SetRotate(double x_r, double y_r, double z_r);
   void SetZoom(double zoom);
   void ChangeProjection(Projection type);
