@@ -23,8 +23,8 @@ find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 
 set(PROJECT_SOURCES
         ../main.cpp
-        # ../ShaderStrategy/ShaderStrategy.h
-        # ../ShaderStrategy/ShaderStrategy.cc
+        ../dscene/dscene.cpp
+        ../dscene/dscene.h
         ../OGLWidget/OGLWidget.h
         ../OGLWidget/OGLWidget.cc
         ../AfinTransformStrategy/AfinTransformStrategy.h
@@ -68,6 +68,7 @@ else()
 endif()
 
 target_include_directories(viewer PUBLIC ../OGLWidget)
+target_include_directories(viewer PUBLIC ../dscene)
 
 target_link_libraries(viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(viewer PRIVATE Qt6::OpenGLWidgets)

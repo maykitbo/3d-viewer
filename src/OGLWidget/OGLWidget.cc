@@ -13,8 +13,9 @@ void s21::OGLWidget::initializeGL() {
   initialize_shaders();
   set_addresses();
   Afin = new AfinTransformStrategy;
-  add_example_vectors();
+
   set_default_settings();
+  add_example_vectors();
 
 }
 
@@ -23,21 +24,54 @@ void s21::OGLWidget::resizeGL(int w, int h) {
 }
 
 void s21::OGLWidget::paintGL() {
-  glClearColor(1,1,1,1);
+  if (vao.isCreated()) {
+    glClearColor(bg_color_.redF(), bg_color_.greenF(), bg_color_.blueF(), 1);
 
-  prog->bind();
-  QMatrix4x4 MnojMatrix = Afin->GetMatrix();
-  prog->setUniformValue(coeff_address, MnojMatrix);
+    prog->bind();
+    
+    // Afin->SetMove(3,0,0);
 
-  vao.bind();
+    QMatrix4x4 MnojMatrix = Afin->GetMatrix();
+    prog->setUniformValue(coeff_address, MnojMatrix);
 
-  glClear(GL_COLOR_BUFFER_BIT);
+    vao.bind();
 
-  prog->setUniformValue(color_address, line_color_);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    draw_edges();
+    draw_vertices();
+
+    vao.release();
+  }
+}
+
+void s21::OGLWidget::draw_edges() {
+  if (edges_type_ == dashed) {
+    glEnable(GL_LINE_STIPPLE);
+    glLineStipple(3, 0x00FF);
+  }
+
+  glLineWidth(edges_size_);
+  prog->setUniformValue(color_address, edges_color_);
   glDrawElementsBaseVertex(GL_LINES, 12, GL_UNSIGNED_INT,0,0);
 
-  vao.release();
+  if (edges_type_ == dashed) {
+    glDisable(GL_LINE_STIPPLE);
+  }
 }
+
+void s21::OGLWidget::draw_vertices() {
+  if (vertices_type_ != none) {
+    prog->setUniformValue(color_address, vertices_color_);
+    glPointSize(vertices_size_);
+    if (vertices_type_ == circle)
+      glEnable(GL_POINT_SMOOTH);
+    glDrawArraysInstancedARB(GL_POINTS, 0, vertices_count_,1);
+    if (vertices_type_ == circle)
+      glDisable(GL_POINT_SMOOTH);
+  }
+}
+
 
 void s21::OGLWidget::set_coeff_matrix(QMatrix4x4 matrix) {
   prog->setUniformValue(coeff_address, matrix);
@@ -54,7 +88,8 @@ void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_
   vbo.create();
   vbo.bind();
   vbo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
-  vbo.allocate(vertex_array.data(), vertex_array.size() * sizeof(float));
+  vertices_count_ = vertex_array.size();
+  vbo.allocate(vertex_array.data(), vertices_count_ * sizeof(float));
 
   prog->setAttributeBuffer(0, GL_FLOAT, 0, 3, 0);
   prog->enableAttributeArray(0);
@@ -64,8 +99,7 @@ void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_
   ibo.bind();
   ibo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
   lines_count_ = lines_array.size();
-
-  ibo.allocate(lines_array.data(), sizeof(uint) * lines_array.size());
+  ibo.allocate(lines_array.data(), lines_count_ * sizeof(uint));
 
   vao.release();
 }
@@ -92,7 +126,6 @@ void s21::OGLWidget::initialize_shaders() {
                                   fragmentShaderSource);
     prog->bindAttributeLocation("position", 0);
     prog->link();
-    
 }
 
 void s21::OGLWidget::set_addresses() {
@@ -106,8 +139,7 @@ void s21::OGLWidget::add_example_vectors() {
   VerticesVector verts{-0.5, 0,    -0.5,
                         0.5, 0,    -0.5,
                         0,   0.5,  -0.5,
-                        0,   -0.5, -1,
-                        0.9, 0.9,  0.9};
+                        0,   -0.5, -1};
 
   EdgesVector lines{0, 1,
                     1, 2,
@@ -116,6 +148,41 @@ void s21::OGLWidget::add_example_vectors() {
                     1, 3,
                     2, 3};
   set_buffers(verts, lines);
+}
+
+void s21::OGLWidget::change_vertices_type(VerticesType type) {
+  vertices_type_ = type;
+  update();
+}
+
+void s21::OGLWidget::change_vertices_color(QColor color) {
+  vertices_color_ = color;
+  update();
+}
+
+void s21::OGLWidget::change_verticles_size(int size) {
+  vertices_size_ = size;
+  update();
+}
+
+void s21::OGLWidget::change_line_type(EdgesType type) {
+  edges_type_ = type;
+  update();
+}
+
+void s21::OGLWidget::change_line_color(QColor color) {
+  edges_color_ = color;
+  update();
+}
+
+void s21::OGLWidget::change_line_size(int size) {
+  edges_size_ = size;
+  update();
+}
+
+void s21::OGLWidget::change_bg_color(QColor color) {
+  edges_color_ = color;
+  update();
 }
 
 void s21::OGLWidget::rotate_object(float x, float y, float z) {
@@ -140,9 +207,37 @@ void s21::OGLWidget::change_projection(Projection type) {
 
 void s21::OGLWidget::set_default_settings() {
   bg_color_.setRgbF(1,1,1,1);
-  line_color_.setRgbF(1,0,0,1)
-  verticle_color_.setRgbF(1,0,0,1);
-  vertices_type_ = none;
+  edges_color_.setRgbF(1,0,0,1);
+  vertices_color_.setRgbF(0,0,1,1);
+  vertices_type_ = circle;
   edges_type_ = solid;
+  vertices_size_ = 10;
+  edges_size_ = 10;
+}
 
+void s21::OGLWidget::reset_matrix() {
+  Afin->ResetMatrix();
+  update();
+}
+
+void s21::OGLWidget::set_object(VerticesVector vertex_array, EdgesVector lines_array) {
+  set_buffers(vertex_array, lines_array);
+  update();
+}
+
+void s21::OGLWidget::save_image(RenderType type) {
+  QString format;
+  if (type == jpeg) {
+    format = "*.jpg";
+  } else if (type == bmp) {
+    format = "*.bmp";
+  } else {
+    return;
+  }
+  QString save_file_path =
+    QFileDialog::getSaveFileName(0, "Сохранить файл как", "", format);
+
+  if (!save_file_path.isEmpty()) {
+    grab().save(save_file_path);
+  }
 }

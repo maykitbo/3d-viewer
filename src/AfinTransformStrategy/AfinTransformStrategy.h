@@ -38,6 +38,4 @@ class AfinTransformStrategy {
 
 }  // namespace s21
 
-
-
 #endif  // VIEWER_AFIN_TRANSFORM_STRATEGY_H
