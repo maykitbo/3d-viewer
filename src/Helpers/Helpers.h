@@ -11,7 +11,6 @@
 #include <QOpenGLVertexArrayObject>
 #include <QTimer>
 
-
 namespace s21 {
 
 enum Projection : int { parallel, central };
