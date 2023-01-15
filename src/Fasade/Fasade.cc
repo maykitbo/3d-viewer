@@ -21,49 +21,23 @@ void Fasade::Parse(std::string &file_path) {
     std::cout << "\n";
 }
 
-void Fasade::Move(double x, double y, double z) {
+void Fasade::Move(float x, float y, float z) {
     std::cout << "move: " << x << " " << y << " " << z << "\n";
-    control_->SetMove(x, y, z);
 }
 
-void Fasade::Rotate(double x, double y, double z) {
+void Fasade::Rotate(float x, float y, float z) {
     std::cout << "rotate: " << x << " " << y << " " << z << "\n";
-    control_->SetRotate(x, y, z);
 }
 
-void Fasade::RotateX(double x) {
-    std::cout << "rotate x: " << x << "\n";
-}
-
-void Fasade::RotateY(double y) {
-    std::cout << "rotate y: " << y << "\n";
-}
-
-void Fasade::RotateZ(double z) {
-    std::cout << "rotate z: " << z << "\n";
-}
-
-void Fasade::MoveX(double x) {
-    std::cout << "move x: " << x << "\n";
-}
-
-void Fasade::MoveY(double y) {
-    std::cout << "move y: " << y << "\n";
-}
-
-void Fasade::MoveZ(double z) {
-    std::cout << "move z: " << z << "\n";
-}
-
-void Fasade::Scale(double s) {
+void Fasade::Scale(float s) {
     std::cout << "scale: " << s << "\n";
 }
 
-void Fasade::ESize(double s) {
+void Fasade::ESize(float s) {
     std::cout << "e size: " << s << "\n";
 }
 
-void Fasade::VSize(double s) {
+void Fasade::VSize(float s) {
     std::cout << "v size: " << s << "\n";
 }
 
@@ -79,17 +53,31 @@ void Fasade::PType(Projection t) {
     std::cout << "p type: " << (int)t << "\n";
 }
 
+void Fasade::RType(RotateType t) {
+    std::cout << "r type: " << (int)t << "\n";
+}
+
 void Fasade::VColor(QColor c) {
     std::cout << "Vertices Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
     control_->SetVColor(ClolorToString(c));
 }
 
 void Fasade::EColor(QColor c) {
-    std::cout << "Vertices Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
+    std::cout << "Lines Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
     control_->SetEColor(ClolorToString(c));
 }
 
 void Fasade::BgColor(QColor c) {
-    std::cout << "Vertices Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
+    std::cout << "Background Color: " << c.redF() << " " << c.greenF() << " " << c.blueF() << "\n";
     control_->SetBgColor(ClolorToString(c));
 }
+
+void Fasade::Gif(double t, int fps) {
+    std::cout << "gif: " << t << "s " << fps << " fps\n";
+}
+
+void Fasade::Render(RenderType type) {
+    std::cout << "render: " << (int)type << "\n";
+}
+
+

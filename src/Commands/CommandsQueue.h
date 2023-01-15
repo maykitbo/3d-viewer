@@ -1,100 +1,94 @@
 #ifndef COMMANDS_COMMANDSQUEUE_H
 #define COMMANDS_COMMANDSQUEUE_H
 
-#include <list>
-#include <functional>
-#include <memory>
-
-// #include <type_traits>
-
-#include "BaseCommand.h"
-#include "Vertices.h"
-#include "Lines.h"
-#include "ProgCommands.h"
-
 namespace s21 {
 
-class AbstractQueue {
-    public:
-        constexpr static double time_ =  500;
-        virtual void Undo() = 0;
-        virtual void Redo() = 0;
-        virtual void Shorten() = 0;
-        virtual void Clear() = 0;
-        virtual void Pop() = 0;
-        [[nodiscard]] virtual bool Cleared() const = 0;
-};
-
-template<class C>
-class CommandQueue : public AbstractQueue {
+template<class T>
+class Last {
     private:
-        std::list<C> list_;
-        typename std::list<C>::iterator iter_ = list_.begin();
-        template<class T>
-        void DialogCommand(T com) {
-            if (com.CloseDialog() == cancel) {
-                iter_ = list_.begin();
-                DialogCommandsClear();
-                iter_->Execute();
-            }
-            else if (com.CloseDialog() == select) {
-                iter_ = --list_.begin();
-                DialogCommandsClear();
-            } else {
-                RealInsert(com);
-            }
-        }
-        void DialogCommandsClear() {
-            while (iter_ != list_.end() && iter_->CloseDialog() == isopen) {
-                iter_ = --list_.erase(iter_);
-            }
-            iter_ = list_.begin();
-        }
-        void RealInsert(C com) {
-            iter_ = list_.insert(iter_, com);
-            iter_->Execute();
-            if (iter_ != list_.begin()) list_.erase(list_.begin(), iter_);
-        }
+        inline static T *last_;
     public:
-        void Undo() override { (++iter_)->Cancel(); }
-        void Shorten() override { list_.pop_back(); }
-        void Redo() override { (--iter_)->Cancel(); }
-        [[nodiscard]] bool Cleared() const override { return list_.size() == 1; }
-        void Pop() override {
-            if (list_.size() > 1) list_.pop_front();
-            iter_ = list_.begin();
+        void Merge(T *com) {
+            std::cout << "merge\n";
+            com->SetPrev(last_->GetPrev());
+            delete last_;
+            last_ = com;
         }
-        void Clear() override {
-            list_.clear();
-            list_.push_back(C());
-            iter_ = list_.begin();
-            iter_->Cancel();
+        void Create(T *com) {
+            std::cout << "create\n";
+            if (last_ == com) return;
+            com->SetPrev(last_);
+            last_ = com;
         }
-        void Insert(C com) {
-            if (std::is_base_of<BaseDialogCommand<QColor>, C>::value) DialogCommand(com);
-            else RealInsert(com);
+        void Clean() {
+            T *point = last_;
+            while (point != nullptr) {
+                point = point->GetPrev();
+                delete last_;
+                last_ = point;
+            }
         }
-        void Initialize(C com) {
-            iter_ = list_.insert(iter_, com);
-            iter_->Cancel();
+        void Reset(T *com) {
+            com->SetPrev(last_->GetPrev());
+            delete last_;
+            last_ = com;
+            com->Cancel();
         }
+        void DeleteLast() {
+            T *point = last_->GetPrev();
+            if (point == nullptr) return;
+            delete last_;
+            last_ = point;
+        }
+        T *Get() const { return last_; }
+        ~Last() { Claen(); }
+};
+
+template<class... Args>
+class MainBase;
+
+template<class FirstType, class... Args>
+class MainBase<FirstType, Args...> {
+    private:
+        Last<FirstType> one_base_;
+        MainBase<Args...> other_;
+    public:
         void Initialize() {
-            iter_ = list_.insert(iter_, C());
-            iter_->Cancel();
+            FirstType *com = new FirstType();
+            com->Cancel();
+            one_base_.Create(com);
+            other_.Initialize();
+        }
+        template<class C, class... Types>
+        void Reset(C *com, Types &&...types) {
+            if constexpr (std::is_same<C, FirstType>::value) {
+                one_base_.Reset(com);
+                other_.Reset(types...);
+            } else {
+                throw std::runtime_error("Reset: Command not found or incorrect order of commands");
+            }
+        }
+        void ResetAll() {
+            one_base_.Reset(new FirstType());
+            other_.ResetAll();
+        }
+        void Reset() {}
+        // ~MainBase() {
+        //     one_base_;
+        // }
+};
+
+template<>
+class MainBase<> {
+    private:
+    public:
+        void Initialize() {}
+        void ResetAll() {}
+        template<class C>
+        void Reset(C *com) {
+            throw std::runtime_error("Clean: Command not found");
         }
 };
-
-
-template<class C>
-struct BaseQueues {
-    inline static CommandQueue<C> list_;
-};
-
-// struct BaseQueues<> {
-//     inline static CommandQueue<C> list_;
-// };
-
-
 
 
 } // namespace s21

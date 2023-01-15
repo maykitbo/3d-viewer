@@ -24,8 +24,9 @@ namespace s21 {
 enum Projection : int { parallel, central };
 enum VerticesType : int { none, circle, square };
 enum EdgesType : int { solid, dashed };
-enum RenderType : int { jpeg, bmp, gif6448 };
-enum DialogButton : int { cancel, select, isopen };
+enum RenderType : int { jpeg, bmp, gif };
+enum DialogButton : bool { cancel, select };
+enum RotateType : int { origin, balance };
 
 // typedef std::pair<ViewObjects, void*> UndoPair;
 
@@ -36,11 +37,11 @@ enum DialogButton : int { cancel, select, isopen };
 //     Color(float r, float g, float b) : red(r), green(g), blue(b) {}
 // };
 
-struct GifType {
-    double time;
-    int fps, height, width;
-    GifType(double s, int f, int h, int w) : time(s), fps(f), height(h), width(w) {}
-};
+// struct GifType {
+//     double time;
+//     int fps, height, width;
+//     GifType(double s, int f, int h, int w) : time(s), fps(f), height(h), width(w) {}
+// };
 
 #define BUFFER_SIZE 2000
 

@@ -4,36 +4,50 @@
 
 using namespace s21;
 
-// void Shell::Undo() {
-// if (history_.empty()) return;
-//     history_.front()->Undo();
-//     // com->Undo();
-//     trash_.splice(trash_.begin(), history_, history_.begin());
-// }
+void Shell::AddFasade(Fasade *f) {
+    model_ = f;
+    Command::fasade_ = f;
+    Cleaner::shell_ = this;
+    base_.Initialize();
+}
 
-// void Shell::Redo() {
-//     if (trash_.empty()) return;
-//     trash_.front()->Cancel();
-//     // com->Cancel();
-//     history_.splice(history_.begin(), trash_, trash_.begin());
-// }
+void Shell::CleanAll() {
+    for (auto i = history_.begin(); i != history_.end(); ) {
+        (*i)->CleanLast();
+        i = history_.erase(i);
+    }
+    // base_.Initialize();
+    base_.ResetAll();
+}
 
-// void Shell::AddFasade(Fasade *f) {
-//     model_ = f;
-//     // file_.open("settingscomm");
-//     // std::cout << file_.peek() << "\n\n";
-//     // if (!file_) throw std::runtime_error("No settings file");
-//     FileToCommand<MoveXCommand>();
-//     FileToCommand<MoveYCommand>();
-//     FileToCommand<MoveZCommand>();
-//     FileToCommand<RotateXCommand>();
-//     FileToCommand<RotateYCommand>();
-//     FileToCommand<RotateZCommand>();
-//     FileToCommand<ZoomCommand>();
-//     FileToCommand<ProjectionCommand>();
-//     FileToCommand<VerticesSizeCommand>();
-//     FileToCommand<VerticesTypeCommand>();
-//     FileToCommand<LineSizeCommand>();
-//     FileToCommand<LineTypeCommand>();
-//     // file_.close();
-// }
+void Shell::OpenClean() {
+    for (auto i = --history_.begin(); i != history_.end(); ) {
+        if ((*i)->Cleanable()) {
+            (*i)->CleanLast();
+            i = history_.erase(i);
+        } else {
+            ++i;
+        }
+    }
+    base_.Reset(new RotateCommand(), new MoveCommand(), new ZoomCommand());
+}
+
+void Shell::Undo() {
+    if (iter_ != history_.end()) {
+        (*(iter_++))->Undo();
+    }
+}
+
+void Shell::Redo() {
+    if (iter_ != history_.begin())
+        (*(--iter_))->Cancel();
+}
+
+void Shell::RedoListClean() {
+    if (iter_ != history_.begin()) {
+        for (auto i = history_.begin(); i != iter_; ) {
+        (*i)->CleanLast();
+        i = history_.erase(i);
+        }
+    }
+}

@@ -27,22 +27,6 @@ public:
 
 private slots:
     void test() { std::cout << "test color\n"; }
-    // void SaveImg();
-    // void RotateX(double rx);
-    // void RotateY(double ry);
-    // void RotateZ(double rz);
-    // void MoveX(double rx);
-    // void MoveY(double ry);
-    // void MoveZ(double rz);
-    // void Scale(double scale);
-    // void ESize(double size);
-    // void VSize(double size);
-    // void EType(int type);
-    // void VType(int type);
-    // void PType(int type);
-    // void EColor();
-    // void VColor();
-    // void BGColor();
 
 
 private:
@@ -66,6 +50,11 @@ private:
     void NoSignal(QComboBox *object, int val) {
         object->blockSignals(true);
         object->setCurrentIndex(val);
+        object->blockSignals(false);
+    }
+    void NoSignal(QSpinBox *object, double val) {
+        object->blockSignals(true);
+        object->setValue(val);
         object->blockSignals(false);
     }
 

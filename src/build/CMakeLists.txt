@@ -28,7 +28,7 @@ set(PROJECT_SOURCES
         ../Commands/Vertices.h
         ../Commands/Lines.h
         ../Commands/ProgCommands.h
-        ../Commands/BaseCommand.h
+        ../Commands/AbstractCommand.h
         ../Commands/CommandsQueue.h
         ../Commands/Commands.h
         ../Commands/settingscomm

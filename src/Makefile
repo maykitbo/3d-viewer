@@ -9,6 +9,7 @@ r: uninstall install start
 # 	$(MAKE) -C tests clean
 
 install:
+	QT_QPA_PLATFORM=xcb
 	cmake -B"build" -H"build"
 	$(MAKE) -C build
 	mv build/viewer app

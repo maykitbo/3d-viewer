@@ -2,58 +2,63 @@
 #define COMMANDS_PROGCOMMANDS_H
 
 
-#include "BaseCommand.h"
+#include "AbstractCommand.h"
+// #include "CommandsQueue.h"
 
 namespace s21 {
 
-class ZoomCommand : public BaseOneValCommand<double> { // double execute_val_
+class ZoomCommand : public UndoCommand, public OneValCommand<float, ZoomCommand> {
   public:
-    ZoomCommand() : BaseOneValCommand() {}
-    ZoomCommand(Type val) : BaseOneValCommand(val) {}
+    ZoomCommand() : UndoCommand(), OneValCommand(1) {}
+    ZoomCommand(float val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
     void Execute() override { fasade_->Scale(value_); }
     void Cancel() override { fasade_->SetScale(value_); }
+    bool Cleanable() override { return true; }
 };
 
-class OpenCommand : public BaseNotUndoCommand<std::string> { // std::string execute_val_ 
+class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand> {
   public:
-    OpenCommand(Type val) : BaseNotUndoCommand(val) {}
-    void Execute() override { fasade_->Parse(value_); }
-};
-
-class BackgroundColorCommand : public BaseDialogCommand<QColor> {
-  public:
-    BackgroundColorCommand() : BaseDialogCommand(Qt::white) {}
-    BackgroundColorCommand(DialogButton gate) : BaseDialogCommand(gate) {}
-    BackgroundColorCommand(Type val) : BaseDialogCommand(val) {}
+    BackgroundColorCommand() : ColorCommand(Qt::white, select) {}
+    BackgroundColorCommand(DialogButton gate) : ColorCommand(gate) {}
+    BackgroundColorCommand(QColor val) : ColorCommand(val) {}
     void Execute() override { fasade_->BgColor(value_); }
-    // void Cancel() override {}
 };
 
-class RenderCommand : public BaseNotUndoCommand<RenderType> {
+class RenderCommand : public Command {
+  private:
+    RenderType type_;
   public:
-    RenderCommand(Type val) : BaseNotUndoCommand(val) {}
+    RenderCommand(RenderType val) : type_(val) {}
     void Execute() override {
-      std::cout << "Render type: " << value_ << "\n\n";
+      fasade_->Render(type_);
     }
 };
+template<>
+struct IsCommand<RenderCommand> { const static bool value = false; };
 
-class GifCommand : public BaseNotUndoCommand<GifType> {
+class GifCommand : public Command {
+  private:
+    double time_;
+    int fps_;
   public:
-    GifCommand(Type val) : BaseNotUndoCommand(val) {}
+    GifCommand(double t, int fps) : time_(t), fps_(fps) {}
     void Execute() override {
-      std::cout << "Render type: " << value_.fps << " " << value_.time << "\n\n";
+      fasade_->Gif(time_, fps_);
     }
 };
+template<>
+struct IsCommand<GifCommand> { const static bool value = false; };
 
 
-
-class ProjectionCommand : public BaseOneValCommand<Projection> {
+class ProjectionCommand : public UndoCommand, public OneValCommand<Projection, ProjectionCommand> {
   public:
-    ProjectionCommand() : BaseOneValCommand() {}
-    ProjectionCommand(Type val) : BaseOneValCommand(val) {}
+    ProjectionCommand() : UndoCommand(), OneValCommand() {}
+    ProjectionCommand(Projection val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
     void Execute() override { fasade_->PType(value_); }
     void Cancel() override { fasade_->SetPType(value_); }
 };
+
+
 
 // class Test : public Command {
 //   public:

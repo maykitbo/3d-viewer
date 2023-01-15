@@ -22,38 +22,36 @@ class Fasade {
         void Parse(std::string &file_path);
         VerticesVector getVertex() { return pars_.getVertex(); }
         EdgesVector getLines() { return pars_.getLines(); }
-        void RotateX(double x);
-        void RotateY(double y);
-        void RotateZ(double z);
-        void MoveX(double x);
-        void MoveY(double y);
-        void MoveZ(double z);
-        void Scale(double s);
-        void ESize(double s);
-        void VSize(double s);
+
+        void Scale(float s);
+
+        void ESize(float s);
+        void VSize(float s);
         void EType(EdgesType t);
         void VType(VerticesType t);
         void PType(Projection t);
+        void RType(RotateType t);
 
-        void Move(double x, double y, double z);
-        void Rotate(double x, double y, double z);
+        void Gif(double t, int fps);
+        void Render(RenderType type);
+
+        void Move(float x, float y, float z);
+        void Rotate(float x, float y, float z);
 
         void VColor(QColor c);
         void EColor(QColor c);
         void BgColor(QColor c);
 
-        void SetRotateZ(double z);
-        void SetRotateY(double y);
-        void SetRotateX(double x);
-        void SetMoveX(double x);
-        void SetMoveY(double y);
-        void SetMoveZ(double z);
-        void SetScale(double s);
-        void SetESize(double s);
-        void SetVSize(double s);
+        void SetRotate(float x, float y, float z);
+        void SetMove(float x, float y, float z);
+
+        void SetScale(float s);
+        void SetESize(int s);
+        void SetVSize(int s);
         void SetEType(EdgesType t);
         void SetVType(VerticesType t);
         void SetPType(Projection t);
+        void SetRType(RotateType t);
 
 };
 

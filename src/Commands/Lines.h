@@ -2,33 +2,35 @@
 #define COMMANDS_LINES_H
 
 
-#include "BaseCommand.h"
+#include "AbstractCommand.h"
 
 namespace s21 {
 
-class LineTypeCommand : public BaseOneValCommand<EdgesType> {
+class LineTypeCommand : public UndoCommand, public OneValCommand<EdgesType, LineTypeCommand> {
   public:
-    LineTypeCommand() : BaseOneValCommand() {}
-    LineTypeCommand(Type val) : BaseOneValCommand(val) {}
+    LineTypeCommand() : UndoCommand(), OneValCommand() {}
+    LineTypeCommand(EdgesType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
     void Execute() override { fasade_->EType(value_); }
     void Cancel() override { fasade_->SetEType(value_); }
+    // virtual LineTypeCommand *Cast() { return this; }
 };
 
-class LineColorCommand : public BaseDialogCommand<QColor> {
+class LineColorCommand : public ColorCommand<LineColorCommand> {
   public:
-    LineColorCommand() : BaseDialogCommand(Qt::red) {}
-    LineColorCommand(DialogButton gate) : BaseDialogCommand(gate) {}
-    LineColorCommand(Type val) : BaseDialogCommand(val) {}
+    LineColorCommand() : ColorCommand(Qt::red, select) {}
+    LineColorCommand(DialogButton gate) : ColorCommand(gate) {}
+    LineColorCommand(QColor val) : ColorCommand(val) {}
     void Execute() override { fasade_->EColor(value_); }
-    // void Cancel() override {}
+    // LineColorCommand *Cast() { return this; }
 };
 
-class LineSizeCommand : public BaseOneValCommand<double> {
+class LineSizeCommand : public UndoCommand, public OneValCommand<float, LineSizeCommand> {
   public:
-    LineSizeCommand() : BaseOneValCommand(0.5) {}
-    LineSizeCommand(Type val) : BaseOneValCommand(val) {}
+    LineSizeCommand() : UndoCommand(), OneValCommand(1) {}
+    LineSizeCommand(int val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
     void Execute() override { fasade_->ESize(value_); }
     void Cancel() override { fasade_->SetESize(value_); }
+    // virtual LineSizeCommand *Cast() { return this; }
 };
 
 } // namespace s21

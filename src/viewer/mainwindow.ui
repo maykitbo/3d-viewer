@@ -261,11 +261,8 @@
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;File name:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -299,11 +296,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vertices:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -337,11 +331,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Edges:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -375,9 +366,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-228</y>
+         <y>0</y>
          <width>184</width>
-         <height>997</height>
+         <height>1005</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -424,7 +415,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              <item>
               <widget class="QPushButton" name="renderButton">
                <property name="text">
-                <string>rendere</string>
+                <string>render</string>
                </property>
               </widget>
              </item>
@@ -618,7 +609,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="moveXSpin"/>
+              <widget class="QDoubleSpinBox" name="moveXSpin">
+               <property name="minimum">
+                <double>-99.989999999999995</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -650,7 +645,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="moveYSpin"/>
+              <widget class="QDoubleSpinBox" name="moveYSpin">
+               <property name="minimum">
+                <double>-99.989999999999995</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -682,7 +681,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="moveZSpin"/>
+              <widget class="QDoubleSpinBox" name="moveZSpin">
+               <property name="minimum">
+                <double>-99.989999999999995</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -693,18 +696,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <widget class="QFrame" name="rotateFrame">
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1">
              <item>
               <widget class="QLabel" name="label_4">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>45</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -720,10 +723,23 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="Line" name="line_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+              <widget class="QComboBox" name="rotateBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
+               <item>
+                <property name="text">
+                 <string>origin</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>balance point</string>
+                </property>
+               </item>
               </widget>
              </item>
             </layout>
@@ -756,7 +772,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="rotateXSpin"/>
+              <widget class="QDoubleSpinBox" name="rotateXSpin">
+               <property name="minimum">
+                <double>-99.989999999999995</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -788,7 +808,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="rotateYSpin"/>
+              <widget class="QDoubleSpinBox" name="rotateYSpin">
+               <property name="minimum">
+                <double>-99.989999999999995</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -820,7 +844,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="rotateZSpin"/>
+              <widget class="QDoubleSpinBox" name="rotateZSpin">
+               <property name="minimum">
+                <double>-99.989999999999995</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -869,7 +897,17 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="scaleSpin"/>
+              <widget class="QDoubleSpinBox" name="scaleSpin">
+               <property name="minimum">
+                <double>0.000000000000000</double>
+               </property>
+               <property name="stepType">
+                <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+               </property>
+               <property name="value">
+                <double>1.000000000000000</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -993,7 +1031,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="vSizeSpin"/>
+              <widget class="QSpinBox" name="vSizeSpin">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -1095,7 +1137,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="eSizeSpin"/>
+              <widget class="QSpinBox" name="eSizeSpin">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -1233,11 +1279,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup">
    <property name="exclusive">
     <bool>true</bool>
    </property>
   </buttongroup>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

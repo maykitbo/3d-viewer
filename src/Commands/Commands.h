@@ -2,14 +2,13 @@
 #define COMMANDS_COMMANDS_H
 
 #include <fstream>
-#include <tuple>
-#include <chrono>
+#include <list>
 
 
-// #include "Lines.h"
+#include "Lines.h"
 #include "CommandsQueue.h"
-// #include "ProgCommands.h"
-// #include "Vertices.h"
+#include "ProgCommands.h"
+#include "Vertices.h"
 #include "Moves.h"
 #include "Rotates.h"
 
@@ -17,80 +16,89 @@
 
 namespace s21 {
 
+class OpenCommand;
+template<>
+struct IsCommand<OpenCommand> { const static bool value = false; };
+class ResetCommand;
+template<>
+struct IsCommand<ResetCommand> { const static bool value = false; };
+
 class Shell {
     private:
-      std::chrono::_V2::system_clock::time_point first_ = std::chrono::high_resolution_clock::now();
-      const int64_t delete_time_ = 500;
-      using CommandsList = std::list<AbstractQueue*>;
+      using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, LineSizeCommand, LineTypeCommand,\
+        VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
+          LineColorCommand, BackgroundColorCommand>;
+      const int buffer_size_ = 2000;
+      using CommandsList = std::list<HistoryCommand*>;
       Fasade *model_ = nullptr;
       CommandsList history_;
       CommandsList::iterator iter_ = history_.begin();
-      std::ifstream file_;
+      // std::ifstream file_;
+      MainComBase base_;
+      void RedoListClean();
+      friend OpenCommand;
+      void OpenClean();
+      friend ResetCommand;
+      void CleanAll();
     public:
-      void AddFasade(Fasade *f) {
-        model_ = f;
-        Command::fasade_ = f;
-        Initialize<MoveXCommand, MoveYCommand, MoveZCommand, RotateXCommand, RotateYCommand, RotateZCommand,\
-              ZoomCommand, LineSizeCommand, LineTypeCommand, VerticesSizeCommand, VerticesTypeCommand,\
-              ProjectionCommand, LineColorCommand, VerticesColorCommand, BackgroundColorCommand>();
-      }
+      void AddFasade(Fasade *f);
       Shell() : history_() {}
-      template<class C> void Launch(C com) {
-        auto second = std::chrono::high_resolution_clock::now();
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(second - first_).count() < delete_time_) {
-          history_.pop_front();
-          BaseQueues<C>::list_.Pop();
-          iter_  = history_.begin();
-        }
-        BaseQueues<C>::list_.Insert(com);
-        iter_ = history_.insert(iter_, (AbstractQueue*)&BaseQueues<C>::list_);
-        if (iter_ != history_.begin()) {
-          history_.erase(history_.begin(), iter_);
-        } else if (history_.size() > BUFFER_SIZE) {
-          history_.back()->Shorten();
-          history_.pop_back();
-        }
-        first_ = std::chrono::high_resolution_clock::now();
-      }
-      void Launch(OpenCommand com) {
-        com.Execute();
-        Clear<MoveXCommand, MoveYCommand, MoveZCommand, RotateXCommand, RotateYCommand, RotateZCommand,\
-              ZoomCommand>();
-        for (iter_ = history_.begin(); iter_ != history_.end(); ) {
-          if ((*iter_)->Cleared()) iter_ =  history_.erase(iter_);
-          else ++iter_;
-        }
-        iter_ = history_.begin();
-      }
-      
 
-      void Undo() {
-        if (iter_ != history_.end()) {
-          (*(iter_++))->Undo();
+      template<class C, class ...Args>
+      void Launch(Args &&...args) {
+        if constexpr (IsCommand<C>::value) {
+          RedoListClean();
+          C *com = new C(args...);
+          if (com->IsMerge()) {
+            com->Merge(com);
+            *iter_ = (HistoryCommand*)com;
+          } else {
+            com->Create(com);
+            history_.push_front((HistoryCommand*)com);
+            iter_ = history_.begin();
+            if (history_.size() > buffer_size_) {
+              history_.back()->PopBack();
+              history_.pop_back();
+            }
+          }
+          com->Execute();
+        } else {
+          C com(args...);
+          com.Execute();
         }
       }
-      void Redo() {
-        if (iter_ != history_.begin())
-          (*(--iter_))->Redo();
-      }
-    private:
-      // template<class C>
-      // void FileToCommand() {
+      void Undo();
+      void Redo();
 
+      // template<class T> void OneCommandClear() {
+      //   BaseQueues<T>::list_.Clear();
       // }
-      template<class T> void OneTypeInit() {
-        BaseQueues<T>::list_.Initialize();
-      }
-      template<class ...Args> void Initialize() {
-        [](...){}((OneTypeInit<Args>(), 0)...);
-      }
-      template<class T> void OneCommandClear() {
-        BaseQueues<T>::list_.Clear();
-      }
-      template<class ...Args> void Clear() {
-        [](...){}((OneCommandClear<Args>(), 0)...);
-      }
+      // template<class ...Args> void Clear() {
+      //   [](...){}((OneCommandClear<Args>(), 0)...);
+      // }
+};
 
+class Cleaner : public Command {
+  public:
+    inline static Shell *shell_;
+};
+
+class OpenCommand : protected Cleaner {
+  private:
+    std::string str_;
+  public:
+    OpenCommand(std::string val) : str_(val) {}
+    void Execute() override {
+      fasade_->Parse(str_);
+      shell_->OpenClean();
+    }
+};
+
+class ResetCommand : protected Cleaner {
+  public:
+    void Execute() {
+      shell_->CleanAll();
+    }
 };
 
 }  // namespace s21

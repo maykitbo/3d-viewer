@@ -1,40 +1,55 @@
 #ifndef COMMANDS_MOVES_H
 #define COMMANDS_MOVES_H
 
-#include "BaseCommand.h"
+#include "AbstractCommand.h"
 
 namespace s21 {
 
-class MoveCommand : public BaseCoordinatesValCommand {
+class MoveCommand : public UndoCommand, public CoordsCommand<MoveCommand> {
   public:
-    MoveCommand() : BaseCoordinatesValCommand() {}
-    MoveCommand(double x, double y, double z) :\
-      BaseCoordinatesValCommand(x, y, z) {}
+    MoveCommand() : UndoCommand(), CoordsCommand() {}
+    MoveCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
     void Execute() override { fasade_->Move(x_, y_, z_); }
+    virtual void Cancel() { fasade_->SetMove(x_, y_, z_); }
 };
 
-class MoveXCommand : public BaseOneValCommand<double> {
+class MoveXCommand : public MoveCommand {
   public:
-    MoveXCommand() : BaseOneValCommand() {}
-    MoveXCommand(Type val) : BaseOneValCommand(val) {}
-    void Execute() override { fasade_->MoveX(value_); }
-    void Cancel() override { fasade_->SetMoveX(value_); }
+    MoveXCommand(float x) : MoveCommand(x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
 };
 
-class MoveYCommand : public BaseOneValCommand<double> {
+class MoveYCommand : public MoveCommand {
   public:
-    MoveYCommand() : BaseOneValCommand() {}
-    MoveYCommand(Type val) : BaseOneValCommand(val) {}
-    void Execute() override { fasade_->MoveY(value_); }
-    void Cancel() override { fasade_->SetMoveY(value_); }
+    MoveYCommand(float y) : MoveCommand (last_.Get()->GetX(), y, last_.Get()->GetZ()) {}
 };
 
-class MoveZCommand : public BaseOneValCommand<double> {
+class MoveZCommand : public MoveCommand {
   public:
-    MoveZCommand() : BaseOneValCommand() {}
-    MoveZCommand(Type val) : BaseOneValCommand(val) {}
-    void Execute() override { fasade_->MoveZ(value_); }
-    void Cancel() override { fasade_->SetMoveZ(value_); }
+    MoveZCommand(float z) : MoveCommand (last_.Get()->GetX(), last_.Get()->GetY(), z) {}
+};
+
+class MouseMoveXCommand : public MoveCommand {
+  public:
+    MouseMoveXCommand(float x) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
+    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
+};
+
+class MouseMoveYCommand : public MoveCommand {
+  public:
+    MouseMoveYCommand(float y) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
+    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
+};
+
+class MouseMoveZCommand : public MoveCommand {
+  public:
+    MouseMoveZCommand(float z) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
+};
+
+class MouseMoveXZCommand : public MoveCommand {
+  public:
+    MouseMoveXZCommand(float x, float z) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
 };
 
 } // namespace s21

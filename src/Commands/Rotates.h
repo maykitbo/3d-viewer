@@ -2,40 +2,59 @@
 #define COMMANDS_ROTATES_H
 
 
-#include "BaseCommand.h"
+#include "AbstractCommand.h"
 
 namespace s21 {
 
-class RotateCommand : public BaseCoordinatesValCommand {
+class RotateCommand : public UndoCommand, public CoordsCommand<RotateCommand> {
   public:
-    RotateCommand() : BaseCoordinatesValCommand() {}
-    RotateCommand(double x, double y, double z) :\
-      BaseCoordinatesValCommand(x, y, z) {}
+    RotateCommand() : UndoCommand(), CoordsCommand() {}
+    RotateCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
     void Execute() override { fasade_->Rotate(x_, y_, z_); }
+    virtual void Cancel() { fasade_->SetRotate(x_, y_, z_); }
 };
 
-class RotateXCommand : public BaseOneValCommand<double> {
+class RotateXCommand : public RotateCommand {
   public:
-    RotateXCommand() : BaseOneValCommand() {}
-    RotateXCommand(Type val) : BaseOneValCommand(val) {}
-    void Execute() override { fasade_->RotateX(value_); }
-    void Cancel() override { fasade_->SetRotateX(value_); }
+    RotateXCommand(float x) : RotateCommand(x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
 };
 
-class RotateYCommand : public BaseOneValCommand<double> {
+class RotateYCommand : public RotateCommand {
   public:
-    RotateYCommand() : BaseOneValCommand() {}
-    RotateYCommand(Type val) : BaseOneValCommand(val) {}
-    void Execute() override { fasade_->RotateY(value_); }
-    void Cancel() override { fasade_->SetRotateY(value_); }
+    RotateYCommand(float y) : RotateCommand (last_.Get()->GetX(), y, last_.Get()->GetZ()) {}
 };
 
-class RotateZCommand : public BaseOneValCommand<double> {
+class RotateZCommand : public RotateCommand {
   public:
-    RotateZCommand() : BaseOneValCommand() {}
-    RotateZCommand(Type val) : BaseOneValCommand(val) {}
-    void Execute() override { fasade_->RotateZ(value_); }
-    void Cancel() override { fasade_->SetRotateZ(value_); }
+    RotateZCommand(float z) : RotateCommand (last_.Get()->GetX(), last_.Get()->GetY(), z) {}
+};
+
+class MouseRotateXCommand : public RotateCommand {
+  public:
+    MouseRotateXCommand(float x) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
+};
+
+class MouseRotateYCommand : public RotateCommand {
+  public:
+    MouseRotateYCommand(float y) : RotateCommand(last_.Get()->GetX(), last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
+};
+
+class MouseRotateZCommand : public RotateCommand {
+  public:
+    MouseRotateZCommand(float z) : RotateCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+};
+
+class MouseRotateXZCommand : public RotateCommand {
+  public:
+    MouseRotateXZCommand(float x, float z) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+};
+
+class RotateTypeCommand : public UndoCommand, public OneValCommand<RotateType, RotateTypeCommand> {
+  public:
+    RotateTypeCommand() : UndoCommand(), OneValCommand() {}
+    RotateTypeCommand(RotateType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    void Execute() override { fasade_->RType(value_); }
+    void Cancel() override { fasade_->SetRType(value_); }
 };
 
 }  // namespace s21

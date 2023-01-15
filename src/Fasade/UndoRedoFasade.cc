@@ -3,48 +3,31 @@
 
 using namespace s21;
 
-
-void Fasade::SetRotateZ(double z) {
-    RotateX(z);
+void Fasade::SetRotate(float x, float y, float z) {
+    Rotate(x, y, z);
+    control_->SetRotateX(x);
+    control_->SetRotateY(y);
     control_->SetRotateZ(z);
 }
 
-void Fasade::SetRotateY(double y) {
-    RotateY(y);
-    control_->SetRotateY(y);
-}
-
-void Fasade::SetRotateX(double x) {
-    RotateZ(x);
-    control_->SetRotateX(x);
-}
-
-void Fasade::SetMoveZ(double z) {
-    MoveZ(z);
+void Fasade::SetMove(float x, float y, float z) {
+    Move(x, y, z);
+    control_->SetMoveX(x);
+    control_->SetMoveY(y);
     control_->SetMoveZ(z);
 }
 
-void Fasade::SetMoveY(double y) {
-    MoveY(y);
-    control_->SetMoveY(y);
-}
-
-void Fasade::SetMoveX(double x) {
-    MoveX(x);
-    control_->SetMoveX(x);
-}
-
-void Fasade::SetScale(double s) {
+void Fasade::SetScale(float s) {
     Scale(s);
     control_->SetScale(s);
 }
 
-void Fasade::SetESize(double s) {
+void Fasade::SetESize(int s) {
     ESize(s);
     control_->SetESize(s);
 }
 
-void Fasade::SetVSize(double s) {
+void Fasade::SetVSize(int s) {
     VSize(s);
     control_->SetVSize(s);
 }
@@ -64,4 +47,7 @@ void Fasade::SetPType(Projection t) {
     control_->SetPType((int)t);
 }
 
-
+void Fasade::SetRType(RotateType t) {
+    RType(t);
+    control_->SetRType((int)t);
+}

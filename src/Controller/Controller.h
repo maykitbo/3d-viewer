@@ -18,48 +18,65 @@ class Controller : public QObject {
 
   public:
     Controller(Shell *sh) : shell_(sh) {}
-    void OpenFile(std::string str) { if (!str.empty()) shell_->Launch(OpenCommand(str)); }
+    void OpenFile(std::string str) { if (!str.empty()) shell_->Launch<OpenCommand>(str); }
+    void Render(RenderType type, double time, int fps) {
+      if (type == gif) shell_->Launch<GifCommand>(time, fps);
+      else shell_->Launch<RenderCommand>(type);
+    }
   public slots:
-    void Move(double x, double y, double z) { shell_->Launch(MoveCommand(x, y, z)); }
-    void Rotate(double x, double y, double z) { shell_->Launch(RotateCommand(x, y, z)); }
-    void RotateX(double x) { shell_->Launch(RotateXCommand(x)); }
-    void RotateY(double y) { shell_->Launch(RotateYCommand(y)); }
-    void RotateZ(double z) { shell_->Launch(RotateZCommand(z)); }
-    void MoveX(double x) { shell_->Launch(MoveXCommand(x)); }
-    void MoveY(double y) { shell_->Launch(MoveYCommand(y)); }
-    void MoveZ(double z) { shell_->Launch(MoveZCommand(z)); }
-    void Scale(double s) { shell_->Launch(ZoomCommand(s)); }
-    void ESize(double s) { shell_->Launch(LineSizeCommand(s)); }
-    void VSize(double s) { shell_->Launch(VerticesSizeCommand(s)); }
-    void EType(int t) { shell_->Launch(LineTypeCommand((EdgesType)t)); }
-    void VType(int t) { shell_->Launch(VerticesTypeCommand((VerticesType)t)); }
-    void PType(int t) { shell_->Launch(ProjectionCommand((Projection)t)); }
-    void VColor(QColor c) { shell_->Launch(VerticesColorCommand(c)); }
-    void VColor(int d) { shell_->Launch(VerticesColorCommand((DialogButton)d)); }
-    void EColor(QColor c) { shell_->Launch(LineColorCommand(c)); }
-    void EColor(int d) { shell_->Launch(LineColorCommand((DialogButton)d)); }
-    void BgColor(QColor c) { shell_->Launch(BackgroundColorCommand(c)); }
-    void BgColor(int d) { shell_->Launch(BackgroundColorCommand((DialogButton)d)); }
+    // void Move(float x, float y, float z) { shell_->Launch(MoveCommand(x, y, z)); }
+    // void Rotate(float x, float y, float z) { shell_->Launch(RotateCommand(x, y, z)); }
+    void MouseMoveX(float x) { shell_->Launch<MouseMoveXCommand>(x); }
+    void MouseMoveY(float y) { shell_->Launch<MouseMoveYCommand>(y); }
+    void MouseMoveZ(float z) { shell_->Launch<MouseMoveZCommand>(z); }
+    void MouseMoveXZ(float x, float z) { shell_->Launch<MouseMoveXZCommand>(x, z); }
+    void MouseRotateX(float x) { shell_->Launch<MouseRotateXCommand>(x); }
+    void MouseRotateY(float y) { shell_->Launch<MouseRotateYCommand>(y); }
+    void MouseRotateZ(float z) { shell_->Launch<MouseRotateZCommand>(z); }
+    void MouseRotateXZ(float x, float z) { shell_->Launch<MouseRotateXZCommand>(x, z); }
+    void RotateX(float x) { shell_->Launch<RotateXCommand>(x); }
+    void RotateY(float y) { shell_->Launch<RotateYCommand>(y); }
+    void RotateZ(float z) { shell_->Launch<RotateZCommand>(z); }
+    void MoveX(float x) { shell_->Launch<MoveXCommand>(x); }
+    void MoveY(float y) { shell_->Launch<MoveYCommand>(y); }
+    void MoveZ(float z) { shell_->Launch<MoveZCommand>(z); }
+    void Scale(float s) { shell_->Launch<ZoomCommand>(s); }
+    void ESize(int s) { shell_->Launch<LineSizeCommand>(s); }
+    void VSize(int s) { shell_->Launch<VerticesSizeCommand>(s); }
+    void EType(int t) { shell_->Launch<LineTypeCommand>((EdgesType)t); }
+    void VType(int t) { shell_->Launch<VerticesTypeCommand>((VerticesType)t); }
+    void PType(int t) { shell_->Launch<ProjectionCommand>((Projection)t); }
+    void RType(int t) { shell_->Launch<RotateTypeCommand>((RotateType)t); }
+    void VColor(QColor c) { shell_->Launch<VerticesColorCommand>(c); }
+    void VColor(int d) { shell_->Launch<VerticesColorCommand>((DialogButton)d); }
+    void EColor(QColor c) { shell_->Launch<LineColorCommand>(c); }
+    void EColor(int d) { shell_->Launch<LineColorCommand>((DialogButton)d); }
+    void BgColor(QColor c) { shell_->Launch<BackgroundColorCommand>(c); }
+    void BgColor(int d) { shell_->Launch<BackgroundColorCommand>((DialogButton)d); }
+    void Reset() { shell_->Launch<ResetCommand>(); }
+
+    
 
     void Undo() { shell_->Undo(); }
     void Redo() { shell_->Redo(); }
 
 
   signals:
-    void SetMove(double x, double y, double z);
-    void SetRotate(double x, double y, double z);
-    void SetRotateX(double x);
-    void SetRotateY(double y);
-    void SetRotateZ(double z);
-    void SetMoveX(double x);
-    void SetMoveY(double y);
-    void SetMoveZ(double z);
-    void SetScale(double s);
-    void SetESize(double s);
-    void SetVSize(double s);
+    // void SetMove(float x, float y, float z);
+    // void SetRotate(float x, float y, float z);
+    void SetRotateX(float x);
+    void SetRotateY(float y);
+    void SetRotateZ(float z);
+    void SetMoveX(float x);
+    void SetMoveY(float y);
+    void SetMoveZ(float z);
+    void SetScale(float s);
+    void SetESize(int s);
+    void SetVSize(int s);
     void SetEType(int t);
     void SetVType(int t);
     void SetPType(int t);
+    void SetRType(int t);
     void SetVColor(QString c);
     void SetEColor(QString c);
     void SetBgColor(QString c);
