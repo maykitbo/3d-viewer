@@ -30,7 +30,7 @@ class Shell {
           LineColorCommand, BackgroundColorCommand>;
       const int buffer_size_ = 2000;
       using CommandsList = std::list<HistoryCommand*>;
-      Fasade *model_ = nullptr;
+      Mediator *model_ = nullptr;
       CommandsList history_;
       CommandsList::iterator iter_ = history_.begin();
       // std::ifstream file_;
@@ -41,7 +41,7 @@ class Shell {
       friend ResetCommand;
       void CleanAll();
     public:
-      void AddFasade(Fasade *f);
+      void AddMediator(Mediator *f);
       Shell() : history_() {}
 
       template<class C, class ...Args>
@@ -89,7 +89,7 @@ class OpenCommand : protected Cleaner {
   public:
     OpenCommand(std::string val) : str_(val) {}
     void Execute() override {
-      fasade_->Parse(str_);
+      mediator_->Parse(str_);
       shell_->OpenClean();
     }
 };

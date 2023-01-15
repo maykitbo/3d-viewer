@@ -34,9 +34,9 @@ set(PROJECT_SOURCES
         ../Commands/settingscomm
         # ../Controller/Controller.cc
         ../Controller/Controller.h
-        ../Fasade/Fasade.cc
-        ../Fasade/UndoRedoFasade.cc
-        ../Fasade/Fasade.h
+        ../Mediator/Mediator.cc
+        ../Mediator/UndoRedoMediator.cc
+        ../Mediator/Mediator.h
         ../Helpers/Helpers.h
         ../Parser/Parser.h
         ../Parser/Parser.cc

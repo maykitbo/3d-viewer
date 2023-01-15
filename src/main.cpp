@@ -1,6 +1,6 @@
 #include "viewer/mainwindow.h"
 #include "Commands/Commands.h"
-#include "Fasade/Fasade.h"
+#include "Mediator/Mediator.h"
 
 #include <QApplication>
 
@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     s21::Shell commands;
     s21::Controller control(&commands);
-    s21::Fasade fasade(&control);
+    s21::Mediator mediator(&control);
     s21::MainWindow w(&control);
-    commands.AddFasade(&fasade);
+    commands.AddMediator(&mediator);
     
     w.setWindowState(Qt::WindowMaximized);
     try {

@@ -9,8 +9,8 @@ class MoveCommand : public UndoCommand, public CoordsCommand<MoveCommand> {
   public:
     MoveCommand() : UndoCommand(), CoordsCommand() {}
     MoveCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
-    void Execute() override { fasade_->Move(x_, y_, z_); }
-    virtual void Cancel() { fasade_->SetMove(x_, y_, z_); }
+    void Execute() override { mediator_->Move(x_, y_, z_); }
+    virtual void Cancel() { mediator_->SetMove(x_, y_, z_); }
 };
 
 class MoveXCommand : public MoveCommand {
@@ -31,25 +31,21 @@ class MoveZCommand : public MoveCommand {
 class MouseMoveXCommand : public MoveCommand {
   public:
     MouseMoveXCommand(float x) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
-    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveYCommand : public MoveCommand {
   public:
     MouseMoveYCommand(float y) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
-    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveZCommand : public MoveCommand {
   public:
     MouseMoveZCommand(float z) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
-    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveXZCommand : public MoveCommand {
   public:
     MouseMoveXZCommand(float x, float z) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
-    // void Execute() override { fasade_->SetMove(x_, y_, z_); }
 };
 
 } // namespace s21

@@ -10,9 +10,8 @@ class LineTypeCommand : public UndoCommand, public OneValCommand<EdgesType, Line
   public:
     LineTypeCommand() : UndoCommand(), OneValCommand() {}
     LineTypeCommand(EdgesType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
-    void Execute() override { fasade_->EType(value_); }
-    void Cancel() override { fasade_->SetEType(value_); }
-    // virtual LineTypeCommand *Cast() { return this; }
+    void Execute() override { mediator_->EType(value_); }
+    void Cancel() override { mediator_->SetEType(value_); }
 };
 
 class LineColorCommand : public ColorCommand<LineColorCommand> {
@@ -20,17 +19,15 @@ class LineColorCommand : public ColorCommand<LineColorCommand> {
     LineColorCommand() : ColorCommand(Qt::red, select) {}
     LineColorCommand(DialogButton gate) : ColorCommand(gate) {}
     LineColorCommand(QColor val) : ColorCommand(val) {}
-    void Execute() override { fasade_->EColor(value_); }
-    // LineColorCommand *Cast() { return this; }
+    void Execute() override { mediator_->EColor(value_); }
 };
 
 class LineSizeCommand : public UndoCommand, public OneValCommand<float, LineSizeCommand> {
   public:
     LineSizeCommand() : UndoCommand(), OneValCommand(1) {}
     LineSizeCommand(int val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
-    void Execute() override { fasade_->ESize(value_); }
-    void Cancel() override { fasade_->SetESize(value_); }
-    // virtual LineSizeCommand *Cast() { return this; }
+    void Execute() override { mediator_->ESize(value_); }
+    void Cancel() override { mediator_->SetESize(value_); }
 };
 
 } // namespace s21

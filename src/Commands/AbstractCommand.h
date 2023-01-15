@@ -7,7 +7,7 @@
 
 #include "../Helpers/Helpers.h"
 #include "CommandsQueue.h"
-#include "../Fasade/Fasade.h"
+#include "../Mediator/Mediator.h"
 
 namespace s21 {
 
@@ -16,7 +16,7 @@ struct IsCommand { const static bool value = true; };
 
 class Command {
     public:
-        inline static Fasade *fasade_;
+        inline static Mediator *mediator_;
         virtual void Execute() = 0;
 };
 

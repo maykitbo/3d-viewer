@@ -10,8 +10,8 @@ class RotateCommand : public UndoCommand, public CoordsCommand<RotateCommand> {
   public:
     RotateCommand() : UndoCommand(), CoordsCommand() {}
     RotateCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
-    void Execute() override { fasade_->Rotate(x_, y_, z_); }
-    virtual void Cancel() { fasade_->SetRotate(x_, y_, z_); }
+    void Execute() override { mediator_->Rotate(x_, y_, z_); }
+    virtual void Cancel() { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class RotateXCommand : public RotateCommand {
@@ -53,8 +53,8 @@ class RotateTypeCommand : public UndoCommand, public OneValCommand<RotateType, R
   public:
     RotateTypeCommand() : UndoCommand(), OneValCommand() {}
     RotateTypeCommand(RotateType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
-    void Execute() override { fasade_->RType(value_); }
-    void Cancel() override { fasade_->SetRType(value_); }
+    void Execute() override { mediator_->RType(value_); }
+    void Cancel() override { mediator_->SetRType(value_); }
 };
 
 }  // namespace s21

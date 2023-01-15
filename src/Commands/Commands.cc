@@ -4,9 +4,9 @@
 
 using namespace s21;
 
-void Shell::AddFasade(Fasade *f) {
+void Shell::AddMediator(Mediator *f) {
     model_ = f;
-    Command::fasade_ = f;
+    Command::mediator_ = f;
     Cleaner::shell_ = this;
     base_.Initialize();
 }

@@ -10,8 +10,8 @@ class VerticesTypeCommand : public UndoCommand, public OneValCommand<VerticesTyp
   public:
     VerticesTypeCommand() : UndoCommand(), OneValCommand() {}
     VerticesTypeCommand(VerticesType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
-    void Execute() override { fasade_->VType(value_); }
-    void Cancel() override { fasade_->SetVType(value_); }
+    void Execute() override { mediator_->VType(value_); }
+    void Cancel() override { mediator_->SetVType(value_); }
 };
 
 
@@ -20,15 +20,15 @@ class VerticesColorCommand : public ColorCommand<VerticesColorCommand> {
     VerticesColorCommand() : ColorCommand(Qt::green, select) {}
     VerticesColorCommand(DialogButton gate) : ColorCommand(gate) {}
     VerticesColorCommand(QColor val) : ColorCommand(val) {}
-    void Execute() override { fasade_->VColor(value_); }
+    void Execute() override { mediator_->VColor(value_); }
 };
 
 class VerticesSizeCommand : public UndoCommand, public OneValCommand<int, VerticesSizeCommand> {
   public:
     VerticesSizeCommand() : UndoCommand(), OneValCommand(1) {}
     VerticesSizeCommand(int val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
-    void Execute() override { fasade_->VSize(value_); }
-    void Cancel() override { fasade_->SetVSize(value_); }
+    void Execute() override { mediator_->VSize(value_); }
+    void Cancel() override { mediator_->SetVSize(value_); }
 };
 
 } // namespace s21

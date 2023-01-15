@@ -11,8 +11,8 @@ class ZoomCommand : public UndoCommand, public OneValCommand<float, ZoomCommand>
   public:
     ZoomCommand() : UndoCommand(), OneValCommand(1) {}
     ZoomCommand(float val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
-    void Execute() override { fasade_->Scale(value_); }
-    void Cancel() override { fasade_->SetScale(value_); }
+    void Execute() override { mediator_->Scale(value_); }
+    void Cancel() override { mediator_->SetScale(value_); }
     bool Cleanable() override { return true; }
 };
 
@@ -21,7 +21,7 @@ class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand> {
     BackgroundColorCommand() : ColorCommand(Qt::white, select) {}
     BackgroundColorCommand(DialogButton gate) : ColorCommand(gate) {}
     BackgroundColorCommand(QColor val) : ColorCommand(val) {}
-    void Execute() override { fasade_->BgColor(value_); }
+    void Execute() override { mediator_->BgColor(value_); }
 };
 
 class RenderCommand : public Command {
@@ -30,7 +30,7 @@ class RenderCommand : public Command {
   public:
     RenderCommand(RenderType val) : type_(val) {}
     void Execute() override {
-      fasade_->Render(type_);
+      mediator_->Render(type_);
     }
 };
 template<>
@@ -43,7 +43,7 @@ class GifCommand : public Command {
   public:
     GifCommand(double t, int fps) : time_(t), fps_(fps) {}
     void Execute() override {
-      fasade_->Gif(time_, fps_);
+      mediator_->Gif(time_, fps_);
     }
 };
 template<>
@@ -54,25 +54,9 @@ class ProjectionCommand : public UndoCommand, public OneValCommand<Projection, P
   public:
     ProjectionCommand() : UndoCommand(), OneValCommand() {}
     ProjectionCommand(Projection val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
-    void Execute() override { fasade_->PType(value_); }
-    void Cancel() override { fasade_->SetPType(value_); }
+    void Execute() override { mediator_->PType(value_); }
+    void Cancel() override { mediator_->SetPType(value_); }
 };
-
-
-
-// class Test : public Command {
-//   public:
-  
-//     void Execute(Fasade &f) override {
-//       for (int k = 0; k < 1e9; ++k) {}
-//       std::cout << "Test done\n";
-//     }
-//     UndoPair Cancel(Fasade &f) override {
-//       for (int k = 0; k < 1e9; ++k) {}
-//       std::cout << "Test undo\n";
-//     }
-//     // void Name() {}
-// };
 
 } // namespace s21
 

@@ -6,7 +6,7 @@
 
 #include "../Helpers/Helpers.h"
 #include "../Commands/Commands.h"
-#include "../Fasade/Fasade.h"
+// #include "../Fasade/Fasade.h"
 
 namespace s21 {
 
@@ -24,8 +24,6 @@ class Controller : public QObject {
       else shell_->Launch<RenderCommand>(type);
     }
   public slots:
-    // void Move(float x, float y, float z) { shell_->Launch(MoveCommand(x, y, z)); }
-    // void Rotate(float x, float y, float z) { shell_->Launch(RotateCommand(x, y, z)); }
     void MouseMoveX(float x) { shell_->Launch<MouseMoveXCommand>(x); }
     void MouseMoveY(float y) { shell_->Launch<MouseMoveYCommand>(y); }
     void MouseMoveZ(float z) { shell_->Launch<MouseMoveZCommand>(z); }
@@ -62,8 +60,6 @@ class Controller : public QObject {
 
 
   signals:
-    // void SetMove(float x, float y, float z);
-    // void SetRotate(float x, float y, float z);
     void SetRotateX(float x);
     void SetRotateY(float y);
     void SetRotateZ(float z);
@@ -80,9 +76,6 @@ class Controller : public QObject {
     void SetVColor(QString c);
     void SetEColor(QString c);
     void SetBgColor(QString c);
-    // void test() {
-    //   shell_.Launch<Test>();
-    // }
 };
 
 }  // namespace s21

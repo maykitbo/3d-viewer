@@ -41,7 +41,7 @@ class Last {
             last_ = point;
         }
         T *Get() const { return last_; }
-        ~Last() { Claen(); }
+        ~Last() { Clean(); }
 };
 
 template<class... Args>
