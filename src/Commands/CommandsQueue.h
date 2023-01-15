@@ -1,6 +1,8 @@
 #ifndef COMMANDS_COMMANDSQUEUE_H
 #define COMMANDS_COMMANDSQUEUE_H
 
+#include <fstream>
+
 namespace s21 {
 
 template<class T>
@@ -41,7 +43,9 @@ class Last {
             last_ = point;
         }
         T *Get() const { return last_; }
-        ~Last() { Clean(); }
+        // ~Last() {
+        //     std::cout << "DESTRUCTOR Last\n";
+        // }
 };
 
 template<class... Args>
@@ -53,12 +57,16 @@ class MainBase<FirstType, Args...> {
         Last<FirstType> one_base_;
         MainBase<Args...> other_;
     public:
-        void Initialize() {
-            FirstType *com = new FirstType();
+        template<class ...File>
+        void Initialize(File &&...file) {
+            FirstType *com = new FirstType(file...);
             com->Cancel();
             one_base_.Create(com);
-            other_.Initialize();
+            other_.Initialize(file...);
         }
+        // void Initialize(std::filesystem &file) {
+
+        // }
         template<class C, class... Types>
         void Reset(C *com, Types &&...types) {
             if constexpr (std::is_same<C, FirstType>::value) {
@@ -68,21 +76,29 @@ class MainBase<FirstType, Args...> {
                 throw std::runtime_error("Reset: Command not found or incorrect order of commands");
             }
         }
+        void ToFile(std::fstream &file) {
+            // one_base_.ToFile(file);
+            *(one_base_.Get()) >> file;
+            other_.ToFile(file);
+        }
         void ResetAll() {
             one_base_.Reset(new FirstType());
             other_.ResetAll();
         }
         void Reset() {}
         // ~MainBase() {
-        //     one_base_;
+        //     one_base_.Clean();
         // }
+
 };
 
 template<>
 class MainBase<> {
     private:
     public:
-        void Initialize() {}
+        void ToFile(std::fstream &file) {}
+        template<class ...File>
+        void Initialize(File &&...file) {}
         void ResetAll() {}
         template<class C>
         void Reset(C *com) {

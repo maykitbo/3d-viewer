@@ -5,6 +5,7 @@
 #include <list>
 
 
+
 #include "Lines.h"
 #include "CommandsQueue.h"
 #include "ProgCommands.h"
@@ -25,15 +26,17 @@ struct IsCommand<ResetCommand> { const static bool value = false; };
 
 class Shell {
     private:
+      const int buffer_size_ = 2000;
+      using Path = std::filesystem::path;
+      const Path config_path_ = std::filesystem::current_path() += Path("/.config/.settings.comm");
       using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, LineSizeCommand, LineTypeCommand,\
         VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
           LineColorCommand, BackgroundColorCommand>;
-      const int buffer_size_ = 2000;
       using CommandsList = std::list<HistoryCommand*>;
       Mediator *model_ = nullptr;
       CommandsList history_;
       CommandsList::iterator iter_ = history_.begin();
-      // std::ifstream file_;
+      std::fstream file_;
       MainComBase base_;
       void RedoListClean();
       friend OpenCommand;
@@ -41,6 +44,7 @@ class Shell {
       friend ResetCommand;
       void CleanAll();
     public:
+      void SaveSettings(bool save);
       void AddMediator(Mediator *f);
       Shell() : history_() {}
 

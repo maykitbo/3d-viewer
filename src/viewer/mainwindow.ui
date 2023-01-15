@@ -366,7 +366,7 @@ p, li { white-space: pre-wrap; }
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-247</y>
          <width>184</width>
          <height>1005</height>
         </rect>
@@ -1225,7 +1225,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="saveRadio">
+            <widget class="QCheckBox" name="saveCheck">
              <property name="enabled">
               <bool>true</bool>
              </property>

@@ -131,5 +131,6 @@ std::string MainWindow::FileDialog() {
 // }
 
 MainWindow::~MainWindow() {
+    control_->SaveSettings(ui->saveCheck->isChecked());
     delete ui;
 }

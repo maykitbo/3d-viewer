@@ -4,6 +4,8 @@
 #include <string>
 #include <QObject>
 
+#include <iostream>
+
 #include "../Helpers/Helpers.h"
 #include "../Commands/Commands.h"
 // #include "../Fasade/Fasade.h"
@@ -23,6 +25,12 @@ class Controller : public QObject {
       if (type == gif) shell_->Launch<GifCommand>(time, fps);
       else shell_->Launch<RenderCommand>(type);
     }
+    void SaveSettings(bool save) { shell_->SaveSettings(save); }
+
+    // ~Controller() {
+    //   std::cout << "DESTRUCTOR Controller\n";
+    // }
+
   public slots:
     void MouseMoveX(float x) { shell_->Launch<MouseMoveXCommand>(x); }
     void MouseMoveY(float y) { shell_->Launch<MouseMoveYCommand>(y); }
@@ -76,6 +84,8 @@ class Controller : public QObject {
     void SetVColor(QString c);
     void SetEColor(QString c);
     void SetBgColor(QString c);
+
+    
 };
 
 }  // namespace s21

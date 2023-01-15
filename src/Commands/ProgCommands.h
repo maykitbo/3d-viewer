@@ -8,17 +8,21 @@
 namespace s21 {
 
 class ZoomCommand : public UndoCommand, public OneValCommand<float, ZoomCommand> {
+  protected:
+    void FromFile(std::fstream &file) override {  file >> value_; }
   public:
     ZoomCommand() : UndoCommand(), OneValCommand(1) {}
+    ZoomCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
     ZoomCommand(float val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
     void Execute() override { mediator_->Scale(value_); }
     void Cancel() override { mediator_->SetScale(value_); }
     bool Cleanable() override { return true; }
 };
 
-class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand> {
+class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand, Qt::white> {
   public:
-    BackgroundColorCommand() : ColorCommand(Qt::white, select) {}
+    BackgroundColorCommand() : ColorCommand() {}
+    BackgroundColorCommand(std::fstream &file) : ColorCommand(file) {}
     BackgroundColorCommand(DialogButton gate) : ColorCommand(gate) {}
     BackgroundColorCommand(QColor val) : ColorCommand(val) {}
     void Execute() override { mediator_->BgColor(value_); }
@@ -53,6 +57,7 @@ struct IsCommand<GifCommand> { const static bool value = false; };
 class ProjectionCommand : public UndoCommand, public OneValCommand<Projection, ProjectionCommand> {
   public:
     ProjectionCommand() : UndoCommand(), OneValCommand() {}
+    ProjectionCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
     ProjectionCommand(Projection val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
     void Execute() override { mediator_->PType(value_); }
     void Cancel() override { mediator_->SetPType(value_); }

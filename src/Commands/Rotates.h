@@ -9,6 +9,8 @@ namespace s21 {
 class RotateCommand : public UndoCommand, public CoordsCommand<RotateCommand> {
   public:
     RotateCommand() : UndoCommand(), CoordsCommand() {}
+    RotateCommand(std::fstream &file) : RotateCommand::RotateCommand() {}
+    // RotateCommand(std::fstream &file) : UndoCommand(), CoordsCommand(file) {}
     RotateCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
     void Execute() override { mediator_->Rotate(x_, y_, z_); }
     virtual void Cancel() { mediator_->SetRotate(x_, y_, z_); }
@@ -52,6 +54,7 @@ class MouseRotateXZCommand : public RotateCommand {
 class RotateTypeCommand : public UndoCommand, public OneValCommand<RotateType, RotateTypeCommand> {
   public:
     RotateTypeCommand() : UndoCommand(), OneValCommand() {}
+    RotateTypeCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
     RotateTypeCommand(RotateType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
     void Execute() override { mediator_->RType(value_); }
     void Cancel() override { mediator_->SetRType(value_); }

@@ -5,6 +5,8 @@
 #include <QColor>
 #include <chrono>
 
+#include <filesystem>
+
 #include "../Helpers/Helpers.h"
 #include "CommandsQueue.h"
 #include "../Mediator/Mediator.h"
@@ -72,6 +74,7 @@ class CoordsCommand : public StackCommand<T> {
         float x_, y_, z_;
     public:
         CoordsCommand() : x_(0), y_(0), z_(0) {}
+        void operator>>(std::fstream &file) const {}
         CoordsCommand(float x, float y, float z) : x_(x), y_(y), z_(z) {}
         float GetX() const { return x_; }
         float GetY() const { return y_; }
@@ -83,25 +86,65 @@ template<class V, class T>
 class OneValCommand : public StackCommand<T> {
     protected:
         V value_;
+        virtual void FromFile(std::fstream &file) {
+            int val;
+            file >> val;
+            value_ = V(val);
+        }
     public:
         OneValCommand() : value_() {}
+        OneValCommand(std::fstream &file) {
+            if (file.eof()) value_ = V();
+            else FromFile(file);
+        }
+        void operator>>(std::fstream &file) const {
+            file << ' ';
+            file << value_;
+        }
         OneValCommand(V val) : value_(val) {}
         V GetVal() const { return value_; }
 };
 
-template<class T>
+template<class T, Qt::GlobalColor def>
 class ColorCommand : public StackCommand<T> {
     protected:
         using StackCommand<T>::last_;
         QColor value_;
         DialogButton open_ = cancel;
         bool merge_ = true;
+    private:
+        int FromFile(std::fstream &file) {
+            int v;
+            file >> v;
+            return v;
+        }
     public:
+        ColorCommand() : value_(def), open_(select) {}
         ColorCommand(QColor c) : value_(c), merge_(!last_.Get()->IsOpen()) {}
         ColorCommand(DialogButton db) : open_(select),\
             value_(db ? last_.Get()->GetColor() :\
                     last_.Get()->GetPrev()->GetColor()) {}
-        ColorCommand(QColor c, DialogButton db) : value_(c), open_(db) {}
+        ColorCommand(std::fstream &file) {
+            if (!file.eof()) {
+                value_.setRed(FromFile(file));
+                if (!file.eof()) {
+                    value_.setGreen(FromFile(file));
+                    if (!file.eof()) {
+                        value_.setBlue(FromFile(file));
+                        return;
+                    }
+                }
+            }
+            else value_ = def;
+        }
+        void operator>>(std::fstream &file) const {
+            file << ' ';
+            file << value_.red();
+            file << ' ';
+            file << value_.green();
+            file << ' ';
+            file << value_.blue();
+        }
         DialogButton IsOpen() const { return open_; }
         QColor GetColor() const { return value_; }
         virtual void Execute() {}

@@ -8,6 +8,8 @@ namespace s21 {
 class MoveCommand : public UndoCommand, public CoordsCommand<MoveCommand> {
   public:
     MoveCommand() : UndoCommand(), CoordsCommand() {}
+    MoveCommand(std::fstream &file) : MoveCommand() {}
+    // MoveCommand(std::fstream &file) : UndoCommand(), CoordsCommand(file) {}
     MoveCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
     void Execute() override { mediator_->Move(x_, y_, z_); }
     virtual void Cancel() { mediator_->SetMove(x_, y_, z_); }

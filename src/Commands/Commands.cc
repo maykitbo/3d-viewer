@@ -1,14 +1,49 @@
 
 
+
+// #include <unistd.h>
+
 #include "Commands.h"
+// #include <QDir>
+// #include <QWidget>
 
 using namespace s21;
+
+// #include <iostream>
+// #include <string>
+
+// #include <unistd.h>
+
+// using std::cout; using std::cin;
+// using std::endl; using std::string;
+// using std::filesystem::current_path;
+
 
 void Shell::AddMediator(Mediator *f) {
     model_ = f;
     Command::mediator_ = f;
     Cleaner::shell_ = this;
-    base_.Initialize();
+
+    file_.open(config_path_, std::fstream::in);
+    if (!file_.is_open()) return;
+    if (file_.get() == '1')
+        base_.Initialize(file_);
+    else
+        base_.Initialize();
+    file_.close();
+}
+
+void Shell::SaveSettings(bool save) {
+    file_.open(config_path_, std::fstream::out);
+    if (!file_.is_open()) return;
+    file_.clear();
+    if (save) {
+        file_ << 1;
+        base_.ToFile(file_);
+    } else {
+        file_ << 0;
+    }
+    file_.close();
 }
 
 void Shell::CleanAll() {
