@@ -11,13 +11,13 @@ class Last {
         inline static T *last_;
     public:
         void Merge(T *com) {
-            std::cout << "merge\n";
+            // std::cout << "merge\n";
             com->SetPrev(last_->GetPrev());
             delete last_;
             last_ = com;
         }
         void Create(T *com) {
-            std::cout << "create\n";
+            // std::cout << "create\n";
             if (last_ == com) return;
             com->SetPrev(last_);
             last_ = com;

@@ -9,7 +9,7 @@
 
 #include "../Helpers/Helpers.h"
 #include "CommandsQueue.h"
-#include "../Mediator/Mediator.h"
+#include "../Mediator/AbstractMediator.h"
 
 namespace s21 {
 
@@ -18,7 +18,7 @@ struct IsCommand { const static bool value = true; };
 
 class Command {
     public:
-        inline static Mediator *mediator_;
+        inline static AbstractMediator *mediator_;
         virtual void Execute() = 0;
 };
 

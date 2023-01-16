@@ -1,14 +1,17 @@
 CC=g++
 CFLAGS= -Wall -Werror -Wextra
 
+# buildcommand:
+# 	$(MAKE) -C CommandsTest/Build
+# 	./CommandsTest/Nuild/commands_test
+
 command:
-	# QT_QPA_PLATFORM=xcb
-	cmake -B"CommandsTest" -H"CommandsTest"
-	$(MAKE) -C CommandsTest
-	./CommandsTest/commands_test
+	cmake -B"CommandsTest/Build" -H"CommandsTest/Build"
+	$(MAKE) -C CommandsTest/Build
+	./CommandsTest/Build/commands_test
 
 valgrind_command:
-	valgrind ./CommandsTest/commands_test
+	valgrind ./CommandsTest/Build/commands_test
 
 build_test_parser:
 	$(CC) $(CFLAGS) ../Parser/Parser.cc TestParser.cc -o test_parser
@@ -22,11 +25,14 @@ valgrind_parser: build_test_parser
 
 clean:
 	rm -rf test_parser
-	rm -rf CommandsTest/CPackSourceConfig.cmake
-	rm -rf CommandsTest/CPackConfig.cmake
-	rm -rf CommandsTest/CMakeCache.txt
-	rm -rf CommandsTest/CMakeFiles
-	rm -rf CommandsTest/cmake_install.cmake
-	rm -rf CommandsTest/Makefile
-	rm -rf CommandsTest/commands_test_autogen
-	rm -rf CommandsTest/commands_test
+	rm -rf CommandsTest/Build/CPackSourceConfig.cmake
+	rm -rf CommandsTest/Build/CPackConfig.cmake
+	rm -rf CommandsTest/Build/CMakeCache.txt
+	rm -rf CommandsTest/Build/CMakeFiles
+	rm -rf CommandsTest/Build/cmake_install.cmake
+	rm -rf CommandsTest/Build/Makefile
+	rm -rf CommandsTest/Build/commands_test_autogen
+	rm -rf CommandsTest/Build/commands_test
+	rm -rf CommandsTest/Build/lib
+	rm -rf CommandsTest/Build/bin
+	rm -rf CommandsTest/Build/_deps

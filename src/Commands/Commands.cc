@@ -4,18 +4,18 @@
 using namespace s21;
 
 
-void Shell::AddMediator(Mediator *f) {
-    model_ = f;
-    Command::mediator_ = f;
+void Shell::AddMediator(AbstractMediator *m) {
+    model_ = m;
+    Command::mediator_ = m;
     Cleaner::shell_ = this;
 
     file_.open(config_path_, std::fstream::in);
-    if (!file_.is_open()) return;
-    if (file_.get() == '1')
+    if (file_.is_open() && file_.get() == '1') {
         base_.Initialize(file_);
-    else
+        file_.close();
+    } else {
         base_.Initialize();
-    file_.close();
+    }
 }
 
 void Shell::SaveSettings(bool save) {

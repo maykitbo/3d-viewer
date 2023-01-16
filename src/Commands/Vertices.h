@@ -8,11 +8,6 @@ namespace s21 {
 
 class VerticesTypeCommand : public UndoCommand, public OneValCommand<VerticesType, VerticesTypeCommand> {
   protected:
-    // void FromFile(std::fstream &file) override {
-    //   int t;
-    //   file >> t;
-    //   value_ = VerticesType(t);
-    // }
   public:
     VerticesTypeCommand() : UndoCommand(), OneValCommand() {}
     VerticesTypeCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}

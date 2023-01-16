@@ -17,6 +17,7 @@
 
 namespace s21 {
 
+// class CTest;
 class OpenCommand;
 template<>
 struct IsCommand<OpenCommand> { const static bool value = false; };
@@ -28,12 +29,13 @@ class Shell {
     private:
       const int buffer_size_ = 2000;
       using Path = std::filesystem::path;
+      // friend class CTest;
       const Path config_path_ = std::filesystem::current_path() += Path("/.config/.settings.comm");
       using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, LineSizeCommand, LineTypeCommand,\
         VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
           LineColorCommand, BackgroundColorCommand>;
       using CommandsList = std::list<HistoryCommand*>;
-      Mediator *model_ = nullptr;
+      AbstractMediator *model_ = nullptr;
       CommandsList history_;
       CommandsList::iterator iter_ = history_.begin();
       std::fstream file_;
@@ -45,7 +47,7 @@ class Shell {
       void CleanAll();
     public:
       void SaveSettings(bool save);
-      void AddMediator(Mediator *f);
+      void AddMediator(AbstractMediator *m);
       Shell() : history_() {}
 
       template<class C, class ...Args>
