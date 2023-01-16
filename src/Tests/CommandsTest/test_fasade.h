@@ -3,24 +3,21 @@
 
 #include <string>
 
-// #include "../Parser/Parser.h"
-// #include "../OGLWidget/OGLWidget.h"
 #include "../../Helpers/Helpers.h"
 
 namespace s21 {
 
 class BackFasade;
-// class CommandTest;
 
-class AbsTest {
+class ModelTest {
   protected:
     friend class BackFasade;
     float xr_, xm_, yr_, ym_, zr_, zm_, scale_;
     // int vsize_, esize_;
     // RotateType rtype_;
   public:
-    AbsTest() = default;
-    void Copy(AbsTest &other) {
+    ModelTest() = default;
+    void Copy(ModelTest &other) {
       xr_ = other.xr_;
       xm_ = other.xm_;
       yr_ = other.yr_;
@@ -44,23 +41,23 @@ class AbsTest {
 
 class BackFasade {
   private:
-    AbsTest *abs_;
+    ModelTest *model_;
   public:
-    BackFasade(AbsTest *abs) : abs_(abs) {}
+    BackFasade(ModelTest *model) : model_(model) {}
     BackFasade() {}
     ~BackFasade() {}
     void OpenFile(std::string &file_path) {
 
     }
     void MoveObject(float x, float y, float z) {
-      abs_->xm_ = x;
-      abs_->ym_ = y;
-      abs_->zm_ = z;
+      model_->xm_ = x;
+      model_->ym_ = y;
+      model_->zm_ = z;
     }
     void RotateObject(float x, float y, float z) {
-      abs_->xr_ = x;
-      abs_->yr_ = y;
-      abs_->zr_ = z;
+      model_->xr_ = x;
+      model_->yr_ = y;
+      model_->zr_ = z;
     }
     void SetRotateType(RotateType type) {
 

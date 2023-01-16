@@ -12,20 +12,15 @@
 // namespace s21 {
 using namespace s21;
 
-class CommandTest : public AbsTest, public ::testing::Test {
+class CommandTest : public ModelTest, public ::testing::Test {
     protected:
-        AbsTest model_;
+        ModelTest model_;
         Shell commands_;
         Controller control_ = Controller(&commands_);
         BackFasade fasade_ = BackFasade(&model_);
         Mediator<Controller, BackFasade> mediator_ = Mediator(&control_, &fasade_);
-        // Mediator mediator_ = Mediator(&control_, &fasade_);
     public:
-        // bool operator==(AbsTest &other) {
-        //     return other == *()
-        // }
         CommandTest() : testing::Test() {
-            // std::cout << "CONSTRUCTOR\n";
             commands_.AddMediator((AbstractMediator*)&mediator_);
             Copy(model_);
         }
