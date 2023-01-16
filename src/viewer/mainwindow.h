@@ -38,6 +38,7 @@ private:
     Controller *control_;
     void Connects();
     std::string FileDialog();
+    void closeEvent(QCloseEvent * event) override;
     // Color ColorButton(QPushButton *qpb);
     // void keyPressEvent(QKeyEvent *event) override;
     // Color QtoMColor(const QColor &col) const { return Color(col.redF(), col.greenF(), col.blueF()); }

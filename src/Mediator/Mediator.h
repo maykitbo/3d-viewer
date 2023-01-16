@@ -1,7 +1,7 @@
 #ifndef MEDIATOR_MEDIATOR_H
 #define MEDIATOR_MEDIATOR_H
 
-#include "../Parser/Parser.h"
+// #include "../Parser/Parser.h"
 #include "../Helpers/Helpers.h"
 #include <QString>
 

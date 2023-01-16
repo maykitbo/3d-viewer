@@ -61,6 +61,7 @@ class Shell {
             history_.push_front((HistoryCommand*)com);
             iter_ = history_.begin();
             if (history_.size() > buffer_size_) {
+              std::cout << "\n          BUFFER MAX\n";
               history_.back()->PopBack();
               history_.pop_back();
             }

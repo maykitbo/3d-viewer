@@ -10,10 +10,9 @@ class RotateCommand : public UndoCommand, public CoordsCommand<RotateCommand> {
   public:
     RotateCommand() : UndoCommand(), CoordsCommand() {}
     RotateCommand(std::fstream &file) : RotateCommand::RotateCommand() {}
-    // RotateCommand(std::fstream &file) : UndoCommand(), CoordsCommand(file) {}
     RotateCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
-    void Execute() override { mediator_->Rotate(x_, y_, z_); }
-    virtual void Cancel() { mediator_->SetRotate(x_, y_, z_); }
+    virtual void Execute() override { mediator_->Rotate(x_, y_, z_); }
+    void Cancel() { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class RotateXCommand : public RotateCommand {
@@ -34,21 +33,25 @@ class RotateZCommand : public RotateCommand {
 class MouseRotateXCommand : public RotateCommand {
   public:
     MouseRotateXCommand(float x) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
+    void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class MouseRotateYCommand : public RotateCommand {
   public:
     MouseRotateYCommand(float y) : RotateCommand(last_.Get()->GetX(), last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
+    void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class MouseRotateZCommand : public RotateCommand {
   public:
     MouseRotateZCommand(float z) : RotateCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class MouseRotateXZCommand : public RotateCommand {
   public:
     MouseRotateXZCommand(float x, float z) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class RotateTypeCommand : public UndoCommand, public OneValCommand<RotateType, RotateTypeCommand> {

@@ -64,8 +64,8 @@ class StackCommand : public HistoryCommand {
         void PopBack() override { delete prev_; }
         T *GetPrev() const { return prev_; }
         void Undo() override { prev_->Cancel(); }
-        void Merge(T *com) { last_.Merge((T*)com); }
-        void Create(T *com) { last_.Create((T*)com); }
+        void Merge(T *com) { last_.Merge(com); }
+        void Create(T *com) { last_.Create(com); }
 };
 
 template<class T>
@@ -120,11 +120,11 @@ class ColorCommand : public StackCommand<T> {
         }
     public:
         ColorCommand() : value_(def), open_(select) {}
-        ColorCommand(QColor c) : value_(c), merge_(!last_.Get()->IsOpen()) {}
+        ColorCommand(QColor c) : value_(c), merge_(!((bool)(last_.Get()->IsOpen()))) {}
         ColorCommand(DialogButton db) : open_(select),\
-            value_(db ? last_.Get()->GetColor() :\
+            value_(db || (last_.Get()->GetPrev() == nullptr) ? last_.Get()->GetColor() :\
                     last_.Get()->GetPrev()->GetColor()) {}
-        ColorCommand(std::fstream &file) {
+        ColorCommand(std::fstream &file) : open_(select) {
             if (!file.eof()) {
                 value_.setRed(FromFile(file));
                 if (!file.eof()) {

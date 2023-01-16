@@ -36,6 +36,7 @@ set(PROJECT_SOURCES
         ../Controller/Controller.h
         ../Mediator/Mediator.cc
         ../Mediator/UndoRedoMediator.cc
+        # ../Mediator/AbstractMediator.h
         ../Mediator/Mediator.h
         ../Helpers/Helpers.h
         ../Parser/Parser.h

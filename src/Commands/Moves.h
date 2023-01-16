@@ -9,9 +9,8 @@ class MoveCommand : public UndoCommand, public CoordsCommand<MoveCommand> {
   public:
     MoveCommand() : UndoCommand(), CoordsCommand() {}
     MoveCommand(std::fstream &file) : MoveCommand() {}
-    // MoveCommand(std::fstream &file) : UndoCommand(), CoordsCommand(file) {}
     MoveCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
-    void Execute() override { mediator_->Move(x_, y_, z_); }
+    virtual void Execute() override { mediator_->Move(x_, y_, z_); }
     virtual void Cancel() { mediator_->SetMove(x_, y_, z_); }
 };
 
@@ -33,21 +32,25 @@ class MoveZCommand : public MoveCommand {
 class MouseMoveXCommand : public MoveCommand {
   public:
     MouseMoveXCommand(float x) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
+    void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveYCommand : public MoveCommand {
   public:
     MouseMoveYCommand(float y) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
+    void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveZCommand : public MoveCommand {
   public:
     MouseMoveZCommand(float z) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveXZCommand : public MoveCommand {
   public:
     MouseMoveXZCommand(float x, float z) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 
 } // namespace s21

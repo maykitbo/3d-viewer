@@ -1,5 +1,7 @@
 #include "EventFilter.h"
 
+#include <iostream>
+
 using namespace s21;
 
 void MEvent::SetButtons(QToolButton *move, QToolButton *x, QToolButton *y, QToolButton *z, QWidget *widget) {
@@ -15,6 +17,10 @@ bool MEvent::eventFilter(QObject *object, QEvent *event) {
         case QEvent::KeyPress:
             // std::cout << k++ << "KeyPressed\n";
             return KeyCase(event);
+        case QEvent::MouseButtonPress:
+            // QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+            mouse_pos = static_cast<QMouseEvent*>(event)->position();
+            return true;
         case QEvent::MouseMove:
             // std::cout << k++ << "MouseButtonPress\n";
             if(object == widget_) MouseEvent(event);
@@ -54,8 +60,10 @@ void MEvent::MouseEvent(QEvent *event) {
             float z = mouseEvent->position().x() - mouse_pos.x();
             move_->isChecked() ? control_->MouseMoveX(z) : control_->MouseRotateX(z);
         } else {
+            
             float x = mouseEvent->position().x() - mouse_pos.x();
-            float z = mouseEvent->position().x() - mouse_pos.x();
+            float z = mouseEvent->position().y() - mouse_pos.y();
+            std::cout << x << " " << z << " mouse pos\n";
             move_->isChecked() ? control_->MouseMoveXZ(x, z) : control_->MouseRotateXZ(x, z);
         }
     }

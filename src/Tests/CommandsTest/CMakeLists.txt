@@ -33,6 +33,7 @@ set(PROJECT_SOURCES
         ../../Mediator/Mediator.cc
         ../../Mediator/UndoRedoMediator.cc
         ../../Mediator/Mediator.h
+        ../Mediator/AbstractMediator.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

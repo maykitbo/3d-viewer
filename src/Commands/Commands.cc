@@ -1,22 +1,7 @@
 
-
-
-// #include <unistd.h>
-
 #include "Commands.h"
-// #include <QDir>
-// #include <QWidget>
 
 using namespace s21;
-
-// #include <iostream>
-// #include <string>
-
-// #include <unistd.h>
-
-// using std::cout; using std::cin;
-// using std::endl; using std::string;
-// using std::filesystem::current_path;
 
 
 void Shell::AddMediator(Mediator *f) {
@@ -51,7 +36,7 @@ void Shell::CleanAll() {
         (*i)->CleanLast();
         i = history_.erase(i);
     }
-    // base_.Initialize();
+    iter_ = history_.begin();
     base_.ResetAll();
 }
 
@@ -59,11 +44,13 @@ void Shell::OpenClean() {
     for (auto i = --history_.begin(); i != history_.end(); ) {
         if ((*i)->Cleanable()) {
             (*i)->CleanLast();
+            if (iter_ == i) ++iter_;
             i = history_.erase(i);
         } else {
             ++i;
         }
     }
+    RedoListClean();
     base_.Reset(new RotateCommand(), new MoveCommand(), new ZoomCommand());
 }
 
@@ -80,6 +67,7 @@ void Shell::Redo() {
 
 void Shell::RedoListClean() {
     if (iter_ != history_.begin()) {
+        // std::cout << "\n!!!!!!    REDO LIST CLEAN   !!!!!!!\n";
         for (auto i = history_.begin(); i != iter_; ) {
         (*i)->CleanLast();
         i = history_.erase(i);

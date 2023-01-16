@@ -10,9 +10,9 @@ MainWindow::MainWindow(Controller *control, QWidget *parent) :\
         QMainWindow(parent) , ui(new Ui::MainWindow), control_(control) {
 
     ui->setupUi(this);
-    bg_color_.setAccessibleName("Background");
-    vertices_color_.setAccessibleName("Vertices");
-    edges_color_.setAccessibleName("Edges");
+    bg_color_.setWindowTitle("Background");
+    vertices_color_.setWindowTitle("Vertices");
+    edges_color_.setWindowTitle("Edges");
     event_.SetController(control_);
     event_.SetButtons(ui->handButton, ui->xMouseButton, ui->yMouseButton, ui->zMouseButton, ui->widget);
     ui->widget->installEventFilter(&event_);
@@ -36,8 +36,6 @@ MainWindow::MainWindow(Controller *control, QWidget *parent) :\
     ui->xyzMouseButton->installEventFilter(&event_);
     installEventFilter(&event_);
     Connects();
-
-    // connect(ui->resetButton, SIGNAL(clicked()), this, SLOT(resetButtonClicked()));
 }
 
 void MainWindow::Connects() {
@@ -85,50 +83,16 @@ void MainWindow::Connects() {
     connect(ui->resetButton, &QPushButton::clicked, control_, &Controller::Reset);
 }
 
-// void QWidget::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
-//   if (mouseEvent->button() == Qt::LeftButton) moveMouse = true;
-//   if (mouseEvent->modifiers() & Qt::ControlModifier) {
-//     controlMove(mouseEvent->scenePos().x());
-//   }
-// }
-
-// void QWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) {
-//   if (mouseEvent->button() == Qt::LeftButton) moveMouse = false;
-//   if (pointDone) {
-//     removeItem(pointEllips);
-//     removeItem(pointText);
-//     pointDone = false;
-//   }
-// }
-
-// void QWidget::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {
-//   if (!moveMouse) return;
-//   qreal x = mouseEvent->screenPos().rx() - mouseEvent->lastScreenPos().rx();
-//   qreal y = mouseEvent->lastScreenPos().ry() - mouseEvent->screenPos().ry();
-//   if (mouseEvent->modifiers() & Qt::ControlModifier) {
-//     controlMove(mouseEvent->scenePos().x());
-//   } else if (mouseEvent->modifiers() & Qt::ShiftModifier) {
-//     shiftMove(x, y);
-//   } else {
-//     normalMove(x, y);
-//   }
-// }
+void MainWindow::closeEvent(QCloseEvent * event) {
+    bg_color_.close();
+    vertices_color_.close();
+    edges_color_.close();
+}
 
 std::string MainWindow::FileDialog() {
     return QFileDialog::getOpenFileName(this, \
         "Выбрать файл для открытия", 0, "Text Files (*.obj)").toStdString();
 }
-
-// void MainWindow::keyPressEvent(QKeyEvent *event) {
-//     if (event->modifiers() & Qt::ControlModifier) {
-//         if (event->key() & Qt::Key_Z) {
-//             if (event->modifiers() & Qt::ShiftModifier)
-//                 control_->Redo();
-//             else
-//                 control_->Undo();
-//         }
-//     }
-// }
 
 MainWindow::~MainWindow() {
     control_->SaveSettings(ui->saveCheck->isChecked());
