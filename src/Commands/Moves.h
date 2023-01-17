@@ -5,14 +5,16 @@
 
 namespace s21 {
 
-class MoveCommand : public UndoCommand, public CoordsCommand<MoveCommand> {
+class MoveCommand : public CoordsCommand<MoveCommand> {
   public:
-    MoveCommand() : UndoCommand(), CoordsCommand() {}
+    MoveCommand() : CoordsCommand() {}
     MoveCommand(std::fstream &file) : MoveCommand() {}
-    MoveCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
+    MoveCommand(float x, float y, float z) : CoordsCommand(x, y, z) {}
     virtual void Execute() override { mediator_->Move(x_, y_, z_); }
     virtual void Cancel() { mediator_->SetMove(x_, y_, z_); }
 };
+template<>
+struct OpenCleanable<MoveCommand> { const static bool value = true; };
 
 class MoveXCommand : public MoveCommand {
   public:

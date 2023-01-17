@@ -6,18 +6,18 @@
 
 namespace s21 {
 
-class VerticesTypeCommand : public UndoCommand, public OneValCommand<VerticesType, VerticesTypeCommand> {
+class VerticesTypeCommand : public OneValCommand<VerticesType, VerticesTypeCommand, DefultValues::Vertices> {
   protected:
   public:
-    VerticesTypeCommand() : UndoCommand(), OneValCommand() {}
-    VerticesTypeCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
-    VerticesTypeCommand(VerticesType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    VerticesTypeCommand() : OneValCommand() {}
+    VerticesTypeCommand(std::fstream &file) : OneValCommand(file) {}
+    VerticesTypeCommand(VerticesType val) : OneValCommand(val) {}
     void Execute() override { mediator_->VType(value_); }
     void Cancel() override { mediator_->SetVType(value_); }
 };
 
 
-class VerticesColorCommand : public ColorCommand<VerticesColorCommand, Qt::green> {
+class VerticesColorCommand : public ColorCommand<VerticesColorCommand, DefultValues::VerticesColor> {
   public:
     VerticesColorCommand() : ColorCommand() {}
     VerticesColorCommand(std::fstream &file) : ColorCommand(file) {}
@@ -26,11 +26,11 @@ class VerticesColorCommand : public ColorCommand<VerticesColorCommand, Qt::green
     void Execute() override { mediator_->VColor(value_); }
 };
 
-class VerticesSizeCommand : public UndoCommand, public OneValCommand<int, VerticesSizeCommand> {
+class VerticesSizeCommand : public OneValCommand<int, VerticesSizeCommand, DefultValues::VerticesSize> {
   public:
-    VerticesSizeCommand() : UndoCommand(), OneValCommand(1) {}
-    VerticesSizeCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
-    VerticesSizeCommand(int val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    VerticesSizeCommand() : OneValCommand() {}
+    VerticesSizeCommand(std::fstream &file) : OneValCommand(file) {}
+    VerticesSizeCommand(int val) : OneValCommand(val) {}
     void Execute() override { mediator_->VSize(value_); }
     void Cancel() override { mediator_->SetVSize(value_); }
 };

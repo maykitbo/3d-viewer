@@ -11,7 +11,7 @@ command:
 	./CommandsTest/Build/commands_test
 
 valgrind_command:
-	valgrind ./CommandsTest/Build/commands_test
+	valgrind -s ./CommandsTest/Build/commands_test
 
 build_test_parser:
 	$(CC) $(CFLAGS) ../Parser/Parser.cc TestParser.cc -o test_parser

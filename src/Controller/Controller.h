@@ -47,6 +47,7 @@ class Controller : public QObject {
     void MoveY(float y) { shell_->Launch<MoveYCommand>(y); }
     void MoveZ(float z) { shell_->Launch<MoveZCommand>(z); }
     void Scale(float s) { shell_->Launch<ZoomCommand>(s); }
+    void MouseScale(float s) { shell_->Launch<MouseZoomCommand>(s); }
     void ESize(int s) { shell_->Launch<LineSizeCommand>(s); }
     void VSize(int s) { shell_->Launch<VerticesSizeCommand>(s); }
     void EType(int t) { shell_->Launch<LineTypeCommand>((EdgesType)t); }

@@ -28,6 +28,21 @@ enum RenderType : int { jpeg, bmp, gif };
 enum DialogButton : bool { cancel, select };
 enum RotateType : int { origin, balance };
 
+struct DefultValues {
+    constexpr static Qt::GlobalColor VerticesColor = Qt::green;
+    constexpr static Qt::GlobalColor EdgesColor = Qt::red;
+    constexpr static Qt::GlobalColor BackgroundColor = Qt::white;
+    constexpr static int Scale = 1;
+    constexpr static int VerticesSize = 1;
+    constexpr static int EdgesSize = 1;
+    constexpr static Projection ProjectionType = parallel;
+    constexpr static VerticesType Vertices  = none;
+    constexpr static EdgesType Edges = solid;
+    constexpr static RotateType Rotate = origin;
+    constexpr static int BufferSize = 2000;
+};
+
+
 // typedef std::pair<ViewObjects, void*> UndoPair;
 
 // struct Color {

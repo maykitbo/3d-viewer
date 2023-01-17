@@ -2,47 +2,114 @@
 
 
 
-TEST_F(CommandTest, rotate_test) {
-    control_.RotateX(5);
-    xr_ += 5;
-    TestEq();
+TEST_F(CommandTest, easy) {
+    ALLOne();
+    ALLOne();
+    sleep(1);
+    ALLOne();
 }
 
-TEST_F(CommandTest, move_test) {
-    for (int k = 9; k < 40; ++k) {
-        control_.MouseMoveX(-2);
-        xm_ -= 2;
+TEST_F(CommandTest, many) {
+    for (int k = 0; k < 1e4; ++k) {
+        ALLOne();
     }
-    TestEq();
 }
 
-TEST_F(CommandTest, move_rotate_test_1) {
-    for (int k = 9; k < 4000; ++k) {
-        control_.MouseRotateX(-2);
-        control_.MouseMoveZ(0.1);
-        control_.RotateY(k);
-        zm_ += 0.1;
-        xr_ -= 2;
-        yr_ = k;
-    }
-    TestEq();
+TEST_F(CommandTest, reset_open) {
+    ALLOne();
+    ALLOne();
+    sleep(1);
+    ALLOne();
+    ALLOne();
+    Reset();
+    Reset();
+    OpenFile();
+    ALLOne();
+    OpenFile();
+    ALLOne();
+    sleep(1);
+    ALLOne();
+    ALLOne();
+    OpenFile();
+    Reset();
 }
 
-TEST_F(CommandTest, move_rotate_test_2) {
-    for (int k = 0; k < 1e5; ++k) {
-        control_.MouseMoveX(-1);
-        control_.MouseMoveX(1);
-        control_.MouseMoveY(-5);
-        control_.MouseMoveY(5);
-        control_.MouseMoveZ(1.11);
-        control_.MouseMoveZ(-1.11);
-        control_.RotateX(-7);
-        control_.RotateY(-11);
-        control_.RotateZ(0.005);
-    }
-    xr_ = -7;
-    yr_ = -11;
-    zr_ = 0.005;
-    TestEq();
+TEST_F(CommandTest, color_select) {
+    VColor(QColor(1, 2, 3));
+    VColor(QColor(5, 7, 3));
+    VColor(QColor(1, 8, 3));
+    EndVColor(DialogButton::select, QColor(1, 8, 3));
 }
 
+TEST_F(CommandTest, color_cancel) {
+    EColor(QColor(1, 2, 3));
+    EColor(QColor(5, 7, 3));
+    EColor(QColor(1, 8, 3));
+    EndEColor(DialogButton::cancel, QColor(DefultValues::EdgesColor));
+}
+
+TEST_F(CommandTest, color) {
+    EColor(QColor(9, 9, 123));
+    EndEColor(DialogButton::select, QColor(9, 9, 123));
+    EColor(QColor(1, 2, 3));
+    EColor(QColor(5, 7, 3));
+    BGColor(QColor(1, 2, 3));
+    EColor(QColor(1, 8, 3));
+    sleep(1);
+    EColor(QColor(9, 9, 9));
+    BGColor(QColor(66, 66, 66));
+    EndEColor(DialogButton::cancel, QColor(9, 9, 123));
+    EndBGColor(DialogButton::select, QColor(66, 66, 66));
+}
+
+TEST_F(CommandTest, undo) {
+    RotateZ(5);
+    MoveZ(1);
+    sleep(1);
+    MoveZ(-0.7);
+    Undo([&] { zm_ = 1; });
+    Undo([&] { zm_ = 0; });
+    Undo([&] { zr_ = 0; });
+    Undo([]{});
+    Undo([]{});
+}
+
+TEST_F(CommandTest, redo) {
+    EColor(QColor(9, 9, 123));
+    EndEColor(DialogButton::select, QColor(9, 9, 123));
+    Redo([]{});
+    EColor(QColor(1, 2, 3));
+    sleep(1);
+    EColor(QColor(5, 7, 3));
+    sleep(1);
+    EColor(QColor(1, 8, 3));
+    EndEColor(DialogButton::select, QColor(1, 8, 3));
+    Undo([&] { ec_ = QColor(9, 9, 123); });
+    Undo([&] { ec_ = QColor(DefultValues::EdgesColor); });
+    Undo([]{});
+    Redo([&] { ec_ = QColor(9, 9, 123); });
+    Redo([&] { ec_ = QColor(1, 8, 3); });
+    Redo([&] { ec_ = QColor(1, 8, 3); });
+}
+
+TEST_F(CommandTest, redo_list_clean) {
+    PType(central);
+    Scale(1.1);
+    MouseScale(2.2);
+    RotateX(111);
+    sleep(1);
+    PType(parallel);
+    Undo([&] { pt_ = central; });
+    Undo([&] { xr_ = 0; });
+    MoveY(-12);
+    Redo([]{});
+    Undo([&] { ym_ = 0; });
+    Undo([&] { scale_ = DefultValues::Scale; });
+}
+
+// TEST_F(CommandTest, over_buffer) {
+//     for (int k = 0; k < 15; k++) {
+//         ALLOne();
+//         sleep(1);
+//     }
+// }

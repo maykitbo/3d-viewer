@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include <list>
-
+// #include <type_traits>
 
 
 #include "Lines.h"
@@ -17,7 +17,70 @@
 
 namespace s21 {
 
-// class CTest;
+template<class... Args>
+class MainBase;
+
+template<class FirstType, class... Args>
+class MainBase<FirstType, Args...> {
+    private:
+        Last<FirstType> one_base_;
+        MainBase<Args...> other_;
+    public:
+        template<class ...File>
+        void Initialize(File &&...file) {
+            FirstType *com = new FirstType(file...);
+            com->Cancel();
+            other_.Initialize(file...);
+        }
+        void OpenReset() {
+          if constexpr (OpenCleanable<FirstType>::value) {
+              one_base_.Clean();
+              FirstType *com = new FirstType();
+              com->Cancel();
+              one_base_.Reset(com);
+          }
+          other_.OpenReset();
+        }
+        void ClearLast(HistoryCommand *com) {
+          if ((HistoryCommand*)one_base_.base_ == com) {
+            one_base_.DeleteLast();
+          } else {
+            other_.ClearLast(com);
+          }
+        }
+        void ToFile(std::fstream &file) {
+            *(one_base_.Get()) >> file;
+            other_.ToFile(file);
+        }
+        void ResetAll() {
+            one_base_.Clean();
+            FirstType *com = new FirstType();
+            com->Cancel();
+            com->Execute();
+            one_base_.Reset(com);
+            other_.ResetAll();
+        }
+        void Reset() {}
+        ~MainBase() {
+            one_base_.Clean();
+            // other_.Clean();
+        }
+
+};
+
+template<>
+class MainBase<> {
+    private:
+    public:
+        void ClearLast(HistoryCommand *com) {}
+        void OpenReset() {}
+        void ToFile(std::fstream &file) {}
+        template<class ...File>
+        void Initialize(File &&...file) {}
+        void ResetAll() {}
+};
+
+
 class OpenCommand;
 template<>
 struct IsCommand<OpenCommand> { const static bool value = false; };
@@ -27,17 +90,15 @@ struct IsCommand<ResetCommand> { const static bool value = false; };
 
 class Shell {
     private:
-      const int buffer_size_ = 2000;
+      // const int buffer_size_ = 2000;
       using Path = std::filesystem::path;
-      // friend class CTest;
       const Path config_path_ = std::filesystem::current_path() += Path("/.config/.settings.comm");
       using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, LineSizeCommand, LineTypeCommand,\
         VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
           LineColorCommand, BackgroundColorCommand>;
-      using CommandsList = std::list<HistoryCommand*>;
       AbstractMediator *model_ = nullptr;
-      CommandsList history_;
-      CommandsList::iterator iter_ = history_.begin();
+      History::List history_;
+      History::List::iterator iter_ = history_.begin();
       std::fstream file_;
       MainComBase base_;
       void RedoListClean();
@@ -53,26 +114,15 @@ class Shell {
       template<class C, class ...Args>
       void Launch(Args &&...args) {
         if constexpr (IsCommand<C>::value) {
+          // std::cout << history_.size() << "          BUFFER size\n";
           RedoListClean();
           C *com = new C(args...);
-          if (com->IsMerge()) {
-            com->Merge(com);
-            *iter_ = (HistoryCommand*)com;
-          } else {
-            com->Create(com);
-            history_.push_front((HistoryCommand*)com);
-            iter_ = history_.begin();
-            if (history_.size() > buffer_size_) {
-              std::cout << "\n          BUFFER MAX\n";
-              history_.back()->PopBack();
-              history_.pop_back();
-            }
-          }
           com->Execute();
         } else {
           C com(args...);
           com.Execute();
         }
+        iter_ = history_.begin();
       }
       void Undo();
       void Redo();

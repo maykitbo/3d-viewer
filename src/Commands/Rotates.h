@@ -6,14 +6,16 @@
 
 namespace s21 {
 
-class RotateCommand : public UndoCommand, public CoordsCommand<RotateCommand> {
+class RotateCommand : public CoordsCommand<RotateCommand> {
   public:
-    RotateCommand() : UndoCommand(), CoordsCommand() {}
+    RotateCommand() : CoordsCommand() {}
     RotateCommand(std::fstream &file) : RotateCommand::RotateCommand() {}
-    RotateCommand(float x, float y, float z) : UndoCommand(last_.Get()->GetTime()), CoordsCommand(x, y, z) {}
+    RotateCommand(float x, float y, float z) : CoordsCommand(x, y, z) {}
     virtual void Execute() override { mediator_->Rotate(x_, y_, z_); }
     void Cancel() { mediator_->SetRotate(x_, y_, z_); }
 };
+template<>
+struct OpenCleanable<RotateCommand> { const static bool value = true; };
 
 class RotateXCommand : public RotateCommand {
   public:
@@ -54,11 +56,11 @@ class MouseRotateXZCommand : public RotateCommand {
     void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
-class RotateTypeCommand : public UndoCommand, public OneValCommand<RotateType, RotateTypeCommand> {
+class RotateTypeCommand : public OneValCommand<RotateType, RotateTypeCommand, DefultValues::Rotate> {
   public:
-    RotateTypeCommand() : UndoCommand(), OneValCommand() {}
-    RotateTypeCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
-    RotateTypeCommand(RotateType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    RotateTypeCommand() : OneValCommand() {}
+    RotateTypeCommand(std::fstream &file) : OneValCommand(file) {}
+    RotateTypeCommand(RotateType val) : OneValCommand(val) {}
     void Execute() override { mediator_->RType(value_); }
     void Cancel() override { mediator_->SetRType(value_); }
 };

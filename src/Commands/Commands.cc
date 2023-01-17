@@ -8,6 +8,7 @@ void Shell::AddMediator(AbstractMediator *m) {
     model_ = m;
     Command::mediator_ = m;
     Cleaner::shell_ = this;
+    History::base_ = &history_;
 
     file_.open(config_path_, std::fstream::in);
     if (file_.is_open() && file_.get() == '1') {
@@ -32,18 +33,15 @@ void Shell::SaveSettings(bool save) {
 }
 
 void Shell::CleanAll() {
-    for (auto i = history_.begin(); i != history_.end(); ) {
-        (*i)->CleanLast();
-        i = history_.erase(i);
-    }
-    iter_ = history_.begin();
+    history_.clear();
     base_.ResetAll();
 }
 
 void Shell::OpenClean() {
     for (auto i = --history_.begin(); i != history_.end(); ) {
         if ((*i)->Cleanable()) {
-            (*i)->CleanLast();
+            // (*i)->CleanLast();
+            // base_.ClearLast(*i);
             if (iter_ == i) ++iter_;
             i = history_.erase(i);
         } else {
@@ -51,7 +49,7 @@ void Shell::OpenClean() {
         }
     }
     RedoListClean();
-    base_.Reset(new RotateCommand(), new MoveCommand(), new ZoomCommand());
+    base_.OpenReset();
 }
 
 void Shell::Undo() {
@@ -69,8 +67,9 @@ void Shell::RedoListClean() {
     if (iter_ != history_.begin()) {
         // std::cout << "\n!!!!!!    REDO LIST CLEAN   !!!!!!!\n";
         for (auto i = history_.begin(); i != iter_; ) {
-        (*i)->CleanLast();
-        i = history_.erase(i);
+            base_.ClearLast(*i);
+            i = history_.erase(i);
         }
     }
+    // iter_ = history_.begin();
 }

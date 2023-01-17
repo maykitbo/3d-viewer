@@ -6,16 +6,16 @@
 
 namespace s21 {
 
-class LineTypeCommand : public UndoCommand, public OneValCommand<EdgesType, LineTypeCommand> {
+class LineTypeCommand : public OneValCommand<EdgesType, LineTypeCommand, DefultValues::Edges> {
   public:
-    LineTypeCommand() : UndoCommand(), OneValCommand() {}
-    LineTypeCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
-    LineTypeCommand(EdgesType val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    LineTypeCommand() : OneValCommand() {}
+    LineTypeCommand(std::fstream &file) : OneValCommand(file) {}
+    LineTypeCommand(EdgesType val) : OneValCommand(val) {}
     void Execute() override { mediator_->EType(value_); }
     void Cancel() override { mediator_->SetEType(value_); }
 };
 
-class LineColorCommand : public ColorCommand<LineColorCommand, Qt::red> {
+class LineColorCommand : public ColorCommand<LineColorCommand, DefultValues::EdgesColor> {
   public:
     LineColorCommand() : ColorCommand() {}
     LineColorCommand(std::fstream &file) : ColorCommand(file) {}
@@ -24,11 +24,11 @@ class LineColorCommand : public ColorCommand<LineColorCommand, Qt::red> {
     void Execute() override { mediator_->EColor(value_); }
 };
 
-class LineSizeCommand : public UndoCommand, public OneValCommand<float, LineSizeCommand> {
+class LineSizeCommand : public OneValCommand<int, LineSizeCommand, DefultValues::EdgesSize> {
   public:
-    LineSizeCommand() : UndoCommand(), OneValCommand(1) {}
-    LineSizeCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
-    LineSizeCommand(int val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    LineSizeCommand() : OneValCommand() {}
+    LineSizeCommand(std::fstream &file) : OneValCommand(file) {}
+    LineSizeCommand(int val) : OneValCommand(val) {}
     void Execute() override { mediator_->ESize(value_); }
     void Cancel() override { mediator_->SetESize(value_); }
 };

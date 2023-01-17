@@ -7,19 +7,26 @@
 
 namespace s21 {
 
-class ZoomCommand : public UndoCommand, public OneValCommand<float, ZoomCommand> {
+class ZoomCommand : public OneValCommand<float, ZoomCommand, DefultValues::Scale> {
   protected:
-    void FromFile(std::fstream &file) override {  file >> value_; }
+    void FromFile(std::fstream &file) override { file >> value_; }
   public:
-    ZoomCommand() : UndoCommand(), OneValCommand(1) {}
-    ZoomCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
-    ZoomCommand(float val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    ZoomCommand() : OneValCommand() {}
+    ZoomCommand(std::fstream &file) : OneValCommand(file) {}
+    ZoomCommand(float val) : OneValCommand(val) {}
     void Execute() override { mediator_->Scale(value_); }
     void Cancel() override { mediator_->SetScale(value_); }
     bool Cleanable() override { return true; }
 };
+template<>
+struct OpenCleanable<ZoomCommand> { const static bool value = true; };
 
-class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand, Qt::white> {
+class MouseZoomCommand : public ZoomCommand {
+  public:
+    MouseZoomCommand(float val) : ZoomCommand(last_.Get()->GetVal() + val) {}
+};
+
+class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand, DefultValues::BackgroundColor> {
   public:
     BackgroundColorCommand() : ColorCommand() {}
     BackgroundColorCommand(std::fstream &file) : ColorCommand(file) {}
@@ -54,14 +61,23 @@ template<>
 struct IsCommand<GifCommand> { const static bool value = false; };
 
 
-class ProjectionCommand : public UndoCommand, public OneValCommand<Projection, ProjectionCommand> {
+class ProjectionCommand : public OneValCommand<Projection, ProjectionCommand, DefultValues::ProjectionType> {
   public:
-    ProjectionCommand() : UndoCommand(), OneValCommand() {}
-    ProjectionCommand(std::fstream &file) : UndoCommand(), OneValCommand(file) {}
-    ProjectionCommand(Projection val) : UndoCommand(last_.Get()->GetTime()), OneValCommand(val) {}
+    ProjectionCommand() : OneValCommand() {}
+    ProjectionCommand(std::fstream &file) : OneValCommand(file) {}
+    ProjectionCommand(Projection val) : OneValCommand(val) {}
     void Execute() override { mediator_->PType(value_); }
     void Cancel() override { mediator_->SetPType(value_); }
 };
+
+// class RotateTypeCommand : public OneValCommand<RotateType, RotateTypeCommand, DefultValues::Rotate> {
+//   public:
+//     RotateTypeCommand() : OneValCommand() {}
+//     RotateTypeCommand(std::fstream &file) : OneValCommand(file) {}
+//     RotateTypeCommand(RotateType val) : OneValCommand(val) {}
+//     void Execute() override { mediator_->RType(value_); }
+//     void Cancel() override { mediator_->SetRType(value_); }
+// };
 
 } // namespace s21
 
