@@ -187,6 +187,30 @@ viewer_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer_autogen.dir/build.make CMakeFiles/viewer_autogen.dir/build
 .PHONY : viewer_autogen/fast
 
+Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.o: Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.o
+
+# target to build an object file
+Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o
+
+Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.i: Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.i
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.i
+
+# target to preprocess a source file
+Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.i
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.i
+
+Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.s: Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.s
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.s
+
+# target to generate assembly for a file
+Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.s
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.s
+
 Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.o: Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o
 .PHONY : Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.o
 
@@ -259,29 +283,29 @@ Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.s
 .PHONY : Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.s
 
-Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.o: Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o
-.PHONY : Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.o
+Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.o: Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.o
 
 # target to build an object file
-Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o
-.PHONY : Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o
+Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o
 
-Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.i: Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.i
-.PHONY : Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.i
+Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.i: Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.i
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.i
 
 # target to preprocess a source file
-Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.i
-.PHONY : Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.i
+Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.i
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.i
 
-Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.s: Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.s
-.PHONY : Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.s
+Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.s: Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.s
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.s
 
 # target to generate assembly for a file
-Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.s
-.PHONY : Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.s
+Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/viewer.dir/build.make CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.s
+.PHONY : Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.s
 
 Users/ivan/Projects/CPP/3dviewer/src/main.o: Users/ivan/Projects/CPP/3dviewer/src/main.cpp.o
 .PHONY : Users/ivan/Projects/CPP/3dviewer/src/main.o
@@ -369,6 +393,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... viewer_autogen"
 	@echo "... viewer"
+	@echo "... Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.o"
+	@echo "... Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.i"
+	@echo "... Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.s"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.o"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.i"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.s"
@@ -378,9 +405,9 @@ help:
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.o"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.i"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.s"
-	@echo "... Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.o"
-	@echo "... Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.i"
-	@echo "... Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.s"
+	@echo "... Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.o"
+	@echo "... Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.i"
+	@echo "... Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.s"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/main.o"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/main.i"
 	@echo "... Users/ivan/Projects/CPP/3dviewer/src/main.s"

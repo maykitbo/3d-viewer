@@ -53,7 +53,7 @@ void s21::OGLWidget::draw_edges() {
 
   glLineWidth(edges_size_);
   prog->setUniformValue(color_address, edges_color_);
-  glDrawElementsBaseVertex(GL_LINES, 12, GL_UNSIGNED_INT,0,0);
+  glDrawElementsBaseVertex(GL_LINES, edges_size_, GL_UNSIGNED_INT,0,0);
 
   if (edges_type_ == dashed) {
     glDisable(GL_LINE_STIPPLE);

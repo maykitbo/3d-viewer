@@ -497,6 +497,24 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.o: \
   /Users/ivan/Projects/CPP/3dviewer/src/viewer/../Helpers/Helpers.h \
   /opt/homebrew/lib/QtGui.framework/Headers/QColor \
   /opt/homebrew/lib/QtGui.framework/Headers/qcolor.h \
+  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/QOpenGLWidget \
+  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/qopenglwidget.h \
+  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
+  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsexports.h \
+  /opt/homebrew/include/QtWidgets/QWidget \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+  /opt/homebrew/include/QtGui/QSurfaceFormat \
+  /opt/homebrew/lib/QtGui.framework/Headers/qsurfaceformat.h \
+  /opt/homebrew/include/QtGui/qopengl.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gltypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glext.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/os/availability.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl3.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/inttypes.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/inttypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/inttypes.h \
   /opt/homebrew/lib/QtOpenGL.framework/Headers/QtOpenGL \
   /opt/homebrew/include/QtOpenGL/QtOpenGLDepends \
   /opt/homebrew/include/QtCore/QtCore \
@@ -601,6 +619,7 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/_xlocale.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_ctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/__wctype.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_stdlib.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_string.h \
@@ -918,20 +937,7 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.o: \
   /opt/homebrew/include/QtGui/qoffscreensurface_platform.h \
   /opt/homebrew/include/QtGui/qoffscreensurface.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qopengl.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gltypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glext.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/os/availability.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl3.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/inttypes.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/inttypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/inttypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_inttypes.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qopenglcontext.h \
-  /opt/homebrew/include/QtGui/QSurfaceFormat \
-  /opt/homebrew/lib/QtGui.framework/Headers/qsurfaceformat.h \
-  /opt/homebrew/include/QtGui/qopengl.h \
   /opt/homebrew/include/QtGui/qopenglcontext_platform.h \
   /opt/homebrew/include/QtGui/qopenglcontext.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qopenglextrafunctions.h \
@@ -1038,24 +1044,25 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.o: \
   /Users/ivan/Projects/CPP/3dviewer/src/viewer/../Controller/../Commands/../Fasade/../Parser/Parser.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/fstream \
   /Users/ivan/Projects/CPP/3dviewer/src/viewer/../Controller/../Commands/../Fasade/../Parser/../Helpers/Helpers.h \
-  /Users/ivan/Projects/CPP/3dviewer/src/viewer/../OGLWidget/OGLWidget.h \
+  /Users/ivan/Projects/CPP/3dviewer/src/viewer/../Controller/../Commands/../Fasade/../OGLWidget/OGLWidget.h \
   /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../Helpers/Helpers.h \
-  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../ShaderStrategy/ShaderStrategy.h \
-  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../ShaderStrategy/../Helpers/Helpers.h \
+  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../AfinTransformStrategy/AfinTransformStrategy.h \
+  /opt/homebrew/lib/QtGui.framework/Headers/QMatrix4x4 \
+  /opt/homebrew/lib/QtGui.framework/Headers/QVector4D \
+  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../AfinTransformStrategy/../Helpers/Helpers.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QColorDialog \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qcolordialog.h \
   /opt/homebrew/include/QtWidgets/qdialog.h \
   /opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
-  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/QOpenGLWidget \
-  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/qopenglwidget.h \
-  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
-  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsexports.h \
-  /opt/homebrew/include/QtWidgets/QWidget \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QSettings \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QGraphicsSceneMouseEvent \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
+  /Users/ivan/Projects/CPP/3dviewer/src/viewer/../Controller/../Commands/../Fasade/../Helpers/Helpers.h \
+  /Users/ivan/Projects/CPP/3dviewer/src/viewer/../OGLWidget/OGLWidget.h \
   /Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/viewer_autogen/include/./ui_mainwindow.h \
   /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/OGLWidget.h \
   /opt/homebrew/include/QtWidgets/QApplication \

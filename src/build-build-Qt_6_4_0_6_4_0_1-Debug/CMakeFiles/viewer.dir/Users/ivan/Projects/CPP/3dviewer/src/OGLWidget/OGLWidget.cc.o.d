@@ -430,20 +430,19 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/bit \
   /opt/homebrew/include/QtCore/qstringmatcher.h \
   /opt/homebrew/include/QtGui/qrgba64.h \
-  /opt/homebrew/lib/QtOpenGL.framework/Headers/QtOpenGL \
-  /opt/homebrew/include/QtOpenGL/QtOpenGLDepends \
-  /opt/homebrew/include/QtCore/QtCore \
-  /opt/homebrew/include/QtCore/QtCoreDepends \
-  /opt/homebrew/lib/QtCore.framework/Headers/qglobal.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/q20algorithm.h \
-  /opt/homebrew/include/QtCore/q20functional.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/q20functional.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/q20iterator.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/q23functional.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/qabstractanimation.h \
-  /opt/homebrew/include/QtCore/qobject.h \
+  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/QOpenGLWidget \
+  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/qopenglwidget.h \
+  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
+  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsexports.h \
+  /opt/homebrew/include/QtWidgets/QWidget \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+  /opt/homebrew/include/QtWidgets/qtwidgetsglobal.h \
+  /opt/homebrew/include/QtWidgets/qtwidgets-config.h \
+  /opt/homebrew/include/QtWidgets/qtwidgetsexports.h \
+  /opt/homebrew/include/QtGui/qwindowdefs.h \
   /opt/homebrew/include/QtCore/qobjectdefs.h \
   /opt/homebrew/include/QtCore/qobjectdefs_impl.h \
+  /opt/homebrew/include/QtCore/qobject.h \
   /opt/homebrew/include/QtCore/qscopedpointer.h \
   /opt/homebrew/include/QtCore/qmetatype.h \
   /opt/homebrew/include/QtCore/qcompare.h \
@@ -463,22 +462,69 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/__tree \
   /opt/homebrew/include/QtCore/qobject_impl.h \
   /opt/homebrew/include/QtCore/qbindingstorage.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/qabstracteventdispatcher.h \
-  /opt/homebrew/include/QtCore/qeventloop.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/qabstractitemmodel.h \
-  /opt/homebrew/include/QtCore/qhash.h \
+  /opt/homebrew/include/QtCore/qmargins.h \
+  /opt/homebrew/include/QtGui/qaction.h \
+  /opt/homebrew/include/QtGui/qkeysequence.h \
+  /opt/homebrew/include/QtGui/qicon.h \
+  /opt/homebrew/include/QtCore/qsize.h \
+  /opt/homebrew/include/QtGui/qpixmap.h \
+  /opt/homebrew/include/QtGui/qpaintdevice.h \
+  /opt/homebrew/include/QtCore/qrect.h \
+  /opt/homebrew/include/QtCore/qpoint.h \
+  /opt/homebrew/include/QtGui/qcolor.h \
+  /opt/homebrew/include/QtCore/qsharedpointer.h \
+  /opt/homebrew/include/QtCore/qshareddata.h \
+  /opt/homebrew/include/QtCore/qsharedpointer_impl.h \
+  /opt/homebrew/include/QtGui/qimage.h \
+  /opt/homebrew/include/QtGui/qpixelformat.h \
+  /opt/homebrew/include/QtGui/qtransform.h \
+  /opt/homebrew/include/QtGui/qpolygon.h \
+  /opt/homebrew/include/QtGui/qregion.h \
+  /opt/homebrew/include/QtCore/qline.h \
   /opt/homebrew/include/QtCore/qvariant.h \
   /opt/homebrew/include/QtCore/qdebug.h \
   /opt/homebrew/include/QtCore/qtextstream.h \
   /opt/homebrew/include/QtCore/qstringconverter_base.h \
   /opt/homebrew/include/QtCore/qcontiguouscache.h \
-  /opt/homebrew/include/QtCore/qsharedpointer.h \
-  /opt/homebrew/include/QtCore/qshareddata.h \
-  /opt/homebrew/include/QtCore/qsharedpointer_impl.h \
   /opt/homebrew/include/QtCore/qmap.h \
   /opt/homebrew/include/QtCore/qshareddata_impl.h \
   /opt/homebrew/include/QtCore/qset.h \
+  /opt/homebrew/include/QtCore/qhash.h \
   /opt/homebrew/include/QtCore/qvarlengtharray.h \
+  /opt/homebrew/include/QtGui/qpalette.h \
+  /opt/homebrew/include/QtGui/qbrush.h \
+  /opt/homebrew/include/QtGui/qfont.h \
+  /opt/homebrew/include/QtGui/qfontmetrics.h \
+  /opt/homebrew/include/QtGui/qfontinfo.h \
+  /opt/homebrew/include/QtWidgets/qsizepolicy.h \
+  /opt/homebrew/include/QtGui/qcursor.h \
+  /opt/homebrew/include/QtGui/qbitmap.h \
+  /opt/homebrew/include/QtGui/QSurfaceFormat \
+  /opt/homebrew/lib/QtGui.framework/Headers/qsurfaceformat.h \
+  /opt/homebrew/include/QtGui/qopengl.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gltypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glext.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/os/availability.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl3.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/inttypes.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/inttypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/inttypes.h \
+  /opt/homebrew/lib/QtOpenGL.framework/Headers/QtOpenGL \
+  /opt/homebrew/include/QtOpenGL/QtOpenGLDepends \
+  /opt/homebrew/include/QtCore/QtCore \
+  /opt/homebrew/include/QtCore/QtCoreDepends \
+  /opt/homebrew/lib/QtCore.framework/Headers/qglobal.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/q20algorithm.h \
+  /opt/homebrew/include/QtCore/q20functional.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/q20functional.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/q20iterator.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/q23functional.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qabstractanimation.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qabstracteventdispatcher.h \
+  /opt/homebrew/include/QtCore/qeventloop.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qabstractitemmodel.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qabstractnativeeventfilter.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qabstractproxymodel.h \
   /opt/homebrew/include/QtCore/qabstractitemmodel.h \
@@ -569,6 +615,7 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/_xlocale.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_ctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/__wctype.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_stdlib.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_string.h \
@@ -672,7 +719,6 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /opt/homebrew/lib/QtCore.framework/Headers/qlibraryinfo.h \
   /opt/homebrew/include/QtCore/qversionnumber.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qline.h \
-  /opt/homebrew/include/QtCore/qpoint.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qlist.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qlockfile.h \
@@ -720,8 +766,6 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/random \
   /opt/homebrew/lib/QtCore.framework/Headers/qreadwritelock.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qrect.h \
-  /opt/homebrew/include/QtCore/qmargins.h \
-  /opt/homebrew/include/QtCore/qsize.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qrefcount.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qregularexpression.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qresource.h \
@@ -806,18 +850,6 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /opt/homebrew/include/QtGui/QtGuiDepends \
   /opt/homebrew/lib/QtGui.framework/Headers/qtguiglobal.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qabstractfileiconprovider.h \
-  /opt/homebrew/include/QtGui/qicon.h \
-  /opt/homebrew/include/QtGui/qpixmap.h \
-  /opt/homebrew/include/QtGui/qpaintdevice.h \
-  /opt/homebrew/include/QtGui/qwindowdefs.h \
-  /opt/homebrew/include/QtCore/qrect.h \
-  /opt/homebrew/include/QtGui/qcolor.h \
-  /opt/homebrew/include/QtGui/qimage.h \
-  /opt/homebrew/include/QtGui/qpixelformat.h \
-  /opt/homebrew/include/QtGui/qtransform.h \
-  /opt/homebrew/include/QtGui/qpolygon.h \
-  /opt/homebrew/include/QtGui/qregion.h \
-  /opt/homebrew/include/QtCore/qline.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qabstracttextdocumentlayout.h \
   /opt/homebrew/include/QtGui/qtextlayout.h \
   /opt/homebrew/include/QtGui/qevent.h \
@@ -831,18 +863,14 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /opt/homebrew/include/QtCore/QSizeF \
   /opt/homebrew/include/QtGui/QTransform \
   /opt/homebrew/lib/QtGui.framework/Headers/qtransform.h \
-  /opt/homebrew/include/QtGui/qkeysequence.h \
   /opt/homebrew/include/QtGui/qglyphrun.h \
   /opt/homebrew/include/QtGui/qrawfont.h \
-  /opt/homebrew/include/QtGui/qfont.h \
   /opt/homebrew/include/QtGui/qfontdatabase.h \
   /opt/homebrew/include/QtGui/qtextcursor.h \
   /opt/homebrew/include/QtGui/qtextdocument.h \
   /opt/homebrew/include/QtGui/qtextformat.h \
-  /opt/homebrew/include/QtGui/qbrush.h \
   /opt/homebrew/include/QtGui/qpen.h \
   /opt/homebrew/include/QtGui/qtextoption.h \
-  /opt/homebrew/include/QtGui/qpalette.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qaccessible.h \
   /opt/homebrew/include/QtGui/qaccessible_base.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qaccessiblebridge.h \
@@ -852,15 +880,12 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /opt/homebrew/lib/QtGui.framework/Headers/qaccessibleplugin.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qactiongroup.h \
-  /opt/homebrew/include/QtGui/qaction.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qbackingstore.h \
   /opt/homebrew/include/QtGui/qwindow.h \
   /opt/homebrew/include/QtCore/QEvent \
   /opt/homebrew/include/QtCore/QMargins \
   /opt/homebrew/include/QtGui/qsurface.h \
   /opt/homebrew/include/QtGui/qsurfaceformat.h \
-  /opt/homebrew/include/QtGui/qcursor.h \
-  /opt/homebrew/include/QtGui/qbitmap.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qbitmap.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qbrush.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qclipboard.h \
@@ -908,20 +933,7 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /opt/homebrew/include/QtGui/qoffscreensurface_platform.h \
   /opt/homebrew/include/QtGui/qoffscreensurface.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qopengl.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gltypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glext.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/os/availability.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl3.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/inttypes.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/inttypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/inttypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_inttypes.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qopenglcontext.h \
-  /opt/homebrew/include/QtGui/QSurfaceFormat \
-  /opt/homebrew/lib/QtGui.framework/Headers/qsurfaceformat.h \
-  /opt/homebrew/include/QtGui/qopengl.h \
   /opt/homebrew/include/QtGui/qopenglcontext_platform.h \
   /opt/homebrew/include/QtGui/qopenglcontext.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qopenglextrafunctions.h \
@@ -941,8 +953,6 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /opt/homebrew/include/QtGui/QPaintDevice \
   /opt/homebrew/lib/QtGui.framework/Headers/qpaintengine.h \
   /opt/homebrew/include/QtGui/qpainter.h \
-  /opt/homebrew/include/QtGui/qfontinfo.h \
-  /opt/homebrew/include/QtGui/qfontmetrics.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qpainter.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qpainterpath.h \
   /opt/homebrew/lib/QtGui.framework/Headers/qpalette.h \
@@ -1022,23 +1032,18 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
   /opt/homebrew/lib/QtOpenGL.framework/Headers/QOpenGLShaderProgram \
   /opt/homebrew/lib/QtOpenGL.framework/Headers/QOpenGLVertexArrayObject \
   /opt/homebrew/lib/QtCore.framework/Headers/QTimer \
-  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../ShaderStrategy/ShaderStrategy.h \
-  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../ShaderStrategy/../Helpers/Helpers.h \
+  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../AfinTransformStrategy/AfinTransformStrategy.h \
+  /opt/homebrew/lib/QtGui.framework/Headers/QMatrix4x4 \
+  /opt/homebrew/lib/QtGui.framework/Headers/QVector4D \
+  /Users/ivan/Projects/CPP/3dviewer/src/build/../OGLWidget/../AfinTransformStrategy/../Helpers/Helpers.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QColorDialog \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qcolordialog.h \
-  /opt/homebrew/include/QtWidgets/qtwidgetsglobal.h \
-  /opt/homebrew/include/QtWidgets/qtwidgets-config.h \
-  /opt/homebrew/include/QtWidgets/qtwidgetsexports.h \
   /opt/homebrew/include/QtWidgets/qdialog.h \
   /opt/homebrew/include/QtWidgets/qwidget.h \
-  /opt/homebrew/include/QtWidgets/qsizepolicy.h \
   /opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
-  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/QOpenGLWidget \
-  /opt/homebrew/lib/QtOpenGLWidgets.framework/Headers/qopenglwidget.h \
-  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
-  /opt/homebrew/include/QtOpenGLWidgets/qtopenglwidgetsexports.h \
-  /opt/homebrew/include/QtWidgets/QWidget \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QSettings \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QGraphicsSceneMouseEvent \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/iostream \

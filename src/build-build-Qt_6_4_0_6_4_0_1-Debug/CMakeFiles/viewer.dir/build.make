@@ -97,19 +97,19 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.s: cmake_for
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ivan/Projects/CPP/3dviewer/src/main.cpp -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.s
 
-CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o: CMakeFiles/viewer.dir/flags.make
-CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o: /Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc
-CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o: CMakeFiles/viewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o -MF CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o.d -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o -c /Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o: CMakeFiles/viewer.dir/flags.make
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o: /Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o: CMakeFiles/viewer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o -MF CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o.d -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o -c /Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp
 
-CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc > CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.i
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp > CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.i
 
-CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.s
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.s
 
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc.o: CMakeFiles/viewer.dir/flags.make
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc.o: /Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc
@@ -125,10 +125,24 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc.s
 
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o: CMakeFiles/viewer.dir/flags.make
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o: /Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o: CMakeFiles/viewer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o -MF CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o.d -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o -c /Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc
+
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc > CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.i
+
+CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.s
+
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o: CMakeFiles/viewer.dir/flags.make
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o: /Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o: CMakeFiles/viewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o -MF CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o.d -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o -c /Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc
 
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.s: c
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o: CMakeFiles/viewer.dir/flags.make
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o: /Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o: CMakeFiles/viewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o -MF CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o.d -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o -c /Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc
 
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.s: c
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o: CMakeFiles/viewer.dir/flags.make
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o: /Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o: CMakeFiles/viewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o -MF CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o.d -o CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o -c /Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc
 
 CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.i: cmake_force
@@ -171,8 +185,9 @@ CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.
 viewer_OBJECTS = \
 "CMakeFiles/viewer.dir/viewer_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.o" \
-"CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o" \
+"CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o" \
 "CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc.o" \
+"CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o" \
 "CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o" \
 "CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o" \
 "CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o"
@@ -182,8 +197,9 @@ viewer_EXTERNAL_OBJECTS =
 
 viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/viewer_autogen/mocs_compilation.cpp.o
 viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/main.cpp.o
-viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.cc.o
+viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/dscene/dscene.cpp.o
 viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.cc.o
+viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.cc.o
 viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.cc.o
 viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.cc.o
 viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/Users/ivan/Projects/CPP/3dviewer/src/viewer/mainwindow.cc.o
@@ -194,7 +210,7 @@ viewer.app/Contents/MacOS/viewer: /opt/homebrew/lib/QtOpenGL.framework/Versions/
 viewer.app/Contents/MacOS/viewer: /opt/homebrew/lib/QtGui.framework/Versions/A/QtGui
 viewer.app/Contents/MacOS/viewer: /opt/homebrew/lib/QtCore.framework/Versions/A/QtCore
 viewer.app/Contents/MacOS/viewer: CMakeFiles/viewer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable viewer.app/Contents/MacOS/viewer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ivan/Projects/CPP/3dviewer/src/build-build-Qt_6_4_0_6_4_0_1-Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable viewer.app/Contents/MacOS/viewer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/viewer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -287,17 +287,11 @@ OPENGL_gl_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX13.0.s
 //GLU library for OS X (usually same as OpenGL library)
 OPENGL_glu_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework
 
-//The directory containing a CMake configuration file for OpenGLWidgets.
-OpenGLWidgets_DIR:PATH=OpenGLWidgets_DIR-NOTFOUND
-
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
-
-//The directory containing a CMake configuration file for QOpenGLWidget.
-QOpenGLWidget_DIR:PATH=QOpenGLWidget_DIR-NOTFOUND
 
 //Additional directories where find(Qt6 ...) host Qt components
 // are searched
@@ -314,9 +308,6 @@ QT_DIR:PATH=/opt/homebrew/lib/cmake/Qt6
 
 //No help, variable specified on the command line.
 QT_QMAKE_EXECUTABLE:FILEPATH=/opt/homebrew/Cellar/qt/6.4.0_1/bin/qmake
-
-//The directory containing a CMake configuration file for Qt5.
-Qt5_DIR:PATH=Qt5_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for Qt6CoreTools.
 Qt6CoreTools_DIR:PATH=/opt/homebrew/lib/cmake/Qt6CoreTools

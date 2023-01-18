@@ -17,7 +17,7 @@ void s21::BackFasade::OpenFile(std::string &file_path) {
   Widget_->set_object(Parser_.getVertex(), Parser_.getLines());
 }
 
-void s21::BackFasade::MoveObject(float x, float y, float z) {
+void s21::BackFasade::MoveObject(float x, float y, float z) { 
   Widget_->move_object(x,y,z);
 }
 

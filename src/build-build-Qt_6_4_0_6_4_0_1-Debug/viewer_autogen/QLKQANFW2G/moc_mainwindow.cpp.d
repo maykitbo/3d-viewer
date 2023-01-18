@@ -377,13 +377,13 @@
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/xlocale/_time.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/arm_neon.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stdarg.h \
+  /Users/ivan/Projects/CPP/3dviewer/src/AfinTransformStrategy/AfinTransformStrategy.h \
   /Users/ivan/Projects/CPP/3dviewer/src/Commands/Commands.h \
   /Users/ivan/Projects/CPP/3dviewer/src/Controller/Controller.h \
   /Users/ivan/Projects/CPP/3dviewer/src/Fasade/Fasade.h \
   /Users/ivan/Projects/CPP/3dviewer/src/Helpers/Helpers.h \
   /Users/ivan/Projects/CPP/3dviewer/src/OGLWidget/OGLWidget.h \
   /Users/ivan/Projects/CPP/3dviewer/src/Parser/Parser.h \
-  /Users/ivan/Projects/CPP/3dviewer/src/ShaderStrategy/ShaderStrategy.h \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QDeadlineTimer \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QEvent \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QHash \
@@ -395,6 +395,7 @@
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QPair \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QRect \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QScopedPointer \
+  /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QSettings \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QSharedDataPointer \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QSize \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtCore.framework/Versions/A/Headers/QSizeF \
@@ -636,6 +637,7 @@
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtGui.framework/Versions/A/Headers/QPaintDeviceWindow \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtGui.framework/Versions/A/Headers/QSurfaceFormat \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtGui.framework/Versions/A/Headers/QTransform \
+  /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtGui.framework/Versions/A/Headers/QVector4D \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtGui.framework/Versions/A/Headers/QWindow \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtGui.framework/Versions/A/Headers/QtGui \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtGui.framework/Versions/A/Headers/QtGuiDepends \
@@ -775,12 +777,14 @@
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtOpenGLWidgets.framework/Versions/A/Headers/qtopenglwidgetsexports.h \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtOpenGLWidgets.framework/Versions/A/Headers/qtopenglwidgetsglobal.h \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/QColorDialog \
+  /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/QFileDialog \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/QGraphicsSceneMouseEvent \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/QMainWindow \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/QMessageBox \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/QWidget \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/qcolordialog.h \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/qdialog.h \
+  /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/qfiledialog.h \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/qgraphicssceneevent.h \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/qmainwindow.h \
   /opt/homebrew/Cellar/qt/6.4.0_1/lib/QtWidgets.framework/Versions/A/Headers/qmessagebox.h \
