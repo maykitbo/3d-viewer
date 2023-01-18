@@ -1,8 +1,16 @@
 #ifndef HELPERS_HELPERS_H
 #define HELPERS_HELPERS_H
 
-#include <vector>
 #include <QColor>
+#include <vector>
+// #include <QColor>
+// #include <QOpenGLWidget>
+// #include <QtOpenGL>
+// #include <QOpenGLBuffer>
+// #include <QOpenGLFunctions>
+// #include <QOpenGLShaderProgram>
+// #include <QOpenGLVertexArrayObject>
+// #include <QTimer>
 
 // #include "../Fasade/Fasade.h"
 // #include "../Controller/Controller.h"
@@ -39,7 +47,8 @@ struct DefultValues {
     constexpr static VerticesType Vertices  = none;
     constexpr static EdgesType Edges = solid;
     constexpr static RotateType Rotate = origin;
-    constexpr static int BufferSize = 2000;
+    constexpr static int BufferSize = 15;
+    constexpr static int64_t MergeTime = 500; // milliseconds
 };
 
 

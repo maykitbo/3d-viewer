@@ -20,6 +20,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+
+set(OpenGL_GL_PREFERENCE GLVND)
+find_package(OpenGL REQUIRED)
+
+find_package(GLUT REQUIRED)
+find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
+
 set(PROJECT_SOURCES
         ../main.cpp
         ../Commands/Commands.cc
@@ -31,13 +39,20 @@ set(PROJECT_SOURCES
         ../Commands/AbstractCommand.h
         ../Commands/CommandsQueue.h
         ../Commands/Commands.h
+        ../OGLWidget/OGLWidget.h
+        ../OGLWidget/OGLWidget.cc
+        ../AfinTransformStrategy/AfinTransformStrategy.h
+        ../AfinTransformStrategy/AfinTransformStrategy.cc
+        ../BackFasade/BackFasade.cc
+        ../BackFasade/BackFasade.h
         # ../Commands/.settings.comm
         # ../Controller/Controller.cc
         ../Controller/Controller.h
-        ../Mediator/Mediator.cc
-        ../Mediator/UndoRedoMediator.cc
+        # ../Mediator/Mediator.cc
+        # ../Mediator/UndoRedoMediator.cc
         # ../Mediator/AbstractMediator.h
         ../Mediator/Mediator.h
+        ../Mediator/AbstractMediator.h
         ../Helpers/Helpers.h
         ../Parser/Parser.h
         ../Parser/Parser.cc
@@ -75,6 +90,7 @@ target_include_directories(viewer PUBLIC ../viewer)
 target_include_directories(viewer PUBLIC ../Commands)
 
 target_link_libraries(viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(viewer PRIVATE Qt6::OpenGLWidgets)
 
 set_target_properties(viewer PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

@@ -37,7 +37,7 @@ class MainBase<FirstType, Args...> {
               one_base_.Clean();
               FirstType *com = new FirstType();
               com->Cancel();
-              one_base_.Reset(com);
+              one_base_.Set(com);
           }
           other_.OpenReset();
         }
@@ -56,14 +56,12 @@ class MainBase<FirstType, Args...> {
             one_base_.Clean();
             FirstType *com = new FirstType();
             com->Cancel();
-            com->Execute();
-            one_base_.Reset(com);
+            one_base_.Set(com);
             other_.ResetAll();
         }
         void Reset() {}
         ~MainBase() {
             one_base_.Clean();
-            // other_.Clean();
         }
 
 };

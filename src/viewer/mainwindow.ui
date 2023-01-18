@@ -216,6 +216,9 @@
           </widget>
          </item>
          <item>
+          <layout class="QGridLayout" name="gridLayout"/>
+         </item>
+         <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -366,7 +369,7 @@ p, li { white-space: pre-wrap; }
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-247</y>
+         <y>0</y>
          <width>184</width>
          <height>1005</height>
         </rect>
@@ -1279,11 +1282,11 @@ p, li { white-space: pre-wrap; }
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup">
    <property name="exclusive">
     <bool>true</bool>
    </property>
   </buttongroup>
-  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

@@ -3,7 +3,6 @@
 
 using namespace s21;
 
-
 void Shell::AddMediator(AbstractMediator *m) {
     model_ = m;
     Command::mediator_ = m;
@@ -40,8 +39,6 @@ void Shell::CleanAll() {
 void Shell::OpenClean() {
     for (auto i = --history_.begin(); i != history_.end(); ) {
         if ((*i)->Cleanable()) {
-            // (*i)->CleanLast();
-            // base_.ClearLast(*i);
             if (iter_ == i) ++iter_;
             i = history_.erase(i);
         } else {
@@ -65,11 +62,9 @@ void Shell::Redo() {
 
 void Shell::RedoListClean() {
     if (iter_ != history_.begin()) {
-        // std::cout << "\n!!!!!!    REDO LIST CLEAN   !!!!!!!\n";
         for (auto i = history_.begin(); i != iter_; ) {
             base_.ClearLast(*i);
             i = history_.erase(i);
         }
     }
-    // iter_ = history_.begin();
 }

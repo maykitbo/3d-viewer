@@ -12,6 +12,8 @@
 #include "./ui_mainwindow.h"
 #include "EventFilter.h"
 
+#include "../OGLWidget/OGLWidget.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -24,6 +26,11 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(Controller *control, QWidget *parent = nullptr);
     ~MainWindow();
+    // QWidget *GetWidget() const { return ui->widget; }
+    void SetWidget(OGLWidget *ogl) {
+        ui->gridLayout->addWidget(ogl, 0, 0);
+        // ui->gridLayout_4->addWidget(OGLWidget, 0, 0);
+    }
 
 private slots:
     void test() { std::cout << "test color\n"; }

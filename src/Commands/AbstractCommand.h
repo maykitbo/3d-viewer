@@ -39,7 +39,7 @@ class HistoryCommand : public Command {
     protected:
         History history_;
     public:
-        virtual void PopBack() = 0;
+        virtual void PopPrev() = 0;
         virtual bool Cleanable() { return false; }
         virtual void Undo() = 0;
         virtual void Cancel() = 0;
@@ -55,8 +55,8 @@ class HistoryCommand : public Command {
             history_.base_->push_front(this);
             history_.iter_ = history_.base_->begin();
             if (history_.base_->size() > DefultValues::BufferSize) {
-                // std::cout << "OVER BUFFER\n";
-                // history_.base_->back()->PopBack();
+                // std::cout << "                                                   OVER BUFFER\n";
+                // history_.base_->back()->PopPrev();
                 history_.base_->pop_back();
             }
         }
@@ -67,12 +67,11 @@ class UndoCommand {
         using Time = std::chrono::_V2::system_clock::time_point;
     private:
         Time Now() { return std::chrono::high_resolution_clock::now(); }
-        constexpr static int64_t del_time_ = 500; // milliseconds
         Time time_ = Now();
     public:
         UndoCommand() {}
         bool IsMerge(Time last_time) const {
-            if (std::chrono::duration_cast<std::chrono::milliseconds>(time_ - last_time).count() < del_time_)
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(time_ - last_time).count() < DefultValues::MergeTime)
                 return true;
             else
                 return false;
@@ -86,18 +85,15 @@ struct Last {
     void Clean() {
         T *point = base_;
         while (point != nullptr) {
-            point = point->GetPrev();
-            delete base_;
-            base_ = point;
+            // std::cout << (point == nullptr) << " " << (base_->GetPrev() == nullptr) << "\n";
+            base_ = base_->GetPrev();
+            delete point;
+            point = base_;
         }
     }
     T *GetPrev() const { return base_->GetPrev(); }
     T *Get() const { return base_; }
     void Set(T *com) { base_ = com; }
-    void Reset(T *com) {
-        // delete base_;
-        base_ = com;
-    }
     void DeleteLast() {
         T *point = base_->GetPrev();
         if (point == nullptr) return;
@@ -126,7 +122,7 @@ class StackCommand : public HistoryCommand, public UndoCommand {
             }
         }
         void SetPrev(T *p) { prev_ = p; }
-        void PopBack() override { delete prev_; }
+        void PopPrev() override { delete prev_; }
         T *GetPrev() const { return prev_; }
         void Undo() override { prev_->Cancel(); }
 };

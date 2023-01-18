@@ -108,8 +108,9 @@ TEST_F(CommandTest, redo_list_clean) {
 }
 
 // TEST_F(CommandTest, over_buffer) {
-//     for (int k = 0; k < 15; k++) {
+//     for (int k = 0; k < 1000; k++) {
 //         ALLOne();
 //         sleep(1);
+        
 //     }
 // }
