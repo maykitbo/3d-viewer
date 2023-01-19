@@ -47,7 +47,7 @@ struct DefultValues {
     constexpr static VerticesType Vertices  = none;
     constexpr static EdgesType Edges = solid;
     constexpr static RotateType Rotate = origin;
-    constexpr static int BufferSize = 15;
+    constexpr static int BufferSize = 2000;
     constexpr static int64_t MergeTime = 500; // milliseconds
     constexpr static float RotateRatio = 0.8;
     constexpr static float MoveRatio = 0.1;
@@ -69,8 +69,6 @@ struct DefultValues {
 //     int fps, height, width;
 //     GifType(double s, int f, int h, int w) : time(s), fps(f), height(h), width(w) {}
 // };
-
-#define BUFFER_SIZE 2000
 
 typedef std::vector<float> VerticesVector;
 typedef std::vector<unsigned int> EdgesVector;
