@@ -50,9 +50,9 @@ class MouseRotateZCommand : public RotateCommand {
     void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
-class MouseRotateXZCommand : public RotateCommand {
+class MouseRotateXYCommand : public RotateCommand {
   public:
-    MouseRotateXZCommand(float x, float z) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    MouseRotateXYCommand(float x, float y) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
     void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 

@@ -54,17 +54,17 @@ void MEvent::MouseEvent(QEvent *event) {
             float x = mouseEvent->position().x() - mouse_pos.x();
             move_->isChecked() ? control_->MouseMoveX(x) : control_->MouseRotateX(x);
         } else if (y_->isChecked()) {
-            float y = (mouseEvent->position().x() + mouseEvent->position().y()) - (mouse_pos.x() + mouse_pos.y());
-            move_->isChecked() ? control_->MouseMoveX(y) : control_->MouseRotateX(y);
+            float y = mouseEvent->position().y() - mouse_pos.y();
+            move_->isChecked() ? control_->MouseMoveY(y) : control_->MouseRotateY(y);
         } else if (z_->isChecked()) {
-            float z = mouseEvent->position().x() - mouse_pos.x();
-            move_->isChecked() ? control_->MouseMoveX(z) : control_->MouseRotateX(z);
+            float z = (mouseEvent->position().x() + mouseEvent->position().y()) - (mouse_pos.x() + mouse_pos.y());
+            move_->isChecked() ? control_->MouseMoveZ(z) : control_->MouseRotateZ(z);
         } else {
             
             float x = mouseEvent->position().x() - mouse_pos.x();
-            float z = mouseEvent->position().y() - mouse_pos.y();
-            std::cout << x << " " << z << " mouse pos\n";
-            move_->isChecked() ? control_->MouseMoveXZ(x, z) : control_->MouseRotateXZ(x, z);
+            float y = mouseEvent->position().y() - mouse_pos.y();
+            // std::cout << x << " " << z << " mouse pos\n";
+            move_->isChecked() ? control_->MouseMoveXY(x, y) : control_->MouseRotateXY(x, y);
         }
     }
     mouse_pos = mouseEvent->position();

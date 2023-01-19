@@ -49,9 +49,9 @@ class MouseMoveZCommand : public MoveCommand {
     void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 
-class MouseMoveXZCommand : public MoveCommand {
+class MouseMoveXYCommand : public MoveCommand {
   public:
-    MouseMoveXZCommand(float x, float z) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
+    MouseMoveXYCommand(float x, float y) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
     void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 

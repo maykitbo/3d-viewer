@@ -21,13 +21,13 @@ class Mediator : public AbstractMediator {
             fasade_->OpenFile(file_path);
         }
         void Move(float x, float y, float z) override {
-             fasade_->MoveObject(x, y, z);
+             fasade_->MoveObject(DefultValues::MoveRatio * x, DefultValues::MoveRatio * y, DefultValues::MoveRatio * z);
         }
         void Rotate(float x, float y, float z) override {
-            // fasade_->RotateObject(x, y, z);
+            fasade_->RotateObject(DefultValues::RotateRatio * x, DefultValues::RotateRatio * y, DefultValues::RotateRatio * z);
         }
         void Scale(float s) override {
-            // fasade_->ScaleObject(s);
+            fasade_->ScaleObject(DefultValues::ScaleRatio * s);
         }
         void ESize(int s) override {
             // fasade_->SetLineSize(s);
