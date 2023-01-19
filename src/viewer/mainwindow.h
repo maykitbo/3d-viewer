@@ -31,6 +31,9 @@ public:
 //        ui->gridLayout->addWidget(ogl, 0, 0);
         // ui->gridLayout_4->addWidget(OGLWidget, 0, 0);
     }
+    OGLWidget *GetWidget() {
+        return ui->widget;
+    }
 
 private slots:
     void test() { std::cout << "test color\n"; }

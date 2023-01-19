@@ -53,6 +53,7 @@ void s21::OGLWidget::draw_edges() {
   glLineWidth(edges_size_);
   prog->setUniformValue(color_address, edges_color_);
   glDrawElementsBaseVertex(GL_LINES, lines_count_, GL_UNSIGNED_INT,0,0);
+  // glDrawElements(GL_LINES, lines_count_, GL_UNSIGNED_INT,0);
 
   if (edges_type_ == dashed) {
     glDisable(GL_LINE_STIPPLE);
@@ -66,6 +67,7 @@ void s21::OGLWidget::draw_vertices() {
     if (vertices_type_ == circle)
       glEnable(GL_POINT_SMOOTH);
     glDrawArraysInstancedARB(GL_POINTS, 0, vertices_count_,1);
+    // glDrawArrays(GL_POINTS, 0, vertices_count_);
     if (vertices_type_ == circle)
       glDisable(GL_POINT_SMOOTH);
   }

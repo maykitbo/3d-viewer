@@ -65,6 +65,7 @@ class UndoCommand {
     public:
         //  TODO нужно прописать отдельные юзинги для линукса и мака
         using Time = std::chrono::steady_clock::time_point;
+        // using Time = std::chrono::_V2::system_clock::time_point;
     private:
         Time Now() { return std::chrono::high_resolution_clock::now(); }
         Time time_ = Now();

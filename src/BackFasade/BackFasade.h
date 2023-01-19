@@ -35,6 +35,9 @@ namespace s21
     void SetBgColor(QColor color);
     void SaveImage(RenderType type);
     OGLWidget *GetWidget();
+    void AddWidget(OGLWidget *W) {
+      Widget_ = W;
+    }
   };
 
 } // namespace s21
