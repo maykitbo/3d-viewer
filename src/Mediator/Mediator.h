@@ -21,7 +21,7 @@ class Mediator : public AbstractMediator {
             fasade_->OpenFile(file_path);
         }
         void Move(float x, float y, float z) override {
-            // fasade_->MoveObject(x, y, z);
+             fasade_->MoveObject(x, y, z);
         }
         void Rotate(float x, float y, float z) override {
             // fasade_->RotateObject(x, y, z);

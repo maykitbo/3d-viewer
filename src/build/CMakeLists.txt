@@ -88,6 +88,7 @@ endif()
 
 target_include_directories(viewer PUBLIC ../viewer)
 target_include_directories(viewer PUBLIC ../Commands)
+target_include_directories(viewer PUBLIC ../OGLWidget)
 
 target_link_libraries(viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(viewer PRIVATE Qt6::OpenGLWidgets)

@@ -34,7 +34,6 @@ struct History {
     List::iterator iter_;
 };
 
-
 class HistoryCommand : public Command {
     protected:
         History history_;
@@ -64,7 +63,8 @@ class HistoryCommand : public Command {
 
 class UndoCommand {
     public:
-        using Time = std::chrono::_V2::system_clock::time_point;
+        //  TODO нужно прописать отдельные юзинги для линукса и мака
+        using Time = std::chrono::steady_clock::time_point;
     private:
         Time Now() { return std::chrono::high_resolution_clock::now(); }
         Time time_ = Now();

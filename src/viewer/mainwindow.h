@@ -28,7 +28,7 @@ public:
     ~MainWindow();
     // QWidget *GetWidget() const { return ui->widget; }
     void SetWidget(OGLWidget *ogl) {
-        ui->gridLayout->addWidget(ogl, 0, 0);
+//        ui->gridLayout->addWidget(ogl, 0, 0);
         // ui->gridLayout_4->addWidget(OGLWidget, 0, 0);
     }
 

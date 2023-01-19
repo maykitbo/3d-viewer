@@ -2,6 +2,7 @@
 
 s21::OGLWidget::OGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
     this->setFocusPolicy(Qt::StrongFocus);
+    Afin = new AfinTransformStrategy;
 }
 
 s21::OGLWidget::~OGLWidget() {
@@ -12,7 +13,6 @@ void s21::OGLWidget::initializeGL() {
   glEnable(GL_DEPTH_TEST);
   initialize_shaders();
   set_addresses();
-  Afin = new AfinTransformStrategy;
 
   set_default_settings();
   add_example_vectors();
@@ -28,10 +28,9 @@ void s21::OGLWidget::paintGL() {
     glClearColor(bg_color_.redF(), bg_color_.greenF(), bg_color_.blueF(), 1);
 
     prog->bind();
-    
-    // Afin->SetMove(3,0,0);
 
     QMatrix4x4 MnojMatrix = Afin->GetMatrix();
+
     prog->setUniformValue(coeff_address, MnojMatrix);
 
     vao.bind();
@@ -53,7 +52,7 @@ void s21::OGLWidget::draw_edges() {
 
   glLineWidth(edges_size_);
   prog->setUniformValue(color_address, edges_color_);
-  glDrawElementsBaseVertex(GL_LINES, edges_size_, GL_UNSIGNED_INT,0,0);
+  glDrawElementsBaseVertex(GL_LINES, lines_count_, GL_UNSIGNED_INT,0,0);
 
   if (edges_type_ == dashed) {
     glDisable(GL_LINE_STIPPLE);

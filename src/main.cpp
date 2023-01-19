@@ -3,7 +3,6 @@
 #include "Mediator/Mediator.h"
 #include "BackFasade/BackFasade.h"
 
-
 #include <QApplication>
 
 int main(int argc, char *argv[])

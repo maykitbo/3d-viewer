@@ -5,7 +5,6 @@ s21::AfinTransformStrategy::AfinTransformStrategy() : width_(100), heigth_(100){
 }
 
 void s21::AfinTransformStrategy::SetMove(double x, double y, double z) {
-
   QVector4D move_col;
   move_col.setX(x);
   move_col.setY(y);

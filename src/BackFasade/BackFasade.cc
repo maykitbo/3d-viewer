@@ -14,10 +14,10 @@ s21::BackFasade::~BackFasade() {
 
 void s21::BackFasade::OpenFile(std::string &file_path) {
   Parser_->parse(file_path);
-  Widget_->set_object(Parser_.getVertex(), Parser_.getLines());
+  Widget_->set_object(Parser_->getVertex(), Parser_->getLines());
 }
 
-void s21::BackFasade::MoveObject(float x, float y, float z) { 
+void s21::BackFasade::MoveObject(float x, float y, float z) {
   Widget_->move_object(x,y,z);
 }
 
@@ -65,6 +65,6 @@ void s21::BackFasade::SaveImage(RenderType type) {
   Widget_->save_image(type);
 }
 
-OGLWidget s21::BackFasade::GiveWidget() {
+s21::OGLWidget *s21::BackFasade::GetWidget() {
   return Widget_;
 }

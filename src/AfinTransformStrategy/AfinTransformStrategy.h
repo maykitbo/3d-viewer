@@ -6,6 +6,8 @@
 #include <QVector4D>
 #include <QOpenGLWidget>
 
+#include <iostream>
+
 #include "../Helpers/Helpers.h"
 
 namespace s21 {

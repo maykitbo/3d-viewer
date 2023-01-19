@@ -69,7 +69,7 @@ struct DefultValues {
 
 #define BUFFER_SIZE 2000
 
-typedef std::vector<double> VerticesVector;
+typedef std::vector<float> VerticesVector;
 typedef std::vector<unsigned int> EdgesVector;
 
 }  // namespace s21
