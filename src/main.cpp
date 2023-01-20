@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
     s21::Controller control(&commands);
     s21::Mediator<s21::Controller, s21::BackFasade> mediator(&control, &fasade);
     s21::MainWindow w(&control);
-    // w.SetWidget(fasade.GetWidget());
     fasade.AddWidget(w.GetWidget());
     commands.AddMediator((s21::AbstractMediator*)&mediator);
     

@@ -71,7 +71,7 @@ struct DefultValues {
 // };
 
 typedef std::vector<float> VerticesVector;
-typedef std::vector<unsigned int> EdgesVector;
+typedef std::vector<uint> EdgesVector;
 
 }  // namespace s21
 

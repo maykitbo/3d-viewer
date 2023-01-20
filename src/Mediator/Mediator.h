@@ -21,45 +21,45 @@ class Mediator : public AbstractMediator {
             fasade_->OpenFile(file_path);
         }
         void Move(float x, float y, float z) override {
-            //  fasade_->MoveObject(DefultValues::MoveRatio * x, DefultValues::MoveRatio * y, DefultValues::MoveRatio * z);
+             fasade_->MoveObject(DefultValues::MoveRatio * x, DefultValues::MoveRatio * y, DefultValues::MoveRatio * z);
             std::cout << x << " " << y << " " << z << " move\n";
         }
         void Rotate(float x, float y, float z) override {
-            // fasade_->RotateObject(DefultValues::RotateRatio * x, DefultValues::RotateRatio * y, DefultValues::RotateRatio * z);
+            fasade_->RotateObject(DefultValues::RotateRatio * x, DefultValues::RotateRatio * y, DefultValues::RotateRatio * z);
             std::cout << x << " " << y << " " << z << " rotate\n";
         }
         void Scale(float s) override {
-            // fasade_->ScaleObject(DefultValues::ScaleRatio * s);
+            fasade_->ScaleObject(DefultValues::ScaleRatio * s);
             std::cout << s << " scale\n";
         }
         void ESize(int s) override {
-            // fasade_->SetLineSize(s);
+            fasade_->SetLineSize(s);
         }
         void VSize(int s) override {
-            // fasade_->SetPointSize(s);
+            fasade_->SetPointSize(s);
         }
         void EType(EdgesType t) override {
-            // fasade_->SetLineType(t);
+            fasade_->SetLineType(t);
         }
         void VType(VerticesType t) override {
-            // fasade_->SetPointType(t);
+            fasade_->SetPointType(t);
         }
         void PType(Projection t) override {
-            // fasade_->SetProjection(t);
+            fasade_->SetProjection(t);
         }
         void RType(RotateType t) override {
             // fasade_->SetRotateType(t);
         }
         void VColor(QColor c) override {
-            // fasade_->SetPointColor(c);
+            fasade_->SetPointColor(c);
             control_->SetVColor(ClolorToString(c));
         }
         void EColor(QColor c) override {
-            // fasade_->SetLineColor(c);
+            fasade_->SetLineColor(c);
             control_->SetEColor(ClolorToString(c));
         }
         void BgColor(QColor c) override {
-            // fasade_->SetBgColor(c);
+            fasade_->SetBgColor(c);
             control_->SetBgColor(ClolorToString(c));
         }
         void Gif(double t, int fps) override {

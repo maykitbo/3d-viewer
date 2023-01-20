@@ -20,13 +20,22 @@ class Momentum {
         using Time = std::chrono::_V2::system_clock::time_point;
         Time Now() { return std::chrono::high_resolution_clock::now(); }
         Time time_ = Now();
+        //  delta_;
         std::function<void(float)> act_;
-        void UpTime() { time_ = Now(); }
+        void Acceleration() {
+        //     std::chrono::duration_cast<std::chrono::milliseconds>(time_ - last_time).count()
+        //     // if (delta_ > Now() - time_) block_ = true;
+        //     // else block_ = false;
+        //     // delta_ = Now() - time_;
+        //     // time_ = Now();
+        }
+        bool block_ = false;
     public:
         Momentum() {}
         template<class F>
         void Action(const F &act) {
             act(1.0);
+            Acceleration();
             // auto buff = act_;
             act_ = act;
             // std::cout << "act == act " << (act_ == buff) << "\n";
@@ -39,6 +48,7 @@ class Momentum {
         void Extend() {
             
         }
+        void Stop() { block_ = true; }
 
 };
 
@@ -54,13 +64,13 @@ class MEvent : public QObject {
         bool KeyCase(QEvent *event);
         bool MouseMove(QObject *object, QEvent *event);
         void MoveX(float x) { control_->MouseMoveX(DefultValues::MoveRatio * x); }
-        void MoveY(float y) { control_->MouseMoveY(DefultValues::MoveRatio * y); }
+        void MoveY(float y) { control_->MouseMoveY(-1 * DefultValues::MoveRatio * y); }
         void MoveZ(float z) { control_->MouseMoveY(DefultValues::MoveRatio * z); }
-        void MoveXY(float x, float y) { control_->MouseMoveXY(DefultValues::MoveRatio * x, DefultValues::MoveRatio * y); }
+        void MoveXY(float x, float y) { control_->MouseMoveXY(DefultValues::MoveRatio * x, -1 * DefultValues::MoveRatio * y); }
         void RotateX(float x) { inertia_.Action([&](float k){control_->MouseRotateX(DefultValues::RotateRatio * x * k);}); }
-        void RotateY(float y) { control_->MouseRotateY(DefultValues::RotateRatio * y); }
+        void RotateY(float y) { control_->MouseRotateY(-1 * DefultValues::RotateRatio * y); }
         void RotateZ(float z) { control_->MouseRotateY(DefultValues::RotateRatio * z); }
-        void RotateXY(float x, float y) { control_->MouseRotateXY(DefultValues::RotateRatio * x, DefultValues::RotateRatio * y); }
+        void RotateXY(float x, float y) { control_->MouseRotateXY(DefultValues::RotateRatio * x, -1 * DefultValues::RotateRatio * y); }
         bool MousePressed(QEvent *event);
         bool MouseWheel(QObject *object, QEvent *event);
         bool MouseRelease(QObject *object, QEvent *event);
