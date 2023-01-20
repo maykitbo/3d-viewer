@@ -44,6 +44,11 @@ void Parser::caseF() {
     while (file_.peek() != '\n' && file_) {
         if (file_.peek() == ' ') {
             file_ >> lines_[lines_i_];
+            lines_[lines_i_]--;
+            if (lines_i_ % 2) {
+                ++lines_i_;
+                lines_[lines_i_] = lines_[lines_i_ - 1];
+            }
             // lines_[lines_i_]--;
             ++lines_i_;
             if (!(lines_i_ % 1000)) lines_.resize(lines_i_ + 1001);

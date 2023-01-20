@@ -7,13 +7,17 @@
 using namespace s21;
 
 MainWindow::MainWindow(Controller *control, QWidget *parent) :\
-        QMainWindow(parent) , ui(new Ui::MainWindow), control_(control) {
-
+        QMainWindow(parent) , ui(new Ui::MainWindow), control_(control), event_(control) {
+    
+    // QPixmap pixmap("../.buttons/move.png");
+    // QIcon ButtonIcon(pixmap);
+    // ui->handButton->setIcon(ButtonIcon);
+    // ui->handButton->setIconSize(pixmap.rect().size());
     ui->setupUi(this);
     bg_color_.setWindowTitle("Background");
     vertices_color_.setWindowTitle("Vertices");
     edges_color_.setWindowTitle("Edges");
-    event_.SetController(control_);
+    // event_.SetController(control_);
     event_.SetButtons(ui->handButton, ui->xMouseButton, ui->yMouseButton, ui->zMouseButton, ui->widget);
     ui->widget->installEventFilter(&event_);
     ui->rotateXSpin->installEventFilter(&event_);

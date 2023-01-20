@@ -13,20 +13,19 @@ void MEvent::SetButtons(QToolButton *move, QToolButton *x, QToolButton *y, QTool
 }
 
 bool MEvent::eventFilter(QObject *object, QEvent *event) {
+    // if ((*QObject)move_ == object)
     switch (event->type()) {
         case QEvent::KeyPress:
-            // std::cout << k++ << "KeyPressed\n";
             return KeyCase(event);
         case QEvent::MouseButtonPress:
-            // QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
-            mouse_pos = static_cast<QMouseEvent*>(event)->position();
-            return true;
+            return MousePressed(event);
         case QEvent::MouseMove:
-            // std::cout << k++ << "MouseButtonPress\n";
-            if(object == widget_) MouseEvent(event);
-            else return false;
-            return true;
-        // case QEvent::MouseButtonRelease:
+            return MouseMove(object, event);
+        case QEvent::Wheel:
+            return MouseWheel(object, event);
+        case QEvent::MouseButtonRelease:
+            return MouseRelease(object, event);
+
         //     std::cout << k++ << "MouseButtonRelease\n";
         //     MouseEvent(event);
         //     return true;
@@ -44,31 +43,43 @@ bool MEvent::eventFilter(QObject *object, QEvent *event) {
     return false;
 }
 
-void MEvent::MouseEvent(QEvent *event) {
-    // std::cout << k++ << "MouseMove\n";
-    QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
-    if (!mouseEvent->isBeginEvent()) { 
-    //     mouse_pos = mouseEvent->position();
-    // } else {
-        if (x_->isChecked()) {
-            float x = mouseEvent->position().x() - mouse_pos.x();
-            move_->isChecked() ? control_->MouseMoveX(x) : control_->MouseRotateX(x);
-        } else if (y_->isChecked()) {
-            float y = mouseEvent->position().y() - mouse_pos.y();
-            move_->isChecked() ? control_->MouseMoveY(y) : control_->MouseRotateY(y);
-        } else if (z_->isChecked()) {
-            float z = (mouseEvent->position().x() + mouseEvent->position().y()) - (mouse_pos.x() + mouse_pos.y());
-            move_->isChecked() ? control_->MouseMoveZ(z) : control_->MouseRotateZ(z);
-        } else {
-            
-            float x = mouseEvent->position().x() - mouse_pos.x();
-            float y = mouseEvent->position().y() - mouse_pos.y();
-            // std::cout << x << " " << z << " mouse pos\n";
-            move_->isChecked() ? control_->MouseMoveXY(x, y) : control_->MouseRotateXY(x, y);
-        }
+bool MEvent::MouseRelease(QObject *object, QEvent *event) {
+    if (widget_ != object) return false;
+    inertia_.Extend();
+    return true;
+}
+
+bool MEvent::MouseWheel(QObject *object, QEvent *event) {
+    if (widget_ != object) return false;
+    control_->MouseScale(static_cast<QWheelEvent*>(event)->angleDelta().y() > 0 ?\
+                        DefultValues::ScaleRatio : 1 / DefultValues::ScaleRatio);
+    return true;
+}
+
+bool MEvent::MousePressed(QEvent *event) {
+    mouse_pos = static_cast<QMouseEvent*>(event)->globalPosition();
+    return false;
+}
+
+bool MEvent::MouseMove(QObject *object, QEvent *event) {
+    if (widget_ != object) return false;
+    auto new_pos = static_cast<QMouseEvent*>(event)->globalPosition();
+    if (x_->isChecked()) {
+        float x = new_pos.x() - mouse_pos.x();
+        move_->isChecked() ? MoveX(x) : RotateX(x);
+    } else if (y_->isChecked()) {
+        float y = new_pos.y() - mouse_pos.y();
+        move_->isChecked() ? MoveY(y) : RotateY(y);
+    } else if (z_->isChecked()) {
+        float z = (new_pos.x() + new_pos.y()) - (mouse_pos.x() + mouse_pos.y());
+        move_->isChecked() ? MoveZ(z) : RotateZ(z);
+    } else {
+        float x = new_pos.x() - mouse_pos.x();
+        float y = new_pos.y() - mouse_pos.y();
+        move_->isChecked() ? MoveXY(x, y) : RotateXY(x, y);
     }
-    mouse_pos = mouseEvent->position();
-    // std::cout << "begin event: " << mouseEvent->isBeginEvent() << " // end event: " << mouseEvent->isEndEvent() << "\n";
+    mouse_pos = new_pos;
+    return true;
 }
 
 bool MEvent::KeyCase(QEvent *event) {

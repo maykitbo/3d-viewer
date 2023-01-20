@@ -14,7 +14,7 @@ class ZoomCommand : public OneValCommand<float, ZoomCommand, DefultValues::Scale
     ZoomCommand() : OneValCommand() {}
     ZoomCommand(std::fstream &file) : OneValCommand(file) {}
     ZoomCommand(float val) : OneValCommand(val) {}
-    void Execute() override { mediator_->Scale(value_); }
+    virtual void Execute() override { mediator_->Scale(value_); }
     void Cancel() override { mediator_->SetScale(value_); }
     bool Cleanable() override { return true; }
 };
@@ -23,7 +23,8 @@ struct OpenCleanable<ZoomCommand> { const static bool value = true; };
 
 class MouseZoomCommand : public ZoomCommand {
   public:
-    MouseZoomCommand(float val) : ZoomCommand(last_.Get()->GetVal() + val) {}
+    MouseZoomCommand(float val) : ZoomCommand(last_.Get()->GetVal() / val) {}
+    void Execute() override { mediator_->SetScale(value_); }
 };
 
 class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand, DefultValues::BackgroundColor> {
