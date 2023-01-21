@@ -22,7 +22,7 @@ void Parser::parse(std::string &fName) {
         }
     }
     vertex_.resize(vertex_i_);
-    lines_.resize(lines_i_);
+    lines_.resize(lines_i_ - 1);
     file_.close();
 }
 

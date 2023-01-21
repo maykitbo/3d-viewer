@@ -78,7 +78,7 @@ bool MEvent::MouseMove(QObject *object, QEvent *event) {
     } else if (y_->isChecked()) {
         move ? MoveY(y) : RotateY(x);
     } else if (z_->isChecked()) {
-        float z = (new_pos.x() + new_pos.y()) - (mouse_pos.x() + mouse_pos.y());
+        float z = x - y;
         move ? MoveZ(z) : RotateZ(z);
     } else {
         move ? MoveXY(x, y) : RotateXY(y, x);

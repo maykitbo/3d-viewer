@@ -2,13 +2,17 @@
 #define PARSING_H
 
 // #include <vector>
-#include <string>
+// #include <string>
 #include <fstream>
 #include <limits>
+#include <vector>
 
-#include "../Helpers/Helpers.h"
+// #include "../Helpers/Helpers.h"
 
 namespace s21 {
+
+typedef std::vector<float> VerticesVector;
+typedef std::vector<uint> EdgesVector;
 
 class Parser {
     private:

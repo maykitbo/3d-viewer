@@ -14,6 +14,10 @@ s21::BackFasade::~BackFasade() {
 
 void s21::BackFasade::OpenFile(std::string &file_path) {
   Parser_->parse(file_path);
+  for (auto i :  Parser_->getVertex()) { std::cout << i << " "; }
+  std::cout << "\n";
+  for (auto i :  Parser_->getLines()) { std::cout << i << " "; }
+  std::cout << "\n";
   Widget_->set_object(Parser_->getVertex(), Parser_->getLines());
 }
 

@@ -1,9 +1,5 @@
 CC=g++
-CFLAGS= -Wall -Werror -Wextra
-
-# buildcommand:
-# 	$(MAKE) -C CommandsTest/Build
-# 	./CommandsTest/Nuild/commands_test
+CFLAGS= -Wall -Werror -Wextra -lgtest_main -lgtest -lpthread
 
 command:
 	cmake -B"CommandsTest/Build" -H"CommandsTest/Build"
@@ -14,7 +10,8 @@ valgrind_command:
 	valgrind -s ./CommandsTest/Build/commands_test
 
 build_test_parser:
-	$(CC) $(CFLAGS) ../Parser/Parser.cc TestParser.cc -o test_parser
+	$(CC) $(CFLAGS) ../Parser/Parser.cc Parser/TestParser.cc -o test_parser
+	# mv Parser/test_parser .
 
 parser: build_test_parser
 	./test_parser

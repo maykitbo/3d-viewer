@@ -10,8 +10,8 @@ class MoveCommand : public CoordsCommand<MoveCommand> {
     MoveCommand() : CoordsCommand() {}
     MoveCommand(std::fstream &file) : MoveCommand() {}
     MoveCommand(float x, float y, float z) : CoordsCommand(x, y, z) {}
-    virtual void Execute() override { mediator_->Move(x_, y_, z_); }
-    virtual void Cancel() { mediator_->SetMove(x_, y_, z_); }
+    void Execute() override { mediator_->Move(x_, y_, z_); }
+    void Cancel() override { mediator_->SetMove(x_, y_, z_); }
 };
 template<>
 struct OpenCleanable<MoveCommand> { const static bool value = true; };
@@ -46,7 +46,9 @@ class MouseMoveYCommand : public MoveCommand {
 class MouseMoveZCommand : public MoveCommand {
   public:
     MouseMoveZCommand(float z) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
-    void Execute() override { mediator_->SetMove(x_, y_, z_); }
+    void Execute() override { 
+      std::cout << x_ << " " << y_ << " " << z_ << " MouseMoveZCommand\n";
+      mediator_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveXYCommand : public MoveCommand {

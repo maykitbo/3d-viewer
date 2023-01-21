@@ -59,6 +59,9 @@ class OGLWidget : public QOpenGLWidget {
   void save_image(RenderType type);
 
  private:
+ void *index_;
+ QOpenGLBuffer vbo;
+QOpenGLBuffer ibo;
   QOpenGLShaderProgram *prog;
   QOpenGLVertexArrayObject vao;
   int coeff_address;

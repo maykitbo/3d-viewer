@@ -62,11 +62,11 @@ class MEvent : public QObject {
         bool MouseMove(QObject *object, QEvent *event);
         void MoveX(float x) { control_->MouseMoveX(DefultValues::MoveRatio * x); }
         void MoveY(float y) { control_->MouseMoveY(-1 * DefultValues::MoveRatio * y); }
-        void MoveZ(float z) { control_->MouseMoveY(DefultValues::MoveRatio * z); }
+        void MoveZ(float z) { control_->MouseMoveZ(DefultValues::MoveRatio * z); }
         void MoveXY(float x, float y) { control_->MouseMoveXY(DefultValues::MoveRatio * x, -1 * DefultValues::MoveRatio * y); }
         void RotateX(float x) { inertia_.Action([&](float k){control_->MouseRotateX(DefultValues::RotateRatio * x * k);}); }
         void RotateY(float y) { control_->MouseRotateY(-1 * DefultValues::RotateRatio * y); }
-        void RotateZ(float z) { control_->MouseRotateY(DefultValues::RotateRatio * z); }
+        void RotateZ(float z) { control_->MouseRotateZ(DefultValues::RotateRatio * z); }
         void RotateXY(float x, float y) { control_->MouseRotateXY(DefultValues::RotateRatio * x, -1 * DefultValues::RotateRatio * y); }
         bool MousePressed(QEvent *event);
         bool MouseWheel(QObject *object, QEvent *event);

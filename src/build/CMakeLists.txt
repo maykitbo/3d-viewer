@@ -61,6 +61,13 @@ set(PROJECT_SOURCES
         ../viewer/EventFilter.h
         ../viewer/EventFilter.cc
         ../viewer/mainwindow.ui
+        ../.buttons/move.png
+        ../.buttons/rotate.png
+        ../.buttons/xyz.png
+
+
+        ../OGLWidget/Error.h
+        ../OGLWidget/Error.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -89,6 +96,7 @@ endif()
 target_include_directories(viewer PUBLIC ../viewer)
 target_include_directories(viewer PUBLIC ../Commands)
 target_include_directories(viewer PUBLIC ../OGLWidget)
+# target_include_directories(viewer PUBLIC ../.buttons)
 
 target_link_libraries(viewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(viewer PRIVATE Qt6::OpenGLWidgets)
