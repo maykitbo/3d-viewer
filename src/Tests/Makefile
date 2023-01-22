@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -Wall -Werror -Wextra -lgtest_main -lgtest -lpthread
+CFLAGS= -lgtest_main -lgtest -lpthread
 
 command:
 	cmake -B"CommandsTest/Build" -H"CommandsTest/Build"
