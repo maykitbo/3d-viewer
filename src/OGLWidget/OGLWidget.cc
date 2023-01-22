@@ -1,8 +1,8 @@
 #include "OGLWidget.h"
 
 s21::OGLWidget::OGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
-    this->setFocusPolicy(Qt::StrongFocus);
-    Afin = new AfinTransformStrategy;
+  this->setFocusPolicy(Qt::StrongFocus);
+  Afin = new AfinTransformStrategy;
 }
 
 s21::OGLWidget::~OGLWidget() {
@@ -13,10 +13,6 @@ void s21::OGLWidget::initializeGL() {
   glEnable(GL_DEPTH_TEST);
   initialize_shaders();
   set_addresses();
-
-  set_default_settings();
-  add_example_vectors();
-
 }
 
 void s21::OGLWidget::resizeGL(int w, int h) {
@@ -66,13 +62,12 @@ void s21::OGLWidget::draw_vertices() {
     glPointSize(vertices_size_);
     if (vertices_type_ == circle)
       glEnable(GL_POINT_SMOOTH);
-    glDrawArraysInstancedARB(GL_POINTS, 0, vertices_count_,1);
-    // glDrawArrays(GL_POINTS, 0, vertices_count_);
+    glDrawArraysInstancedARB(GL_POINTS, 0, vertices_count_/3,1);
+    // glDrawArrays(GL_POINTS, 0, vertices_count_/3);
     if (vertices_type_ == circle)
       glDisable(GL_POINT_SMOOTH);
   }
 }
-
 
 void s21::OGLWidget::set_coeff_matrix(QMatrix4x4 matrix) {
   prog->setUniformValue(coeff_address, matrix);
@@ -134,8 +129,6 @@ void s21::OGLWidget::set_addresses() {
   color_address = prog->uniformLocation("color");
 }
 
-
-
 void s21::OGLWidget::add_example_vectors() {
   VerticesVector verts{-0.5, 0,    -0.5,
                         0.5, 0,    -0.5,
@@ -182,7 +175,7 @@ void s21::OGLWidget::change_line_size(int size) {
 }
 
 void s21::OGLWidget::change_bg_color(QColor color) {
-  edges_color_ = color;
+  bg_color_ = color;
   update();
 }
 
@@ -197,6 +190,7 @@ void s21::OGLWidget::move_object(float x, float y, float z) {
 }
 
 void s21::OGLWidget::zoom_object(float zoom) {
+  std::cout << zoom << " is zoom" << std::endl;
   Afin->SetZoom(zoom);
   update();
 }
@@ -226,19 +220,93 @@ void s21::OGLWidget::set_object(VerticesVector vertex_array, EdgesVector lines_a
   update();
 }
 
-void s21::OGLWidget::save_image(RenderType type) {
-  QString format;
-  if (type == jpeg) {
-    format = "*.jpg";
-  } else if (type == bmp) {
-    format = "*.bmp";
-  } else {
-    return;
-  }
-  QString save_file_path =
-    QFileDialog::getSaveFileName(0, "Сохранить файл как", "", format);
+// void s21::OGLWidget::save_image(RenderType type) {
+//   QString format;
+//   if (type == jpeg) {
+//     format = "*.jpg";
+//   } else if (type == bmp) {
+//     format = "*.bmp";
+//   } else {
+//     return;
+//   }
+//   QString save_file_path =
+//     QFileDialog::getSaveFileName(0, "Сохранить файл как", "", format);
 
-  if (!save_file_path.isEmpty()) {
-    grab().save(save_file_path);
-  }
-}
+//   if (!save_file_path.isEmpty()) {
+//     grab().save(save_file_path);
+//   }
+// }
+
+// void s21::OGLWidget::get_gif(int fps, int length) {
+//     QDir *pathDir = new QDir();
+//     pathDir->mkdir(QDir::homePath() + "/screenshots/gif_obj/");
+//     startTime = 0, tmpTime = 1000 / fps;
+//     timer = new QTimer(this);
+//     connect(timer, SIGNAL(timeout()), this, SLOT(oneGif()));
+//     timer->start(1000 / fps);
+// }
+
+// void s21::OGLWidget::one_gif() {
+//   if (startTime == tmpTime) {
+//     ui->widget_3->grab().scaled(640, 480, Qt::IgnoreAspectRatio).save(QDir::homePath() + "/screenshots/gif_obj/" + QString::number(counter) +".bmp");
+//     counter++;
+//     tmpTime += 1000 / GifFps;
+//   }
+//   if (startTime == 1000 * GifLength) {
+//     help_gif();
+//     timer->stop();
+//     counter = 1;
+//   }
+//   startTime += 1000 / GifFps;
+// }
+
+
+// void s21::OGLWidget::help_gif() {
+//   QDir pathFile;
+//   QDateTime dateTime = dateTime.currentDateTime();
+//   QString currentDateTime = dateTime.toString("yyyy_MM_dd_HHmmss_zzz");
+//   QString gif_name = QDir::homePath() + "/screenshots/" + currentDateTime + ".gif";
+//   QByteArray ga = gif_name.toLocal8Bit();
+//   GifWriter writer = {};
+//   int err = 0;
+
+//   if (GifBegin(&writer, ga.data(), 640, 480, 10, 8, false)) {
+//     for (int i = 1; i <= 50; i++) {
+//       if (err == 1) {
+//         break;
+//       }
+//       QImage img(QDir::homePath() + "/screenshots/gif_obj/" + QString::number(i) +
+//                  ".bmp");
+//       if (!img.isNull()) {
+//         if (GifWriteFrame(&writer,
+//                           img.convertToFormat(QImage::Format_Indexed8)
+//                               .convertToFormat(QImage::Format_RGBA8888)
+//                               .constBits(),
+//                           640, 480, 10, 8, false)) {
+//         } else {
+//           QMessageBox::critical(0, "Error", "Gif file can not be created...");
+//           err = 1;
+//         }
+//       } else {
+//         QMessageBox::critical(0, "Error", "Gif file can not be created...");
+//         err = 1;
+//       }
+//     }
+//     if (err == 0) {
+//       GifEnd(&writer);
+//     }
+//   } else {
+//     err = 1;
+//     QMessageBox::critical(0, "Error", "Gif file can not be created...");
+//   }
+
+//   if (err == 1) {
+//     if (QFile::exists(gif_name)) {
+//       QFile::remove(gif_name);
+//     }
+//   }
+
+//   pathFile.setPath(QDir::homePath() + "/screenshots/gif_obj/");
+//   pathFile.removeRecursively();
+//   ui->actionGIF_2->setEnabled(true);
+// }

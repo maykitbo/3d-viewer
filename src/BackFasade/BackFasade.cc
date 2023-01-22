@@ -2,14 +2,13 @@
 
 s21::BackFasade::BackFasade() {
   Parser_ = new Parser;
-  // Widget_ = new OGLWidget;
+  Widget_ = new OGLWidget;
 }
 
 s21::BackFasade::BackFasade(Parser *parser, OGLWidget *widget) : Parser_(parser), Widget_(widget) {}
 
 s21::BackFasade::~BackFasade() {
   delete Parser_;
-  delete Widget_;
 }
 
 void s21::BackFasade::OpenFile(std::string &file_path) {

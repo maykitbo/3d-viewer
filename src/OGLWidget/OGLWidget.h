@@ -93,6 +93,15 @@ class OGLWidget : public QOpenGLWidget {
   void add_example_vectors();
   void set_default_settings();
 
+
+    // void get_gif();
+    // void one_gif();
+    // const int GifFps = 10, GifLength = 5;
+    // QTimer *timer;
+    // void help_gif();
+    // int startTime, tmpTime;
+    // int counter = 1;
+
 };
 
 }  // namespace s21

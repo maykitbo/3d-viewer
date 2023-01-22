@@ -44,11 +44,12 @@ void s21::AfinTransformStrategy::SetRotate(double x_r, double y_r, double z_r) {
 
 void s21::AfinTransformStrategy::SetZoom(double zoom) {
   zoom_matrix_.setToIdentity();
-  zoom_matrix_ *= zoom;
+  zoom_matrix_.scale(zoom,zoom,zoom);
 }
 
 void s21::AfinTransformStrategy::ChangeProjection(Projection type) {
   if (type != projection_type_) {
+    projection_type_ = type;
     SetProjection();
   }
 }
@@ -57,7 +58,7 @@ void s21::AfinTransformStrategy::ChangeProjection(Projection type) {
 void s21::AfinTransformStrategy::SetProjection() {
   projection_matrix_.setToIdentity();
   if (projection_type_ == central) {
-    projection_matrix_.perspective(45.0f, GLfloat(width_) / heigth_, 0.01f, 100.0f);
+    projection_matrix_.perspective(45.0f, GLfloat(width_) / heigth_, 1.0f, 100.0f);
     projection_matrix_.translate(0, 0, -10);
   } else {
     float top, bottom, right, left, aratio;
