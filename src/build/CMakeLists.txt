@@ -61,9 +61,10 @@ set(PROJECT_SOURCES
         ../viewer/EventFilter.h
         ../viewer/EventFilter.cc
         ../viewer/mainwindow.ui
-        ../.buttons/move.png
-        ../.buttons/rotate.png
-        ../.buttons/xyz.png
+        
+        # ../.buttons/move.png
+        # ../.buttons/rotate.png
+        # ../.buttons/xyz.png
 
 
         ../OGLWidget/Error.h
@@ -93,8 +94,8 @@ else()
     endif()
 endif()
 
-target_include_directories(viewer PUBLIC ../viewer)
-target_include_directories(viewer PUBLIC ../Commands)
+# target_include_directories(viewer PUBLIC ../viewer)
+# target_include_directories(viewer PUBLIC ../Commands)
 target_include_directories(viewer PUBLIC ../OGLWidget)
 # target_include_directories(viewer PUBLIC ../.buttons)
 

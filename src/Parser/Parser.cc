@@ -23,13 +23,10 @@ void Parser::parse(std::string &fName) {
                 file_.ignore();
                 break;
             default:
-                // file_.ignore();
-                // break;
-                // std::cout << (char)file_.peek() << "i\n";
                 file_.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
         }
     }
-    vertex_.resize(vertex_i_);
+    // vertex_.resize(vertex_i_);
     // lines_.resize(lines_i_ - 1);
     file_.close();
 }

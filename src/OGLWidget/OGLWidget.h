@@ -1,3 +1,4 @@
+
 #ifndef VIEWER_OGLWIDGET_H
 #define VIEWER_OGLWIDGET_H
 
@@ -59,9 +60,6 @@ class OGLWidget : public QOpenGLWidget {
   void save_image(RenderType type);
 
  private:
- void *index_;
- QOpenGLBuffer vbo;
-QOpenGLBuffer ibo;
   QOpenGLShaderProgram *prog;
   QOpenGLVertexArrayObject vao;
   int coeff_address;
@@ -80,9 +78,9 @@ QOpenGLBuffer ibo;
   EdgesType edges_type_;
   unsigned lines_count_;
 
-  void initializeGL() override ;
-  void paintGL() override ;
-  void resizeGL(int w, int h) override ;
+  void initializeGL();
+  void paintGL();
+  void resizeGL(int w, int h);
 
   void initialize_shaders();
   void set_addresses();
@@ -90,11 +88,23 @@ QOpenGLBuffer ibo;
   void draw_edges();
   void draw_vertices();
 
-  void set_buffers(VerticesVector vertex_array, EdgesVector lines_array);
+  void set_buffers();
 
 
   void add_example_vectors();
   void set_default_settings();
+
+
+  VerticesVector verts_;
+  EdgesVector lines_;
+
+    // void get_gif();
+    // void one_gif();
+    // const int GifFps = 10, GifLength = 5;
+    // QTimer *timer;
+    // void help_gif();
+    // int startTime, tmpTime;
+    // int counter = 1;
 
 };
 

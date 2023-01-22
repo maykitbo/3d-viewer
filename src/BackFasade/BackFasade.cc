@@ -9,15 +9,15 @@ s21::BackFasade::BackFasade(Parser *parser, OGLWidget *widget) : Parser_(parser)
 
 s21::BackFasade::~BackFasade() {
   delete Parser_;
-  delete Widget_;
+  // delete Widget_;
 }
 
 void s21::BackFasade::OpenFile(std::string &file_path) {
   Parser_->parse(file_path);
-  for (auto i :  Parser_->getVertex()) { std::cout << i << " "; }
-  std::cout << "\n";
-  for (auto i :  Parser_->getLines()) { std::cout << i << " "; }
-  std::cout << "\n";
+  // for (auto i :  Parser_->getVertex()) { std::cout << i << " "; }
+  // std::cout << "\n";
+  // for (auto i :  Parser_->getLines()) { std::cout << i << " "; }
+  // std::cout << "\n";
   Widget_->set_object(Parser_->getVertex(), Parser_->getLines());
 }
 
@@ -66,7 +66,7 @@ void s21::BackFasade::SetBgColor(QColor color) {
 }
 
 void s21::BackFasade::SaveImage(RenderType type) {
-  Widget_->save_image(type);
+  // Widget_->save_image(type);
 }
 
 s21::OGLWidget *s21::BackFasade::GetWidget() {

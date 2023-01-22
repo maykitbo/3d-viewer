@@ -12,9 +12,11 @@ namespace s21 {
 
 class AbstractMediator {
     protected:
-        // Controller *control_;
-        // Fasade *fasade_;
         QString ClolorToString(QColor col) { return QString("background-color: %1").arg(col.name()); }
+        float RotateCool(float x) {
+            while (x < 0) x += 360.0;
+            return std::fmod(x, 360);
+        }
     public:
         AbstractMediator() {}
         virtual void Parse(std::string &file_path) = 0;
@@ -28,7 +30,6 @@ class AbstractMediator {
         virtual void Gif(double t, int fps) = 0;
         virtual void Render(RenderType type) = 0;
         virtual void Move(float x, float y, float z) = 0;
-        virtual void Rotate(float x, float y, float z) = 0;
         virtual void VColor(QColor c) = 0;
         virtual void EColor(QColor c) = 0;
         virtual void BgColor(QColor c) = 0;

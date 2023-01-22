@@ -59,7 +59,9 @@ class OGLWidget : public QOpenGLWidget {
   void save_image(RenderType type);
 
  private:
- void *index_;
+VerticesVector verts_;
+EdgesVector lines_;
+//  void *index_;
  QOpenGLBuffer vbo;
 QOpenGLBuffer ibo;
   QOpenGLShaderProgram *prog;
@@ -90,7 +92,7 @@ QOpenGLBuffer ibo;
   void draw_edges();
   void draw_vertices();
 
-  void set_buffers(VerticesVector vertex_array, EdgesVector lines_array);
+  void set_buffers();
 
 
   void add_example_vectors();

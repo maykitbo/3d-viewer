@@ -4,8 +4,11 @@
 #include <QMainWindow>
 #include <QColor>
 #include <QColorDialog>
+#include <QPixmap>
+#include <QIcon>
 
-#include <functional>
+#include <ostream>
+// #include <functional>
 
 #include "../Helpers/Helpers.h"
 #include "../Controller/Controller.h"
@@ -47,6 +50,10 @@ private:
     Ui::MainWindow *ui;
     Controller *control_;
     void Connects();
+    void Styles();
+    void Events();
+    const std::string current_path_ = std::filesystem::current_path().string();
+    QIcon Icon(std::string path) const { return QIcon(QString((current_path_+ path).data())); }
     std::string FileDialog();
     void closeEvent(QCloseEvent * event) override;
     // Color ColorButton(QPushButton *qpb);

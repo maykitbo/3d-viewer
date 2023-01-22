@@ -4,21 +4,36 @@
 
 #include <iostream>
 
+
 using namespace s21;
 
 MainWindow::MainWindow(Controller *control, QWidget *parent) :\
         QMainWindow(parent) , ui(new Ui::MainWindow), control_(control), event_(control) {
-    
-    // QPixmap pixmap("../.buttons/move.png");
-    // QIcon ButtonIcon(pixmap);
-    // ui->handButton->setIcon(ButtonIcon);
-    // ui->handButton->setIconSize(pixmap.rect().size());
     ui->setupUi(this);
+    Styles();
+    Events();
+    Connects();
+}
+
+void MainWindow::Styles() {
     bg_color_.setWindowTitle("Background");
     vertices_color_.setWindowTitle("Vertices");
     edges_color_.setWindowTitle("Edges");
-    // event_.SetController(control_);
-    event_.SetButtons(ui->handButton, ui->xMouseButton, ui->yMouseButton, ui->zMouseButton, ui->widget);
+    ui->handButton->setIcon(Icon("/.buttons/move.png"));
+    ui->rotateMouseButton->setIcon(Icon("/.buttons/rotate.png"));
+    ui->xyzMouseButton->setIcon(Icon("/.buttons/xyz.png"));
+    ui->frame->setStyleSheet("background-color: transparent");
+    ui->handButton->setStyleSheet("background-color: white");
+    ui->rotateMouseButton->setStyleSheet("background-color: white");
+    ui->xyzMouseButton->setStyleSheet("background-color: white");
+    ui->xMouseButton->setStyleSheet("background-color: white");
+    ui->zMouseButton->setStyleSheet("background-color: white");
+    ui->yMouseButton->setStyleSheet("background-color: white");
+
+}
+
+void MainWindow::Events() {
+    event_.SetButtons(ui->handButton, ui->rotateMouseButton, ui->xMouseButton, ui->yMouseButton, ui->zMouseButton, ui->widget);
     ui->widget->installEventFilter(&event_);
     ui->rotateXSpin->installEventFilter(&event_);
     ui->rotateYSpin->installEventFilter(&event_);
@@ -39,7 +54,6 @@ MainWindow::MainWindow(Controller *control, QWidget *parent) :\
     ui->zMouseButton->installEventFilter(&event_);
     ui->xyzMouseButton->installEventFilter(&event_);
     installEventFilter(&event_);
-    Connects();
 }
 
 void MainWindow::Connects() {

@@ -16,11 +16,12 @@ s21::OGLWidget::~OGLWidget() {
 }
 
 void s21::OGLWidget::initializeGL() {
+  // std::cout << "initializeGL\n";
   glEnable(GL_DEPTH_TEST);
   initialize_shaders();
   set_addresses();
 
-  set_default_settings();
+  // set_default_settings();
   add_example_vectors();
 
 }
@@ -30,6 +31,8 @@ void s21::OGLWidget::resizeGL(int w, int h) {
 }
 
 void s21::OGLWidget::paintGL() {
+  // add_example_vectors();
+  set_buffers();
   if (vao.isCreated()) {
     glClearColor(bg_color_.redF(), bg_color_.greenF(), bg_color_.blueF(), 1);
     check_gl_error();
@@ -54,14 +57,14 @@ void s21::OGLWidget::paintGL() {
     draw_vertices();
     check_gl_error();
 
-    // vao.release();
+    vao.release();
     check_gl_error();
   }
 }
 
 void s21::OGLWidget::draw_edges() {
   check_gl_error();
-  std::cout << "draw_edges\n";
+  // std::cout << "draw_edges\n";
   if (edges_type_ == dashed) {
     glEnable(GL_LINE_STIPPLE);
     check_gl_error();
@@ -76,9 +79,9 @@ void s21::OGLWidget::draw_edges() {
   // glDrawElementsBaseVertex(GL_LINES, lines_count_, GL_UNSIGNED_INT,0,0);
   // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
   check_gl_error();
-  std::cout << ibo.size() << "   {}   " << lines_count_ << "\n";
-  glDrawElements(GL_LINES, lines_count_, GL_UNSIGNED_INT,0);
-  std::cout << ibo.size() << "   {}   " << lines_count_ << "\n";
+  // std::cout << ibo.size() << "   {}   " << lines_count_ << "\n";
+  glDrawElements(GL_LINES, (GLsizei)lines_count_, GL_UNSIGNED_INT,0);
+  // std::cout << ibo.size() << "   {}   " << lines_count_ << "\n";
   check_gl_error();
 
   if (edges_type_ == dashed) {
@@ -88,7 +91,7 @@ void s21::OGLWidget::draw_edges() {
 }
 
 void s21::OGLWidget::draw_vertices() {
-  std::cout << "draw_vertices\n";
+  // std::cout << "draw_vertices\n";
   if (vertices_type_ != none) {
     prog->setUniformValue(color_address, vertices_color_);
     check_gl_error();
@@ -98,7 +101,7 @@ void s21::OGLWidget::draw_vertices() {
       glEnable(GL_POINT_SMOOTH);
       check_gl_error();
     // glDrawArraysInstancedARB(GL_POINTS, 0, vertices_count_,1);
-    glDrawArrays(GL_POINTS, 0, vertices_count_);
+    glDrawArrays(GL_POINTS, 0, vertices_count_/3);
     check_gl_error();
     if (vertices_type_ == circle)
       glDisable(GL_POINT_SMOOTH);
@@ -111,8 +114,8 @@ void s21::OGLWidget::set_coeff_matrix(QMatrix4x4 matrix) {
   prog->setUniformValue(coeff_address, matrix);
 }
 
-void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_array) {
-
+void s21::OGLWidget::set_buffers() {
+  // std::cout << "set buffers\n";
   if (vao.isCreated()) vao.destroy();
   check_gl_error();
   if (ibo.isCreated()) ibo.destroy();
@@ -131,8 +134,8 @@ void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_
   vbo.bind();
   vbo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
   check_gl_error();
-  vertices_count_ = vertex_array.size();
-  vbo.allocate(vertex_array.data(), (1 + vertices_count_) * sizeof(float));
+  vertices_count_ = verts_.size();
+  vbo.allocate(verts_.data(), (1 + vertices_count_) * sizeof(float));
   check_gl_error();
   check_gl_error();
 
@@ -146,10 +149,10 @@ void s21::OGLWidget::set_buffers(VerticesVector vertex_array, EdgesVector lines_
   check_gl_error();
   ibo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
   check_gl_error();
-  lines_count_ = lines_array.size();
+  lines_count_ = lines_.size();
   check_gl_error();
-  ibo.allocate(lines_array.data(), (1 + lines_count_) * sizeof(uint));
-  std::cout << "edges into v " << ibo.size() << " " << lines_count_ << "\n";
+  ibo.allocate(lines_.data(), (1 + lines_count_) * sizeof(uint));
+  // std::cout << "edges into v " << ibo.size() << " " << lines_count_ << "\n";
   check_gl_error();
   // vao.bind();
   // vao.release();
@@ -188,12 +191,12 @@ void s21::OGLWidget::set_addresses() {
 
 
 void s21::OGLWidget::add_example_vectors() {
-  VerticesVector verts{0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1 };
+  verts_ = VerticesVector{1.000000, -1.000000, -1.000000, 1.000000, -1.000000, 1.000000, -1.000000, -1.000000, 1.000000, -1.000000, -1.000000, -1.000000, 1.000000, 1.000000, -1.000000, 1.000000, 1.000000, 1.000000, -1.000000, 1.000000, 1.000000, -1.000000, 1.000000, -1.000000};
 
-  EdgesVector lines{0, 6, 6, 4, 4, 0, 0, 2, 2, 6, 6, 0, 0, 3, 3, 2, 2,\
-  0 ,0 ,1 ,1, 3, 3, 2, 2, 7, 7, 6, 6, 2, 2, 3, 3, 7, 7, 4, 4, 6, 6, 7, 7, 4, 4, 7,\
-  7, 5, 5, 0, 0, 4, 4, 5, 5, 0, 0, 5, 5, 1, 1, 1, 1, 5, 5, 7, 7, 1, 1, 7, 7, 3};
-  set_buffers(verts, lines);
+  lines_ = EdgesVector{1, 2, 2, 3, 3, 1, 7, 6, 6, 5, 5, 7, 4, 5, 5, 1, 1, 4, 5, 6, 6, 2, 2, 5, 2, 6, 6, 7, 7, 2, 0, 3, 3, 7, 7, 0, 0, 1, 1, 3, 3, 0, 4, 7, 7, 5, 5, 4, 0, 4, 4, 1, 1, 0, 1, 5, 5, 2, 2, 1, 3, 2, 2, 7, 7, 3, 4, 0, 0, 7, 7, 4};
+  // set_buffers(verts, lines);
+  // std::cout << "add_example_vectors " << lines_.size() << " " << verts_.size() << "\n";
+  set_buffers();
 }
 
 void s21::OGLWidget::change_vertices_type(VerticesType type) {
@@ -267,13 +270,27 @@ void s21::OGLWidget::reset_matrix() {
 }
 
 void s21::OGLWidget::set_object(VerticesVector vertex_array, EdgesVector lines_array) {
-  index_ = lines_array.data();
-  vertices_count_ = vertex_array.size();
-  lines_count_ = lines_array.size();
-  std::cout << vertices_count_ << " ppppppp " << lines_count_ << "\n";
-  set_buffers(vertex_array, lines_array);
+  verts_ = vertex_array;
+  lines_ = lines_array;
+  set_buffers();
+  // add_example_vectors();
+
+
+  // VerticesVector verts{1.000000, -1.000000, -1.000000, 1.000000, -1.000000, 1.000000, -1.000000, -1.000000, 1.000000, -1.000000, -1.000000, -1.000000, 1.000000, 1.000000, -1.000000, 1.000000, 1.000000, 1.000000, -1.000000, 1.000000, 1.000000, -1.000000, 1.000000, -1.000000};
+
+  // EdgesVector lines{1, 2, 2, 3, 3, 1, 7, 6, 6, 5, 5, 7, 4, 5, 5, 1, 1, 4, 5, 6, 6, 2, 2, 5, 2, 6, 6, 7, 7, 2, 0, 3, 3, 7, 7, 0, 0, 1, 1, 3, 3, 0, 4, 7, 7, 5, 5, 4, 0, 4, 4, 1, 1, 0, 1, 5, 5, 2, 2, 1, 3, 2, 2, 7, 7, 3, 4, 0, 0, 7, 7, 4};
+  // set_buffers(verts, lines);
+
+  // index_ = lines_array.data();
+  // vertices_count_ = vertex_array.size();
+  // lines_count_ = lines_array.size();
+  // std::cout << vertices_count_ << " ppppppp " << lines_count_ << "\n";
+
+
+
+  // set_buffers(vertex_array, lines_array);
   check_gl_error();
-  // update();
+  update();
   check_gl_error();
 }
 

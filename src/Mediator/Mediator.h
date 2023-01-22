@@ -4,6 +4,7 @@
 #include "AbstractMediator.h"
 #include "../Helpers/Helpers.h"
 #include <QString>
+#include <math.h>
 
 #include <iostream>
 
@@ -14,7 +15,6 @@ class Mediator : public AbstractMediator {
     private:
         Controller *control_;
         Fasade *fasade_;
-        QString ClolorToString(QColor col) { return QString("background-color: %1").arg(col.name()); }
     public:
         Mediator(Controller *c, Fasade *f) : control_(c), fasade_(f) {}
         void Parse(std::string &file_path) override {
@@ -22,15 +22,9 @@ class Mediator : public AbstractMediator {
         }
         void Move(float x, float y, float z) override {
              fasade_->MoveObject(DefultValues::MoveRatio * x, DefultValues::MoveRatio * y, DefultValues::MoveRatio * z);
-            std::cout << x << " " << y << " " << z << " move\n";
-        }
-        void Rotate(float x, float y, float z) override {
-            fasade_->RotateObject(DefultValues::RotateRatio * x, DefultValues::RotateRatio * y, DefultValues::RotateRatio * z);
-            std::cout << x << " " << y << " " << z << " rotate\n";
         }
         void Scale(float s) override {
             fasade_->ScaleObject(DefultValues::ScaleRatio * s);
-            std::cout << s << " scale\n";
         }
         void ESize(int s) override {
             fasade_->SetLineSize(s);
@@ -69,7 +63,10 @@ class Mediator : public AbstractMediator {
             // fasade_->SaveImage(type);
         }
         void SetRotate(float x, float y, float z) override {
-            Rotate(x, y, z);
+            x = RotateCool(x);
+            y = RotateCool(y);
+            z = RotateCool(z);
+            fasade_->RotateObject(DefultValues::RotateRatio * x, DefultValues::RotateRatio * y, DefultValues::RotateRatio * z);
             control_->SetRotateX(x);
             control_->SetRotateY(y);
             control_->SetRotateZ(z);
