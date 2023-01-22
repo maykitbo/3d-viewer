@@ -17,25 +17,19 @@ namespace s21 {
 
 class Momentum {
     private:
-        using Time = std::chrono::_V2::system_clock::time_point;
+        using Time = decltype((std::chrono::high_resolution_clock::now)());
         Time Now() { return std::chrono::high_resolution_clock::now(); }
         Time time_ = Now();
-        //  delta_;
+        int64_t delta_;
         std::function<void(float)> act_;
-        void Acceleration() {
-        //     std::chrono::duration_cast<std::chrono::milliseconds>(time_ - last_time).count()
-        //     // if (delta_ > Now() - time_) block_ = true;
-        //     // else block_ = false;
-        //     // delta_ = Now() - time_;
-        //     // time_ = Now();
-        }
         bool block_ = false;
     public:
         Momentum() {}
         template<class F>
         void Action(const F &act) {
             act(1.0);
-            Acceleration();
+            delta_ = std::chrono::duration_cast<std::chrono::milliseconds>(Now() - time_).count();
+            time_ = Now();
             // auto buff = act_;
             act_ = act;
             // std::cout << "act == act " << (act_ == buff) << "\n";
@@ -46,7 +40,10 @@ class Momentum {
             // }
         }
         void Extend() {
-            
+            if (delta_ < 2) {
+                std::cout << "MOMENTUM WORK\n";
+                
+            }
         }
         void Stop() { block_ = true; }
 

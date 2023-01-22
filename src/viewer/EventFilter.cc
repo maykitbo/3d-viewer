@@ -63,18 +63,25 @@ bool MEvent::MousePressed(QEvent *event) {
 
 bool MEvent::MouseMove(QObject *object, QEvent *event) {
     if (widget_ != object) return false;
-    auto new_pos = static_cast<QMouseEvent*>(event)->globalPosition();
+    auto event_m = static_cast<QMouseEvent*>(event);
+    auto new_pos = event_m->globalPosition();
     float x = new_pos.x() - mouse_pos.x();
     float y = new_pos.y() - mouse_pos.y();
+    bool move = true;
+    if (event_m->modifiers() & Qt::ShiftModifier) {
+        if (move_->isChecked()) move = false;
+    } else {
+        if (!move_->isChecked()) move = false;
+    }
     if (x_->isChecked()) {
-        move_->isChecked() ? MoveX(x) : RotateX(y);
+        move ? MoveX(x) : RotateX(y);
     } else if (y_->isChecked()) {
-        move_->isChecked() ? MoveY(y) : RotateY(x);
+        move ? MoveY(y) : RotateY(x);
     } else if (z_->isChecked()) {
         float z = (new_pos.x() + new_pos.y()) - (mouse_pos.x() + mouse_pos.y());
-        move_->isChecked() ? MoveZ(z) : RotateZ(z);
+        move ? MoveZ(z) : RotateZ(z);
     } else {
-        move_->isChecked() ? MoveXY(x, y) : RotateXY(y, x);
+        move ? MoveXY(x, y) : RotateXY(y, x);
     }
     mouse_pos = new_pos;
     return true;

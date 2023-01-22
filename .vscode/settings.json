@@ -39,6 +39,18 @@
         "chrono": "cpp",
         "ctime": "cpp",
         "ratio": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "codecvt": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "functional": "cpp",
+        "iomanip": "cpp",
+        "numbers": "cpp",
+        "any": "cpp",
+        "atomic": "cpp",
+        "cstddef": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "variant": "cpp"
     }
 }
