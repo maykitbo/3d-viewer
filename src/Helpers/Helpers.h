@@ -50,7 +50,7 @@ struct DefultValues {
     constexpr static int BufferSize = 2000;
     constexpr static int64_t MergeTime = 500; // milliseconds
     constexpr static float RotateRatio = 0.8;
-    constexpr static float MoveRatio = 0.1;
+    // constexpr static float MoveRatio = 0.1;
     constexpr static float ScaleRatio = 1.2;
 };
 

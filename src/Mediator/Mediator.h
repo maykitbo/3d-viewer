@@ -21,7 +21,7 @@ class Mediator : public AbstractMediator {
             fasade_->OpenFile(file_path);
         }
         void Move(float x, float y, float z) override {
-             fasade_->MoveObject(DefultValues::MoveRatio * x, DefultValues::MoveRatio * y, DefultValues::MoveRatio * z);
+             fasade_->MoveObject(x, y, z);
         }
         void Scale(float s) override {
             fasade_->ScaleObject(DefultValues::ScaleRatio * s);
@@ -66,7 +66,8 @@ class Mediator : public AbstractMediator {
             x = RotateCool(x);
             y = RotateCool(y);
             z = RotateCool(z);
-            fasade_->RotateObject(DefultValues::RotateRatio * x, DefultValues::RotateRatio * y, DefultValues::RotateRatio * z);
+            // std::cout << "rotate z = " << z << "\n";
+            fasade_->RotateObject(x, y, z);
             control_->SetRotateX(x);
             control_->SetRotateY(y);
             control_->SetRotateZ(z);

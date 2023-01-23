@@ -4,14 +4,18 @@
 
 using namespace s21;
 
-void MEvent::SetButtons(QToolButton *move, QToolButton *rotate, QToolButton *x, QToolButton *y, QToolButton *z, QWidget *widget) {
-    rotate_ = rotate;
-    move_ = move;
-    x_ = x;
-    y_ = y;
-    z_ = z;
-    widget_ = widget;
+void MEvent::SetButtons(Ui::MainWindow *ui) {
+    // rotate_ = rotate;
+    // move_ = move;
+    // scale_ = scale;
+    // x_ = x;
+    // y_ = y;
+    // z_ = z;
+    // widget_ = widget;
+    ui_ = ui;
 }
+
+// ui_->handButton, ui->rotateMouseButton, ui->xMouseButton, ui_->yMouseButton, ui->zMouseButton, ui->widget, ui_->scaleSpin
 
 bool MEvent::eventFilter(QObject *object, QEvent *event) {
     switch (event->type()) {
@@ -27,20 +31,30 @@ bool MEvent::eventFilter(QObject *object, QEvent *event) {
             return MouseReleaseCase(object, event);
         case QEvent::KeyRelease:
             return KeyReleaseCase(event);
+        case QEvent::Resize:
+            return ResizeCase();
         default:
             return false;
     }
     return false;
 }
 
+bool MEvent::ResizeCase() {
+    auto h = ui_->widget->geometry().height();
+    auto w = ui_->widget->geometry().width();
+    move_ratio_ = ui_->scaleSpin->value() * 3 / (w > h ? h : w);
+    // std::cout << w << " " << h << " " << move_ratio_ << " width height move_ratio\n";
+    return false;
+}
+
 bool MEvent::MouseReleaseCase(QObject *object, QEvent *event) {
-    if (widget_ != object) return false;
+    if (ui_->widget != object) return false;
     inertia_.Extend();
     return true;
 }
 
 bool MEvent::MouseWheelCase(QObject *object, QEvent *event) {
-    if (widget_ != object) return false;
+    if (ui_->widget != object) return false;
     control_->MouseScale(static_cast<QWheelEvent*>(event)->angleDelta().y() > 0 ?\
                         DefultValues::ScaleRatio : 1 / DefultValues::ScaleRatio);
     return true;
@@ -49,25 +63,25 @@ bool MEvent::MouseWheelCase(QObject *object, QEvent *event) {
 bool MEvent::MousePressedCase(QEvent *event) {
     inertia_.Stop();
     mouse_pos = static_cast<QMouseEvent*>(event)->globalPosition();
-    QRect widgetRect = widget_->geometry();
-    widgetRect.moveTopLeft(widget_->parentWidget()->mapToGlobal(widgetRect.topLeft()));
+    QRect widgetRect = ui_->widget->geometry();
+    widgetRect.moveTopLeft(ui_->widget->parentWidget()->mapToGlobal(widgetRect.topLeft()));
     center_pos_ = widgetRect.center();
     return false;
 }
 
 bool MEvent::MouseMoveCase(QObject *object, QEvent *event) {
-    if (widget_ != object) return false;
+    if (ui_->widget != object) return false;
     auto new_pos = static_cast<QMouseEvent*>(event)->globalPosition();
-    float x = new_pos.x() - mouse_pos.x();
-    float y = new_pos.y() - mouse_pos.y();
-    if (x_->isChecked())
-        move_->isChecked() ? MoveX(x) : RotateX(y);
-    else if (y_->isChecked())
-        move_->isChecked() ? MoveY(y) : RotateY(x);
-    else if (z_->isChecked())
-        move_->isChecked() ? MoveZ(x, y) : RotateZ(x, y, new_pos);
+    qreal x = new_pos.x() - mouse_pos.x();
+    qreal y = new_pos.y() - mouse_pos.y();
+    if (ui_->xMouseButton->isChecked())
+        ui_->handButton->isChecked() ? MoveX(x) : RotateX(y);
+    else if (ui_->yMouseButton->isChecked())
+        ui_->handButton->isChecked() ? MoveY(y) : RotateY(x);
+    else if (ui_->zMouseButton->isChecked())
+        ui_->handButton->isChecked() ? MoveZ(x, y) : RotateZ(x, y, new_pos);
     else
-        move_->isChecked() ? MoveXY(x, y) : RotateXY(y, x);
+        ui_->handButton->isChecked() ? MoveXY(x, y) : RotateXY(y, x);
     mouse_pos = new_pos;
     return true;
 }
@@ -108,8 +122,8 @@ bool MEvent::KeyShiftCase(QKeyEvent *keyEvent) {
 
 void MEvent::ChangeButtons() {
     changed_ = !changed_;
-    if (move_->isChecked()) rotate_->click();
-    else move_->click();
+    if (ui_->handButton->isChecked()) ui_->rotateMouseButton->click();
+    else ui_->handButton->click();
 }
 
 bool MEvent::KeyReleaseCase(QEvent *event) {

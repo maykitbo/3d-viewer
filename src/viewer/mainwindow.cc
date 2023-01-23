@@ -1,6 +1,7 @@
 #include <QFileDialog>
 
 #include "mainwindow.h"
+#include "EventFilter.h"
 
 #include <iostream>
 
@@ -33,7 +34,7 @@ void MainWindow::Styles() {
 }
 
 void MainWindow::Events() {
-    event_.SetButtons(ui->handButton, ui->rotateMouseButton, ui->xMouseButton, ui->yMouseButton, ui->zMouseButton, ui->widget);
+    event_.SetButtons(ui);
     ui->widget->installEventFilter(&event_);
     ui->rotateXSpin->installEventFilter(&event_);
     ui->rotateYSpin->installEventFilter(&event_);

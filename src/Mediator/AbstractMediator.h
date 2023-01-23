@@ -14,6 +14,7 @@ class AbstractMediator {
     protected:
         QString ClolorToString(QColor col) { return QString("background-color: %1").arg(col.name()); }
         float RotateCool(float x) {
+            // std::cout << x << " " << std::fmod(x, 360) << " x/fmodx\n";
             while (x < 0) x += 360.0;
             return std::fmod(x, 360);
             // if (x < 0) x += 360.0;

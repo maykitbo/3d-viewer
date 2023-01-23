@@ -15,6 +15,8 @@
 #include <thread>
 
 #include "../Controller/Controller.h"
+// #include "mainwindow.h"
+#include "./ui_mainwindow.h"
 
 namespace s21 {
 
@@ -57,31 +59,39 @@ class Momentum {
 
 };
 
+// class MainWindow;
+
 class MEvent : public QObject {
     private:
         Momentum inertia_;
-        int k = 0;
+        // int k = 0;
+        qreal move_ratio_;
         bool changed_ = false;
         QPointF mouse_pos;
         QPointF center_pos_;
         Controller *control_;
-        QToolButton *rotate_, *move_, *x_, *y_, *z_;
+        // QToolButton *rotate_, *move_, *x_, *y_, *z_;
+        // QDoubleSpinBox *scale_;
+        Ui::MainWindow *ui_;
         QWidget *widget_;
         bool eventFilter(QObject *object, QEvent *event) override;
+        bool ResizeCase();
         bool KeyPressCase(QEvent *event);
         bool MouseMoveCase(QObject *object, QEvent *event);
-        void MoveX(float x) { control_->MouseMoveX(DefultValues::MoveRatio * x); }
-        void MoveY(float y) { control_->MouseMoveY(-1 * DefultValues::MoveRatio * y); }
-        void MoveZ(float x, float y) { control_->MouseMoveZ(DefultValues::MoveRatio * (x - y)); }
-        void MoveXY(float x, float y) { control_->MouseMoveXY(DefultValues::MoveRatio * x, -1 * DefultValues::MoveRatio * y); }
-        void RotateX(float x) { inertia_.Action([&](float k){control_->MouseRotateX(DefultValues::RotateRatio * x * k);}); }
-        void RotateY(float y) { control_->MouseRotateY(-1 * DefultValues::RotateRatio * y); }
-        void RotateZ(float x, float y, QPointF new_pos) {
-            float otn = (new_pos.x() - center_pos_.x()) / (new_pos.y() - center_pos_.y());
-            float z = new_pos.x() <= center_pos_.x() ? 1 : -1 * (x - y * otn) / std::sqrt(1 + otn*otn);
-            control_->MouseRotateZ(DefultValues::RotateRatio * z);
+        void MoveX(qreal x) { control_->MouseMoveX(move_ratio_ * (float)x); }
+        void MoveY(qreal y) { control_->MouseMoveY(-1 * move_ratio_ * (float)y); }
+        void MoveZ(qreal x, qreal y) { control_->MouseMoveZ(move_ratio_ * (float)(x - y)); }
+        void MoveXY(qreal x, qreal y) { control_->MouseMoveXY(move_ratio_ * (float)x, -1 * move_ratio_ * (float)y); }
+        // void RotateX(qreal x) { inertia_.Action([&](float k){control_->MouseRotateX(DefultValues::RotateRatio * x * k);}); }
+        void RotateX(qreal x) { control_->MouseRotateX(DefultValues::RotateRatio * (float)x); }
+        void RotateY(qreal y) { control_->MouseRotateY(-1 * DefultValues::RotateRatio * (float)y); }
+        void RotateZ(qreal x, qreal y, QPointF new_pos) {
+            qreal otn = (new_pos.x() - center_pos_.x()) / (new_pos.y() - center_pos_.y());
+            // std::cout << (float)otn << " " << (float)qAbs(otn) << "\n"
+            qreal z = -(x - y * otn) / std::sqrt(1 + otn*otn);
+            control_->MouseRotateZ(DefultValues::RotateRatio * (float)z);
         }
-        void RotateXY(float x, float y) { control_->MouseRotateXY(DefultValues::RotateRatio * x, -1 * DefultValues::RotateRatio * y); }
+        void RotateXY(qreal x, qreal y) { control_->MouseRotateXY(DefultValues::RotateRatio * (float)x, -1 * DefultValues::RotateRatio * (float)y); }
         bool MousePressedCase(QEvent *event);
         bool MouseWheelCase(QObject *object, QEvent *event);
         bool MouseReleaseCase(QObject *object, QEvent *event);
@@ -92,7 +102,7 @@ class MEvent : public QObject {
     public:
         MEvent() : QObject() {}
         MEvent(Controller *c) : QObject(), control_(c) {}
-        void SetButtons(QToolButton *move, QToolButton *rotate, QToolButton *x, QToolButton *y, QToolButton *z, QWidget *widget);
+        void SetButtons(Ui::MainWindow *ui);
 
 };
 

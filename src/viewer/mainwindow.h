@@ -22,59 +22,60 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 namespace s21 {
+// class MEvent;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
-public:
-    MainWindow(Controller *control, QWidget *parent = nullptr);
-    ~MainWindow();
-    // QWidget *GetWidget() const { return ui->widget; }
-    void SetWidget(OGLWidget *ogl) {
-//        ui->gridLayout->addWidget(ogl, 0, 0);
-        // ui->gridLayout_4->addWidget(OGLWidget, 0, 0);
-    }
-    OGLWidget *GetWidget() {
-        return ui->widget;
-    }
+    public:
+        MainWindow(Controller *control, QWidget *parent = nullptr);
+        ~MainWindow();
+        // QWidget *GetWidget() const { return ui->widget; }
+        void SetWidget(OGLWidget *ogl) {
+    //        ui->gridLayout->addWidget(ogl, 0, 0);
+            // ui->gridLayout_4->addWidget(OGLWidget, 0, 0);
+        }
+        OGLWidget *GetWidget() {
+            return ui->widget;
+        }
 
-private slots:
-    void test() { std::cout << "test color\n"; }
+    private slots:
+        void test() { std::cout << "test color\n"; }
 
 
-private:
-    MEvent event_;
-    QColorDialog bg_color_;
-    QColorDialog vertices_color_;
-    QColorDialog edges_color_;
-    Ui::MainWindow *ui;
-    Controller *control_;
-    void Connects();
-    void Styles();
-    void Events();
-    const std::string current_path_ = std::filesystem::current_path().string();
-    QIcon Icon(std::string path) const { return QIcon(QString((current_path_+ path).data())); }
-    std::string FileDialog();
-    void closeEvent(QCloseEvent * event) override;
-    // Color ColorButton(QPushButton *qpb);
-    // void keyPressEvent(QKeyEvent *event) override;
-    // Color QtoMColor(const QColor &col) const { return Color(col.redF(), col.greenF(), col.blueF()); }
-    // QColor MtoQColor(Color &col) const { return QColor(col.red, col.green, col.blue); }
-    void NoSignal(QDoubleSpinBox *object, double val) {
-        object->blockSignals(true);
-        object->setValue(val);
-        object->blockSignals(false);
-    }
-    void NoSignal(QComboBox *object, int val) {
-        object->blockSignals(true);
-        object->setCurrentIndex(val);
-        object->blockSignals(false);
-    }
-    void NoSignal(QSpinBox *object, double val) {
-        object->blockSignals(true);
-        object->setValue(val);
-        object->blockSignals(false);
-    }
+    private:
+        MEvent event_;
+        QColorDialog bg_color_;
+        QColorDialog vertices_color_;
+        QColorDialog edges_color_;
+        Ui::MainWindow *ui;
+        Controller *control_;
+        void Connects();
+        void Styles();
+        void Events();
+        const std::string current_path_ = std::filesystem::current_path().string();
+        QIcon Icon(std::string path) const { return QIcon(QString((current_path_+ path).data())); }
+        std::string FileDialog();
+        void closeEvent(QCloseEvent * event) override;
+        // Color ColorButton(QPushButton *qpb);
+        // void keyPressEvent(QKeyEvent *event) override;
+        // Color QtoMColor(const QColor &col) const { return Color(col.redF(), col.greenF(), col.blueF()); }
+        // QColor MtoQColor(Color &col) const { return QColor(col.red, col.green, col.blue); }
+        void NoSignal(QDoubleSpinBox *object, double val) {
+            object->blockSignals(true);
+            object->setValue(val);
+            object->blockSignals(false);
+        }
+        void NoSignal(QComboBox *object, int val) {
+            object->blockSignals(true);
+            object->setCurrentIndex(val);
+            object->blockSignals(false);
+        }
+        void NoSignal(QSpinBox *object, double val) {
+            object->blockSignals(true);
+            object->setValue(val);
+            object->blockSignals(false);
+        }
 
 };
 
