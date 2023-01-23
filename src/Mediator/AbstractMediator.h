@@ -16,6 +16,7 @@ class AbstractMediator {
         float RotateCool(float x) {
             while (x < 0) x += 360.0;
             return std::fmod(x, 360);
+            // if (x < 0) x += 360.0;
         }
     public:
         AbstractMediator() {}

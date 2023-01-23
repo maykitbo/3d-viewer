@@ -32,13 +32,13 @@ class Momentum {
         void Action(const F &act) {
             act(1.0);
             delta_ = std::chrono::duration_cast<std::chrono::milliseconds>(Now() - time_).count();
-            std::cout << "Action delta = " << delta_ << "\n";
+            // std::cout << "Action delta = " << delta_ << "\n";
             time_ = Now();
             act_ = act;
             block_ = false;
         }
         void Extend() {
-            std::cout << "Extend delta = " << delta_ << "\n";
+            // std::cout << "Extend delta = " << delta_ << "\n";
             if (delta_ < 20) {
                 // double del = 20.0 / (double)delta_;
                 // std::thread thr([&](){
@@ -50,7 +50,7 @@ class Momentum {
                 //     }
                 // });
                 // thr.detach();
-                std::cout << "MOMENTUM WORK\n";
+                // std::cout << "MOMENTUM WORK\n";
             }
         }
         void Stop() { block_ = true; }
@@ -78,7 +78,7 @@ class MEvent : public QObject {
         void RotateY(float y) { control_->MouseRotateY(-1 * DefultValues::RotateRatio * y); }
         void RotateZ(float x, float y, QPointF new_pos) {
             float otn = (new_pos.x() - center_pos_.x()) / (new_pos.y() - center_pos_.y());
-            float z = -(x - y * otn) / std::sqrt(1 + otn*otn);
+            float z = new_pos.x() <= center_pos_.x() ? 1 : -1 * (x - y * otn) / std::sqrt(1 + otn*otn);
             control_->MouseRotateZ(DefultValues::RotateRatio * z);
         }
         void RotateXY(float x, float y) { control_->MouseRotateXY(DefultValues::RotateRatio * x, -1 * DefultValues::RotateRatio * y); }
@@ -92,7 +92,6 @@ class MEvent : public QObject {
     public:
         MEvent() : QObject() {}
         MEvent(Controller *c) : QObject(), control_(c) {}
-        // void SetController(Controller *c) { control_ = c; }
         void SetButtons(QToolButton *move, QToolButton *rotate, QToolButton *x, QToolButton *y, QToolButton *z, QWidget *widget);
 
 };
