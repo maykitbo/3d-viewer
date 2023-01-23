@@ -6,6 +6,7 @@
 #include <fstream>
 #include <limits>
 #include <vector>
+#include <math.h>
 
 // #include "../Helpers/Helpers.h"
 
@@ -19,7 +20,8 @@ class Parser {
         std::ifstream file_;
         VerticesVector vertex_;
         EdgesVector lines_;
-        int vertex_i_, lines_i_;
+        uint vertex_i_, lines_i_;
+        float max_ = 0;
         void caseV();
         void caseF();
     public:
@@ -27,6 +29,9 @@ class Parser {
         void parse(std::string &fName);
         [[nodiscard]] VerticesVector getVertex() const noexcept { return vertex_; }
         [[nodiscard]] EdgesVector getLines() const noexcept { return lines_; }
+        [[nodiscard]] uint GetLinesIndex() const noexcept { return lines_i_; }
+        [[nodiscard]] uint GetVertexIndex() const noexcept { return vertex_i_; }
+        [[nodiscard]] float GetMaxValue() const noexcept { return max_; }
         void clear();
 };
 

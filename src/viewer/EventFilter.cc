@@ -42,8 +42,7 @@ bool MEvent::eventFilter(QObject *object, QEvent *event) {
 bool MEvent::ResizeCase() {
     auto h = ui_->widget->geometry().height();
     auto w = ui_->widget->geometry().width();
-    move_ratio_ = ui_->scaleSpin->value() * 3 / (w > h ? h : w);
-    // std::cout << w << " " << h << " " << move_ratio_ << " width height move_ratio\n";
+    move_ratio_ = ui_->scaleSpin->value() * 3 / (w < h ? w : h);
     return false;
 }
 

@@ -26,8 +26,8 @@ void Parser::parse(std::string &fName) {
                 file_.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
         }
     }
-    // vertex_.resize(vertex_i_);
-    // lines_.resize(lines_i_ - 1);
+    vertex_i_ /= 3;
+    lines_i_ /= 2;
     file_.close();
 }
 
@@ -37,6 +37,7 @@ void Parser::caseV() {
         for (int k = 0; k < 3; ++k) {
             vertex_.resize(vertex_.size() + 1);
             file_ >> vertex_[vertex_i_];
+            if (std::fabs(vertex_[vertex_i_]) > max_) max_ = vertex_[vertex_i_];
             ++vertex_i_;
         }
         // ----------------------------------------------------------------------  add [w]
@@ -77,7 +78,7 @@ inline void Parser::clear() {
     lines_.clear();
     vertex_.resize(1);
     lines_.resize(1);
-    vertex_i_ = 0, lines_i_ = 0;
+    vertex_i_ = 0, lines_i_ = 0, max_ = 0;
 }
 
 
