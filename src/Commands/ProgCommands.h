@@ -3,16 +3,18 @@
 
 
 #include "AbstractCommand.h"
-// #include "CommandsQueue.h"
+#include "Moves.h"
 
 namespace s21 {
 
+class MouseZoomCommand;
+
 class ZoomCommand : public OneValCommand<float, ZoomCommand, DefultValues::Scale> {
-  protected:
-    void FromFile(std::fstream &file) override { file >> value_; }
+  friend MouseZoomCommand;
   public:
+    void ToFile(std::fstream &file) const {}
     ZoomCommand() : OneValCommand() {}
-    ZoomCommand(std::fstream &file) : OneValCommand(file) {}
+    ZoomCommand(std::fstream &file) : OneValCommand() {}
     ZoomCommand(float val) : OneValCommand(val) {}
     virtual void Execute() override { mediator_->Scale(value_); }
     void Cancel() override { mediator_->SetScale(value_); }
@@ -23,9 +25,46 @@ struct OpenCleanable<ZoomCommand> { const static bool value = true; };
 
 class MouseZoomCommand : public ZoomCommand {
   public:
-    MouseZoomCommand(float val) : ZoomCommand(last_.Get()->GetVal() / val) {}
+    MouseZoomCommand(float val, float x, float y) : ZoomCommand(last_.Get()->GetVal() / val) {}
     void Execute() override { mediator_->SetScale(value_); }
 };
+
+// class MouseZoomCommand : public StackCommand<MouseZoomCommand> {
+//   private:
+//     ZoomCommand *zoom_;
+//     MouseMoveXYCommand *move_;
+//   public:
+//     MouseZoomCommand(float val, float x, float y) : StackCommand(this) {
+//       zoom_ = new ZoomCommand(zoom_->last_.Get()->GetVal() / val);
+//       move_ = new MouseMoveXYCommand(x, y);
+//       // std::cout << "zoom created\n";
+//       // history_.base_->pop_front();
+//       // history_.base_->pop_front();
+//       move_->Erase();
+//       zoom_->Erase();
+//       // history_.base_->push_front((HistoryCommand*)this);
+//       // history_.iter_ = history_.base_->begin();
+//       Create();
+//     }
+//     void Execute() override {
+//       // mediator_->SetScale(value_);
+//       zoom_->Execute();
+//       move_->Execute();
+//       // mediator_->SetMove(x, y, );
+//     }
+//     void Cancel() override {
+//       Execute();
+//     }
+//     void Undo() override {
+//       zoom_->Undo();
+//       move_->Undo();
+//     }
+//     void PopPrev() override {
+//       zoom_->PopPrev();
+//       move_->PopPrev();
+//     }
+//     bool Cleanable() override { return true; }
+// };
 
 class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand, DefultValues::BackgroundColor> {
   public:

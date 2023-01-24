@@ -11,8 +11,8 @@
 #include <QRect>
 #include <chrono>
 #include <functional>
-// #include <math.h>
-#include <thread>
+#include <math.h>
+// #include <thread>
 
 #include "../Controller/Controller.h"
 // #include "mainwindow.h"
@@ -64,14 +64,11 @@ class Momentum {
 class MEvent : public QObject {
     private:
         Momentum inertia_;
-        // int k = 0;
         qreal move_ratio_;
         bool changed_ = false;
-        QPointF mouse_pos;
+        QPointF mouse_pos_;
         QPointF center_pos_;
         Controller *control_;
-        // QToolButton *rotate_, *move_, *x_, *y_, *z_;
-        // QDoubleSpinBox *scale_;
         Ui::MainWindow *ui_;
         QWidget *widget_;
         bool eventFilter(QObject *object, QEvent *event) override;
@@ -85,11 +82,14 @@ class MEvent : public QObject {
         // void RotateX(qreal x) { inertia_.Action([&](float k){control_->MouseRotateX(DefultValues::RotateRatio * x * k);}); }
         void RotateX(qreal x) { control_->MouseRotateX(DefultValues::RotateRatio * (float)x); }
         void RotateY(qreal y) { control_->MouseRotateY(-1 * DefultValues::RotateRatio * (float)y); }
-        void RotateZ(qreal x, qreal y, QPointF new_pos) {
-            qreal otn = (new_pos.x() - center_pos_.x()) / (new_pos.y() - center_pos_.y());
-            // std::cout << (float)otn << " " << (float)qAbs(otn) << "\n"
-            qreal z = -(x - y * otn) / std::sqrt(1 + otn*otn);
-            control_->MouseRotateZ(DefultValues::RotateRatio * (float)z);
+        float CosAngleVV(QPointF a, QPointF b) const {
+            return (a.x()*b.x() + a.y()*b.y()) / std::sqrt((a.x()*a.x() + a.y()*a.y()) * (b.x()*b.x() + b.y()*b.y()));
+        }
+        void RotateZ(QPointF new_pos) {
+            QPointF p(mouse_pos_ - center_pos_);
+            int znak = mouse_pos_.y() > center_pos_.y() ? -1 : 1;
+            control_->MouseRotateZ(std::acos(CosAngleVV(p, QPointF(new_pos - center_pos_))) * (180 / M_PI) *\
+                (CosAngleVV(QPointF(new_pos - mouse_pos_), znak * QPointF(1, - p.x() / p.y())) > 0 ? -1 : 1));
         }
         void RotateXY(qreal x, qreal y) { control_->MouseRotateXY(DefultValues::RotateRatio * (float)x, -1 * DefultValues::RotateRatio * (float)y); }
         bool MousePressedCase(QEvent *event);

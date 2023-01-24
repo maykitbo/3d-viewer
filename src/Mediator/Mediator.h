@@ -66,7 +66,6 @@ class Mediator : public AbstractMediator {
             x = RotateCool(x);
             y = RotateCool(y);
             z = RotateCool(z);
-            // std::cout << "rotate z = " << z << "\n";
             fasade_->RotateObject(x, y, z);
             control_->SetRotateX(x);
             control_->SetRotateY(y);

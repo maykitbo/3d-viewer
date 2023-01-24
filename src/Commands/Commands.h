@@ -49,7 +49,8 @@ class MainBase<FirstType, Args...> {
           }
         }
         void ToFile(std::fstream &file) {
-            *(one_base_.Get()) >> file;
+            one_base_.Get()->ToFile(file);
+            // std::cout << file.peek() << " " << file.si << " aaa\n";
             other_.ToFile(file);
         }
         void ResetAll() {
@@ -97,7 +98,6 @@ class Shell {
       AbstractMediator *model_ = nullptr;
       History::List history_;
       History::List::iterator iter_ = history_.begin();
-      std::fstream file_;
       MainComBase base_;
       void RedoListClean();
       friend OpenCommand;

@@ -55,13 +55,13 @@ bool MEvent::MouseReleaseCase(QObject *object, QEvent *event) {
 bool MEvent::MouseWheelCase(QObject *object, QEvent *event) {
     if (ui_->widget != object) return false;
     control_->MouseScale(static_cast<QWheelEvent*>(event)->angleDelta().y() > 0 ?\
-                        DefultValues::ScaleRatio : 1 / DefultValues::ScaleRatio);
+                        DefultValues::ScaleRatio : 1 / DefultValues::ScaleRatio, 0, 0);
     return true;
 }
 
 bool MEvent::MousePressedCase(QEvent *event) {
     inertia_.Stop();
-    mouse_pos = static_cast<QMouseEvent*>(event)->globalPosition();
+    mouse_pos_ = static_cast<QMouseEvent*>(event)->globalPosition();
     QRect widgetRect = ui_->widget->geometry();
     widgetRect.moveTopLeft(ui_->widget->parentWidget()->mapToGlobal(widgetRect.topLeft()));
     center_pos_ = widgetRect.center();
@@ -71,17 +71,17 @@ bool MEvent::MousePressedCase(QEvent *event) {
 bool MEvent::MouseMoveCase(QObject *object, QEvent *event) {
     if (ui_->widget != object) return false;
     auto new_pos = static_cast<QMouseEvent*>(event)->globalPosition();
-    qreal x = new_pos.x() - mouse_pos.x();
-    qreal y = new_pos.y() - mouse_pos.y();
+    qreal x = new_pos.x() - mouse_pos_.x();
+    qreal y = new_pos.y() - mouse_pos_.y();
     if (ui_->xMouseButton->isChecked())
         ui_->handButton->isChecked() ? MoveX(x) : RotateX(y);
     else if (ui_->yMouseButton->isChecked())
         ui_->handButton->isChecked() ? MoveY(y) : RotateY(x);
     else if (ui_->zMouseButton->isChecked())
-        ui_->handButton->isChecked() ? MoveZ(x, y) : RotateZ(x, y, new_pos);
+        ui_->handButton->isChecked() ? MoveZ(x, y) : RotateZ(new_pos);
     else
         ui_->handButton->isChecked() ? MoveXY(x, y) : RotateXY(y, x);
-    mouse_pos = new_pos;
+    mouse_pos_ = new_pos;
     return true;
 }
 

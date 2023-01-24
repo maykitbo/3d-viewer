@@ -7,6 +7,7 @@
 #include <list>
 
 #include <filesystem>
+#include <functional>
 
 #include "../Helpers/Helpers.h"
 #include "CommandsQueue.h"
@@ -35,6 +36,8 @@ struct History {
 };
 
 class HistoryCommand : public Command {
+    private:
+        bool merge_ = false;
     protected:
         History history_;
     public:
@@ -44,7 +47,8 @@ class HistoryCommand : public Command {
         virtual void Cancel() = 0;
     protected:
         void Merge(HistoryCommand *prev) {
-            Erase(prev);
+            if (!prev->merge_) Erase(prev);
+            // Erase(prev);
             Create();
         }
         void Erase(HistoryCommand *prev) {
@@ -58,6 +62,11 @@ class HistoryCommand : public Command {
                 // history_.base_->back()->PopPrev();
                 history_.base_->pop_back();
             }
+        }
+    public:
+        void Erase() {
+            history_.base_->erase(history_.iter_);
+            merge_ = true;
         }
 };
 
@@ -84,7 +93,6 @@ struct Last {
     void Clean() {
         T *point = base_;
         while (point != nullptr) {
-            // std::cout << (point == nullptr) << " " << (base_->GetPrev() == nullptr) << "\n";
             base_ = base_->GetPrev();
             delete point;
             point = base_;
@@ -132,7 +140,7 @@ class CoordsCommand : public StackCommand<T> {
         float x_, y_, z_;
     public:
         CoordsCommand() : x_(0), y_(0), z_(0), StackCommand<T>() {}
-        void operator>>(std::fstream &file) const {}
+        void ToFile(std::fstream &file) const {}
         CoordsCommand(float x, float y, float z) : x_(x), y_(y), z_(z), StackCommand<T>((T*)this) {}
         float GetX() const { return x_; }
         float GetY() const { return y_; }
@@ -144,7 +152,10 @@ template<class V, class T, auto def>
 class OneValCommand : public StackCommand<T> {
     protected:
         V value_;
-        virtual void FromFile(std::fstream &file) {
+        void FromFile(std::fstream &file) {
+            if (std::is_same<V, QColor>::value) {
+                throw std::runtime_error("qcolor one val constructor from file");
+            }
             int val;
             file >> val;
             value_ = V(val);
@@ -152,10 +163,12 @@ class OneValCommand : public StackCommand<T> {
     public:
         OneValCommand() : value_(V(def)), StackCommand<T>() {}
         OneValCommand(std::fstream &file) : StackCommand<T>() {
-            if (file.eof()) value_ = V();
+            if (file.eof()) value_ = V(def);
             else FromFile(file);
         }
-        void operator>>(std::fstream &file) const {
+        template<class F>
+        OneValCommand(const F &func) : value_(func()), StackCommand<T>() {}
+        void ToFile(std::fstream &file) const {
             file << ' ';
             file << value_;
         }
@@ -170,24 +183,6 @@ class ColorCommand : public OneValCommand<QColor, T, def> {
         using OneValCommand<QColor, T, def>::value_;
         DialogButton open_ = cancel;
     private:
-        int FromFileOne(std::fstream &file) {
-            int v;
-            file >> v;
-            return v;
-        }
-        void FromFile(std::fstream &file) {
-            if (!file.eof()) {
-                value_.setRed(FromFileOne(file));
-                if (!file.eof()) {
-                    value_.setGreen(FromFileOne(file));
-                    if (!file.eof()) {
-                        value_.setBlue(FromFileOne(file));
-                        return;
-                    }
-                }
-            }
-            value_ = QColor(def);
-        }
         void ClearOpenCommands() {
             while (!(last_.Get()->IsOpen())) {
                 auto com = last_.base_->GetPrev();
@@ -210,14 +205,31 @@ class ColorCommand : public OneValCommand<QColor, T, def> {
         ColorCommand() : open_(select), OneValCommand<QColor, T, def>() {}
         ColorCommand(QColor color) : OneValCommand<QColor, T, def>(color, !(last_.Get()->IsOpen())) {}
         ColorCommand(DialogButton db) : open_(select), OneValCommand<QColor, T, def>(CloseDialog(db), !db) {}
-        ColorCommand(std::fstream &file) : open_(select), OneValCommand<QColor, T, def>(file) {}
-        void operator>>(std::fstream &file) const {
+        ColorCommand(std::fstream &file) : open_(select), OneValCommand<QColor, T, def>([&]{
+            std::function<int(std::fstream&)> one = [](std::fstream &file){
+                int v;
+                file >> v;
+                return v;
+            };
+            if (!file.eof()) {
+                int r = one(file);
+                if (!file.eof()) {
+                    int g = one(file);
+                    if (!file.eof()) {
+                        int b = one(file);
+                        return QColor(r, g, b);
+                    }
+                }
+            }
+            return QColor(def);
+        }) {}
+        void ToFile(std::fstream &file) const {
             file << ' ';
-            file << value_.red();
+            file << (int)value_.red();
             file << ' ';
-            file << value_.green();
+            file << (int)value_.green();
             file << ' ';
-            file << value_.blue();
+            file << (int)value_.blue();
         }
         DialogButton IsOpen() const { return open_; }
         QColor GetColor() const { return value_; }

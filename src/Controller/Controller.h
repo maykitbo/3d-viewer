@@ -8,6 +8,7 @@
 
 #include "../Helpers/Helpers.h"
 #include "../Commands/Commands.h"
+#include <math.h>
 // #include "../Fasade/Fasade.h"
 
 namespace s21 {
@@ -40,7 +41,10 @@ class Controller : public QObject {
     void MouseMoveXY(float x, float y) { shell_->Launch<MouseMoveXYCommand>(x, y); }
     void MouseRotateX(float x) { shell_->Launch<MouseRotateXCommand>(x); }
     void MouseRotateY(float y) { shell_->Launch<MouseRotateYCommand>(y); }
-    void MouseRotateZ(float z) { shell_->Launch<MouseRotateZCommand>(z); }
+    void MouseRotateZ(float z) {
+      if (!isinf(z) && !isnan(z))
+        shell_->Launch<MouseRotateZCommand>(z);
+    }
     void MouseRotateXY(float x, float y) { shell_->Launch<MouseRotateXYCommand>(x, y); }
     void RotateX(float x) { shell_->Launch<RotateXCommand>(x); }
     void RotateY(float y) { shell_->Launch<RotateYCommand>(y); }
@@ -49,7 +53,7 @@ class Controller : public QObject {
     void MoveY(float y) { shell_->Launch<MoveYCommand>(y); }
     void MoveZ(float z) { shell_->Launch<MoveZCommand>(z); }
     void Scale(float s) { shell_->Launch<ZoomCommand>(s); }
-    void MouseScale(float s) { shell_->Launch<MouseZoomCommand>(s); }
+    void MouseScale(float s, float x, float y) { shell_->Launch<MouseZoomCommand>(s, x, y); }
     void ESize(int s) { shell_->Launch<LineSizeCommand>(s); }
     void VSize(int s) { shell_->Launch<VerticesSizeCommand>(s); }
     void EType(int t) { shell_->Launch<LineTypeCommand>((EdgesType)t); }

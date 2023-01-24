@@ -47,7 +47,7 @@ class MouseMoveZCommand : public MoveCommand {
   public:
     MouseMoveZCommand(float z) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
     void Execute() override { 
-      std::cout << x_ << " " << y_ << " " << z_ << " MouseMoveZCommand\n";
+      // std::cout << x_ << " " << y_ << " " << z_ << " MouseMoveZCommand\n";
       mediator_->SetMove(x_, y_, z_); }
 };
 

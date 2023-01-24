@@ -61,6 +61,8 @@ set(PROJECT_SOURCES
         ../viewer/EventFilter.h
         ../viewer/EventFilter.cc
         ../viewer/mainwindow.ui
+
+        # ../.config/.settings.comm
         
         # ../.buttons/move.png
         # ../.buttons/rotate.png

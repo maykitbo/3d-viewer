@@ -8,27 +8,40 @@ void Shell::AddMediator(AbstractMediator *m) {
     Command::mediator_ = m;
     Cleaner::shell_ = this;
     History::base_ = &history_;
-
-    file_.open(config_path_, std::fstream::in);
-    if (file_.is_open() && file_.get() == '1') {
-        base_.Initialize(file_);
-        file_.close();
+    std::fstream file(config_path_, std::fstream::in);
+    if (file.is_open()) {
+        if (file.get() == '1') {
+            base_.Initialize(file);
+        } else {
+            base_.Initialize();
+        }
+        file.close();
     } else {
         base_.Initialize();
     }
+    // file_.open(config_path_, std::fstream::in);
+    // if (file_.is_open()) {
+    //     if (file_.get() == '1')
+    //         base_.Initialize(file_);
+    //     else
+    //         base_.Initialize();
+    //     file_.close();
+    // } else {
+    // if (!file_.is_open() || file_.peek() == '1')
+    // }
 }
 
 void Shell::SaveSettings(bool save) {
-    file_.open(config_path_, std::fstream::out);
-    if (!file_.is_open()) return;
-    file_.clear();
+    std::fstream file(config_path_, std::fstream::out);
+    if (!file.is_open()) return;
+    // file.clear();
     if (save) {
-        file_ << 1;
-        base_.ToFile(file_);
+        file << 1;
+        base_.ToFile(file);
     } else {
-        file_ << 0;
+        file << 0;
     }
-    file_.close();
+    file.close();
 }
 
 void Shell::CleanAll() {
