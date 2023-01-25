@@ -1,10 +1,9 @@
 #include <QFileDialog>
 
-#include "mainwindow.h"
+#include "Mainwindow.h"
 #include "EventFilter.h"
 
 #include <iostream>
-
 
 using namespace s21;
 
@@ -30,7 +29,6 @@ void MainWindow::Styles() {
     ui->xMouseButton->setStyleSheet("background-color: white");
     ui->zMouseButton->setStyleSheet("background-color: white");
     ui->yMouseButton->setStyleSheet("background-color: white");
-
 }
 
 void MainWindow::Events() {
@@ -142,6 +140,5 @@ void MainWindow::NoSignal(QSpinBox *object, double val) {
 }
 
 void MainWindow::ChangeVisible() {
-    ui->frame->setVisible(!ui->handButton->isVisible());
+    ui->frame->setVisible(!ui->frame->isVisible());
 }
-

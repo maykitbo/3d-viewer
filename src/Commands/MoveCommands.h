@@ -1,5 +1,5 @@
-#ifndef COMMANDS_MOVES_H
-#define COMMANDS_MOVES_H
+#ifndef COMMANDS_MOVECOMMANDS_H
+#define COMMANDS_MOVECOMMANDS_H
 
 #include "AbstractCommand.h"
 
@@ -49,9 +49,7 @@ class MouseMoveYCommand : public MoveCommand {
 class MouseMoveZCommand : public MoveCommand {
   public:
     MouseMoveZCommand(float z) : MoveCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
-    void Execute() override { 
-      // std::cout << x_ << " " << y_ << " " << z_ << " MouseMoveZCommand\n";
-      mediator_->SetMove(x_, y_, z_); }
+    void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 
 class MouseMoveXYCommand : public MoveCommand {
@@ -63,4 +61,4 @@ class MouseMoveXYCommand : public MoveCommand {
 
 } // namespace s21
 
-#endif // COMMANDS_MOVES_H
+#endif // COMMANDS_MOVECOMMANDS_H

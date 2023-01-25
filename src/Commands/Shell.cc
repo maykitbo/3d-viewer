@@ -1,5 +1,5 @@
 
-#include "Commands.h"
+#include "Shell.h"
 
 using namespace s21;
 
@@ -19,16 +19,6 @@ void Shell::AddMediator(AbstractMediator *m) {
     } else {
         base_.Initialize();
     }
-    // file_.open(config_path_, std::fstream::in);
-    // if (file_.is_open()) {
-    //     if (file_.get() == '1')
-    //         base_.Initialize(file_);
-    //     else
-    //         base_.Initialize();
-    //     file_.close();
-    // } else {
-    // if (!file_.is_open() || file_.peek() == '1')
-    // }
 }
 
 void Shell::SaveSettings(bool save) {

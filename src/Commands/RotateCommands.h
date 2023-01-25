@@ -1,5 +1,5 @@
-#ifndef COMMANDS_ROTATES_H
-#define COMMANDS_ROTATES_H
+#ifndef COMMANDS_ROTATECOMMANDS_H
+#define COMMANDS_ROTATECOMMANDS_H
 
 
 #include "AbstractCommand.h"
@@ -35,25 +35,21 @@ class RotateZCommand : public RotateCommand {
 class MouseRotateXCommand : public RotateCommand {
   public:
     MouseRotateXCommand(float x) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY(), last_.Get()->GetZ()) {}
-    // void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class MouseRotateYCommand : public RotateCommand {
   public:
     MouseRotateYCommand(float y) : RotateCommand(last_.Get()->GetX(), last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
-    // void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class MouseRotateZCommand : public RotateCommand {
   public:
     MouseRotateZCommand(float z) : RotateCommand(last_.Get()->GetX(), last_.Get()->GetY(), last_.Get()->GetZ() + z) {}
-    // void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class MouseRotateXYCommand : public RotateCommand {
   public:
     MouseRotateXYCommand(float x, float y) : RotateCommand(last_.Get()->GetX() + x, last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
-    // void Execute() override { mediator_->SetRotate(x_, y_, z_); }
 };
 
 class RotateTypeCommand : public OneValCommand<RotateType, RotateTypeCommand, DefultValues::Rotate> {
@@ -67,4 +63,4 @@ class RotateTypeCommand : public OneValCommand<RotateType, RotateTypeCommand, De
 
 }  // namespace s21
 
-#endif // COMMANDS_ROTATES_H
+#endif // COMMANDS_ROTATECOMMANDS_H

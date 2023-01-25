@@ -11,7 +11,7 @@
 
 #include "../Helpers/Helpers.h"
 #include "../Controller/Controller.h"
-#include "./ui_mainwindow.h"
+#include "./ui_Mainwindow.h"
 #include "EventFilter.h"
 
 #include "../OGLWidget/OGLWidget.h"

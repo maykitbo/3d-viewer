@@ -1,19 +1,14 @@
-#ifndef COMMANDS_COMMANDS_H
-#define COMMANDS_COMMANDS_H
+#ifndef COMMANDS_SHELL_H
+#define COMMANDS_SHELL_H
 
 #include <fstream>
-#include <list>
-// #include <type_traits>
+#include <filesystem>
 
-
-#include "Lines.h"
-#include "CommandsQueue.h"
+#include "LineCommands.h"
 #include "ProgCommands.h"
-#include "Vertices.h"
-#include "Moves.h"
-#include "Rotates.h"
-
-
+#include "VerticeCommands.h"
+#include "MoveCommands.h"
+#include "RotateCommands.h"
 
 namespace s21 {
 
@@ -89,12 +84,8 @@ struct IsCommand<ResetCommand> { const static bool value = false; };
 
 class Shell {
     private:
-      // const int buffer_size_ = 2000;
       using Path = std::filesystem::path;
       const Path config_path_ = std::filesystem::current_path() += Path("/.config/.settings.comm");
-      // using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, LineSizeCommand, LineTypeCommand,\
-      //   VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
-      //     LineColorCommand, BackgroundColorCommand>;
       using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, MouseZoomCommand, LineSizeCommand, LineTypeCommand,\
         VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
           LineColorCommand, BackgroundColorCommand>;
@@ -115,7 +106,6 @@ class Shell {
       template<class C, class ...Args>
       void Launch(Args &&...args) {
         if constexpr (IsCommand<C>::value) {
-          // std::cout << history_.size() << "          BUFFER size\n";
           RedoListClean();
           C *com = new C(args...);
           com->Execute();
@@ -127,13 +117,6 @@ class Shell {
       }
       void Undo();
       void Redo();
-
-      // template<class T> void OneCommandClear() {
-      //   BaseQueues<T>::list_.Clear();
-      // }
-      // template<class ...Args> void Clear() {
-      //   [](...){}((OneCommandClear<Args>(), 0)...);
-      // }
 };
 
 class Cleaner : public Command {
@@ -161,4 +144,4 @@ class ResetCommand : protected Cleaner {
 
 }  // namespace s21
 
-#endif // COMMANDS_COMMANDS_H
+#endif // COMMANDS_SHELL_H

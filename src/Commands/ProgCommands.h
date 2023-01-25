@@ -3,7 +3,7 @@
 
 
 #include "AbstractCommand.h"
-#include "Moves.h"
+#include "MoveCommands.h"
 
 namespace s21 {
 
@@ -29,8 +29,6 @@ struct OpenCleanable<ZoomCommand> { const static bool value = true; };
 //     MouseZoomCommand(float val, float x, float y) : ZoomCommand(last_.Get()->GetVal() / val) {}
 //     void Execute() override { mediator_->SetScale(value_); }
 // };
-
-
 
 class MouseZoomCommand : public StackCommand<MouseZoomCommand> {
   private:
@@ -110,15 +108,6 @@ class ProjectionCommand : public OneValCommand<Projection, ProjectionCommand, De
     void Execute() override { mediator_->PType(value_); }
     void Cancel() override { mediator_->SetPType(value_); }
 };
-
-// class RotateTypeCommand : public OneValCommand<RotateType, RotateTypeCommand, DefultValues::Rotate> {
-//   public:
-//     RotateTypeCommand() : OneValCommand() {}
-//     RotateTypeCommand(std::fstream &file) : OneValCommand(file) {}
-//     RotateTypeCommand(RotateType val) : OneValCommand(val) {}
-//     void Execute() override { mediator_->RType(value_); }
-//     void Cancel() override { mediator_->SetRType(value_); }
-// };
 
 } // namespace s21
 

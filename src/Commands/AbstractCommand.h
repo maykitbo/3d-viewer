@@ -6,11 +6,7 @@
 #include <chrono>
 #include <list>
 
-#include <filesystem>
-#include <functional>
-
 #include "../Helpers/Helpers.h"
-#include "CommandsQueue.h"
 #include "../Mediator/AbstractMediator.h"
 
 namespace s21 {
@@ -48,7 +44,6 @@ class HistoryCommand : public Command {
     protected:
         void Merge(HistoryCommand *prev) {
             if (!prev->merge_) Erase(prev);
-            // Erase(prev);
             Create();
         }
         void Erase(HistoryCommand *prev) {
@@ -58,18 +53,12 @@ class HistoryCommand : public Command {
             history_.base_->push_front(this);
             history_.iter_ = history_.base_->begin();
             if (history_.base_->size() > DefultValues::BufferSize) {
-                // std::cout << "                                                   OVER BUFFER\n";
                 // history_.base_->back()->PopPrev();
                 history_.base_->pop_back();
             }
         }
         void OnMerge() { merge_ = true; }
         bool InHistory() const { return !merge_; }
-    // public:
-    //     void Erase() {
-    //         history_.base_->erase(history_.iter_);
-    //         merge_ = true;
-    //     }
 };
 
 class UndoCommand {
@@ -84,7 +73,6 @@ class UndoCommand {
         bool IsMerge(Time last_time) {
             if (std::chrono::duration_cast<std::chrono::milliseconds>(time_ - last_time).count() < DefultValues::MergeTime)
                 merge_ = true;
-            // merge_ = false;
             return merge_;
         }
         bool IsMerge() const {
@@ -175,9 +163,6 @@ class OneValCommand : public StackCommand<T> {
     protected:
         V value_;
         void FromFile(std::fstream &file) {
-            if (std::is_same<V, QColor>::value) {
-                throw std::runtime_error("qcolor one val constructor from file");
-            }
             int val;
             file >> val;
             value_ = V(val);

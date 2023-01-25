@@ -1,5 +1,5 @@
-#ifndef COMMANDS_LINES_H
-#define COMMANDS_LINES_H
+#ifndef COMMANDS_LINECOMMANDS_H
+#define COMMANDS_LINECOMMANDS_H
 
 
 #include "AbstractCommand.h"
@@ -35,4 +35,4 @@ class LineSizeCommand : public OneValCommand<int, LineSizeCommand, DefultValues:
 
 } // namespace s21
 
-#endif // COMMANDS_LINES_H
+#endif // COMMANDS_LINECOMMANDS_H

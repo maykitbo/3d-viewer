@@ -1,5 +1,5 @@
-#ifndef COMMANDS_VERTICES_H
-#define COMMANDS_VERTICES_H
+#ifndef COMMANDS_VERTICECOMMANDS_H
+#define COMMANDS_VERTICECOMMANDS_H
 
 
 #include "AbstractCommand.h"
@@ -37,4 +37,4 @@ class VerticesSizeCommand : public OneValCommand<int, VerticesSizeCommand, Deful
 
 } // namespace s21
 
-#endif // COMMANDS_VERTICES_H
+#endif // COMMANDS_VERTICECOMMANDS_H

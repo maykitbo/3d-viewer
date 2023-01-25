@@ -1,5 +1,5 @@
-#include "viewer/mainwindow.h"
-#include "Commands/Commands.h"
+#include "Viewer/Mainwindow.h"
+#include "Commands/Shell.h"
 #include "Mediator/Mediator.h"
 #include "BackFasade/BackFasade.h"
 
@@ -13,12 +13,8 @@ int main(int argc, char *argv[]) {
     s21::Mediator<s21::Controller, s21::BackFasade> mediator(&control, &fasade);
     s21::MainWindow w(&control);
     fasade.AddWidget(w.GetWidget());
-    try {
-        commands.AddMediator((s21::AbstractMediator*)&mediator);
-        w.setWindowState(Qt::WindowMaximized);
-        w.show();
-    } catch (std::runtime_error const &er) {
-        std::cout << er.what() << "\n";
-    }
+    commands.AddMediator((s21::AbstractMediator*)&mediator);
+    w.setWindowState(Qt::WindowMaximized);
+    w.show();
     return a.exec();
 }

@@ -5,16 +5,12 @@
 #include <QToolButton>
 #include <QKeyEvent>
 #include <QMouseEvent>
-// #include <QSpinBox>
-// #include <QDoubleSpinBox>
 #include <QWheelEvent>
 #include <QRect>
 #include <math.h>
-// #include <thread>
 
 #include "../Controller/Controller.h"
-// #include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "./ui_Mainwindow.h"
 
 namespace s21 {
 

@@ -29,45 +29,32 @@ find_package(GLUT REQUIRED)
 find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 
 set(PROJECT_SOURCES
-        ../main.cpp
-        ../Commands/Commands.cc
-        ../Commands/Moves.h
-        ../Commands/Rotates.h
-        ../Commands/Vertices.h
-        ../Commands/Lines.h
+        ../Main.cpp
+        ../Commands/Shell.cc
+        ../Commands/MoveCommands.h
+        ../Commands/RotateCommands.h
+        ../Commands/VerticeCommands.h
+        ../Commands/LineCommands.h
         ../Commands/ProgCommands.h
         ../Commands/AbstractCommand.h
-        ../Commands/CommandsQueue.h
-        ../Commands/Commands.h
+        ../Commands/Shell.h
         ../OGLWidget/OGLWidget.h
         ../OGLWidget/OGLWidget.cc
         ../AfinTransformStrategy/AfinTransformStrategy.h
         ../AfinTransformStrategy/AfinTransformStrategy.cc
         ../BackFasade/BackFasade.cc
         ../BackFasade/BackFasade.h
-        # ../Commands/.settings.comm
-        # ../Controller/Controller.cc
         ../Controller/Controller.h
-        # ../Mediator/Mediator.cc
-        # ../Mediator/UndoRedoMediator.cc
-        # ../Mediator/AbstractMediator.h
         ../Mediator/Mediator.h
         ../Mediator/AbstractMediator.h
         ../Helpers/Helpers.h
         ../Parser/Parser.h
         ../Parser/Parser.cc
-        ../viewer/mainwindow.cc
-        ../viewer/mainwindow.h
-        ../viewer/EventFilter.h
-        ../viewer/EventFilter.cc
-        ../viewer/mainwindow.ui
-
-        # ../.config/.settings.comm
-        
-        # ../.buttons/move.png
-        # ../.buttons/rotate.png
-        # ../.buttons/xyz.png
-
+        ../Viewer/Mainwindow.cc
+        ../Viewer/Mainwindow.h
+        ../Viewer/EventFilter.h
+        ../Viewer/EventFilter.cc
+        ../Viewer/Mainwindow.ui
 
         ../OGLWidget/Error.h
         ../OGLWidget/Error.cpp
