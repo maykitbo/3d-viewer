@@ -25,11 +25,11 @@ class CommandTest : public ModelTest, public ::testing::Test {
             Copy(model_);
         }
         void TestEq() {
-            ASSERT_FLOAT_EQ(xr_, model_.GetXR());
+            ASSERT_FLOAT_EQ(RotateCool(xr_), model_.GetXR());
             ASSERT_FLOAT_EQ(xm_, model_.GetXM());
-            ASSERT_FLOAT_EQ(yr_, model_.GetYR());
+            ASSERT_FLOAT_EQ(RotateCool(yr_), model_.GetYR());
             ASSERT_FLOAT_EQ(ym_, model_.GetYM());
-            ASSERT_FLOAT_EQ(zr_, model_.GetZR());
+            ASSERT_FLOAT_EQ(RotateCool(zr_), model_.GetZR());
             ASSERT_FLOAT_EQ(zm_, model_.GetZM());
             ASSERT_FLOAT_EQ(scale_, model_.GetScale());
             ASSERT_EQ(vs_, model_.GetVS());
@@ -72,6 +72,12 @@ class CommandTest : public ModelTest, public ::testing::Test {
             zr_ += z;
             TestEq();
         }
+        void MouseRotateXY(float x, float y) {
+            control_.MouseRotateXY(x, y);
+            xr_ += x;
+            yr_ += y;
+            TestEq();
+        }
         void MoveX(float x) {
             control_.MoveX(x);
             xm_ = x;
@@ -102,14 +108,22 @@ class CommandTest : public ModelTest, public ::testing::Test {
             zm_ += z;
             TestEq();
         }
+        void MouseMoveXY(float x, float y) {
+            control_.MouseMoveXY(x, y);
+            ym_ += y;
+            xm_ += x;
+            TestEq();
+        }
         void Scale(float s) {
             control_.Scale(s);
             scale_ = s;
             TestEq();
         }
-        void MouseScale(float s) {
-            control_.MouseScale(s);
-            scale_ += s;
+        void MouseScale(float s, float x, float y) {
+            control_.MouseScale(s, x, y);
+            scale_ /= s;
+            xm_ += x;
+            ym_ += y;
             TestEq();
         }
         void VSize(int s) {
@@ -199,7 +213,7 @@ class CommandTest : public ModelTest, public ::testing::Test {
             MouseMoveY(1);
             MouseMoveZ(1);
             Scale(1);
-            MouseScale(1);
+            MouseScale(1.2, 0, 0);
             VSize(1);
             ESize(1);
             RType(origin);

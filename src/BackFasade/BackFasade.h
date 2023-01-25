@@ -6,6 +6,7 @@
 #include "../Parser/Parser.h"
 #include "../OGLWidget/OGLWidget.h"
 #include "../Helpers/Helpers.h"
+#include <functional>
 
 namespace s21
 {
@@ -35,6 +36,13 @@ namespace s21
     void SetBgColor(QColor color);
     void SaveImage(RenderType type);
     OGLWidget *GetWidget();
+
+    void SaveGif(double t, int fps, std::function<void(void)> hide) {
+      hide(); // скрыть кнопки
+      hide(); // открыть кнопки
+    }
+
+
     void AddWidget(OGLWidget *W) {
       Widget_ = W;
     }

@@ -4,12 +4,15 @@
 #include "AbstractCommand.h"
 
 namespace s21 {
+class MouseZoomCommand;
 
 class MoveCommand : public CoordsCommand<MoveCommand> {
+  friend MouseZoomCommand;
   public:
     MoveCommand() : CoordsCommand() {}
     MoveCommand(std::fstream &file) : MoveCommand() {}
     MoveCommand(float x, float y, float z) : CoordsCommand(x, y, z) {}
+    MoveCommand(bool f, float x, float y, float z) : CoordsCommand(f, x, y, z) {}
     void Execute() override { mediator_->Move(x_, y_, z_); }
     void Cancel() override { mediator_->SetMove(x_, y_, z_); }
 };
@@ -54,6 +57,7 @@ class MouseMoveZCommand : public MoveCommand {
 class MouseMoveXYCommand : public MoveCommand {
   public:
     MouseMoveXYCommand(float x, float y) : MoveCommand(last_.Get()->GetX() + x, last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
+    MouseMoveXYCommand(bool f, float x, float y) : MoveCommand(f, last_.Get()->GetX() + x, last_.Get()->GetY() + y, last_.Get()->GetZ()) {}
     void Execute() override { mediator_->SetMove(x_, y_, z_); }
 };
 

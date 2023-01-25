@@ -63,27 +63,33 @@ class HistoryCommand : public Command {
                 history_.base_->pop_back();
             }
         }
-    public:
-        void Erase() {
-            history_.base_->erase(history_.iter_);
-            merge_ = true;
-        }
+        void OnMerge() { merge_ = true; }
+        bool InHistory() const { return !merge_; }
+    // public:
+    //     void Erase() {
+    //         history_.base_->erase(history_.iter_);
+    //         merge_ = true;
+    //     }
 };
 
 class UndoCommand {
     public:
         using Time = decltype((std::chrono::high_resolution_clock::now)());
     private:
+        bool merge_ = false;
         Time Now() { return std::chrono::high_resolution_clock::now(); }
         Time time_ = Now();
     public:
         UndoCommand() {}
-        bool IsMerge(Time last_time) const {
+        bool IsMerge(Time last_time) {
             if (std::chrono::duration_cast<std::chrono::milliseconds>(time_ - last_time).count() < DefultValues::MergeTime)
-                return true;
-            else
-                return false;
-        }   
+                merge_ = true;
+            // merge_ = false;
+            return merge_;
+        }
+        bool IsMerge() const {
+            return merge_;
+        }
         Time GetTime() const { return time_; }
 };
 
@@ -102,12 +108,14 @@ struct Last {
     T *Get() const { return base_; }
     void Set(T *com) { base_ = com; }
     void DeleteLast() {
+        base_->MultiCommandDeleteLast();
         T *point = base_->GetPrev();
         if (point == nullptr) return;
         delete base_;
         base_ = point;
     }
 };
+
 
 template<class T>
 class StackCommand : public HistoryCommand, public UndoCommand {
@@ -116,8 +124,19 @@ class StackCommand : public HistoryCommand, public UndoCommand {
         Last<T> last_;
     public:
         StackCommand() : UndoCommand() { last_.Set((T*)this); }
+        StackCommand(bool merge) : UndoCommand() {
+            if (merge) {
+                prev_ = last_.GetPrev();
+                delete last_.base_;
+                last_.Set((T*)this);
+            } else {
+                prev_ = last_.Get();
+                last_.Set((T*)this);
+            }
+            OnMerge();
+        }
         StackCommand(T *com, bool merge = true) : UndoCommand() {
-            if (merge && last_.GetPrev() != nullptr && IsMerge(last_.Get()->GetTime())) {
+            if (merge && last_.GetPrev() != nullptr && IsMerge(last_.Get()->GetTime()) && last_.Get()->InHistory()) {
                 prev_ = last_.GetPrev();
                 Merge(last_.Get());
                 delete last_.base_;
@@ -132,6 +151,8 @@ class StackCommand : public HistoryCommand, public UndoCommand {
         void PopPrev() override { delete prev_; }
         T *GetPrev() const { return prev_; }
         void Undo() override { prev_->Cancel(); }
+        virtual void MultiCommandDeleteLast() {}
+        void DeleteLast() { last_.DeleteLast(); }
 };
 
 template<class T>
@@ -142,6 +163,7 @@ class CoordsCommand : public StackCommand<T> {
         CoordsCommand() : x_(0), y_(0), z_(0), StackCommand<T>() {}
         void ToFile(std::fstream &file) const {}
         CoordsCommand(float x, float y, float z) : x_(x), y_(y), z_(z), StackCommand<T>((T*)this) {}
+        CoordsCommand(bool f, float x, float y, float z) : x_(x), y_(y), z_(z), StackCommand<T>(f) {}
         float GetX() const { return x_; }
         float GetY() const { return y_; }
         float GetZ() const { return z_; }
@@ -173,6 +195,7 @@ class OneValCommand : public StackCommand<T> {
             file << value_;
         }
         OneValCommand(V val, bool merge = true) : value_(val), StackCommand<T>((T*)this, merge) {}
+        OneValCommand(bool f, V val) : value_(val), StackCommand<T>(f) {}
         V GetVal() const { return value_; }
 };
 

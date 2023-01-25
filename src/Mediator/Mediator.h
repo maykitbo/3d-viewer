@@ -5,6 +5,7 @@
 #include "../Helpers/Helpers.h"
 #include <QString>
 #include <math.h>
+#include <functional>
 
 #include <iostream>
 
@@ -24,7 +25,7 @@ class Mediator : public AbstractMediator {
              fasade_->MoveObject(x, y, z);
         }
         void Scale(float s) override {
-            fasade_->ScaleObject(DefultValues::ScaleRatio * s);
+            fasade_->ScaleObject(s);
         }
         void ESize(int s) override {
             fasade_->SetLineSize(s);
@@ -57,10 +58,12 @@ class Mediator : public AbstractMediator {
             control_->SetBgColor(ClolorToString(c));
         }
         void Gif(double t, int fps) override {
-            // fasade_->SaveGif(t, fps);
+            fasade_->SaveGif(t, fps, std::function<void(void)>([&]{ control_->ChangeVisible(); }));
         }
         void Render(RenderType type) override {
-            // fasade_->SaveImage(type);
+            control_->ChangeVisible();
+            fasade_->SaveImage(type);
+            // control_->ChangeVisible();
         }
         void SetRotate(float x, float y, float z) override {
             x = RotateCool(x);

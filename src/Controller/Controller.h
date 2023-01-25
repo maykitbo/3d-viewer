@@ -35,16 +35,11 @@ class Controller : public QObject {
   public slots:
     void MouseMoveX(float x) { shell_->Launch<MouseMoveXCommand>(x); }
     void MouseMoveY(float y) { shell_->Launch<MouseMoveYCommand>(y); }
-    void MouseMoveZ(float z) { 
-      std::cout << z << " Controller\n";
-      shell_->Launch<MouseMoveZCommand>(z); }
+    void MouseMoveZ(float z) { shell_->Launch<MouseMoveZCommand>(z); }
     void MouseMoveXY(float x, float y) { shell_->Launch<MouseMoveXYCommand>(x, y); }
     void MouseRotateX(float x) { shell_->Launch<MouseRotateXCommand>(x); }
     void MouseRotateY(float y) { shell_->Launch<MouseRotateYCommand>(y); }
-    void MouseRotateZ(float z) {
-      if (!isinf(z) && !isnan(z))
-        shell_->Launch<MouseRotateZCommand>(z);
-    }
+    void MouseRotateZ(float z) { if (!isinf(z) && !isnan(z)) shell_->Launch<MouseRotateZCommand>(z); }
     void MouseRotateXY(float x, float y) { shell_->Launch<MouseRotateXYCommand>(x, y); }
     void RotateX(float x) { shell_->Launch<RotateXCommand>(x); }
     void RotateY(float y) { shell_->Launch<RotateYCommand>(y); }
@@ -91,7 +86,7 @@ class Controller : public QObject {
     void SetVColor(QString c);
     void SetEColor(QString c);
     void SetBgColor(QString c);
-
+    void ChangeVisible();
     
 };
 

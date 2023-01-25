@@ -72,3 +72,4 @@ void s21::BackFasade::SaveImage(RenderType type) {
 s21::OGLWidget *s21::BackFasade::GetWidget() {
   return Widget_;
 }
+

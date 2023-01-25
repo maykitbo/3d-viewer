@@ -1,7 +1,5 @@
 #include "test.h"
 
-
-
 TEST_F(CommandTest, easy) {
     ALLOne();
     ALLOne();
@@ -72,6 +70,7 @@ TEST_F(CommandTest, undo) {
     Undo([&] { zr_ = 0; });
     Undo([]{});
     Undo([]{});
+    MouseRotateXY(-11, -1);
 }
 
 TEST_F(CommandTest, redo) {
@@ -95,7 +94,7 @@ TEST_F(CommandTest, redo) {
 TEST_F(CommandTest, redo_list_clean) {
     PType(central);
     Scale(1.1);
-    MouseScale(2.2);
+    MouseScale(2.2, 0, 0);
     RotateX(111);
     sleep(1);
     PType(parallel);
@@ -104,7 +103,48 @@ TEST_F(CommandTest, redo_list_clean) {
     MoveY(-12);
     Redo([]{});
     Undo([&] { ym_ = 0; });
-    Undo([&] { scale_ = DefultValues::Scale; });
+    Undo([&] { scale_ = 1.1; });
+}
+
+TEST_F(CommandTest, mouse_wheel_1) {
+    MouseScale(2.2, 1, 1);
+    Scale(3);
+    sleep(1);
+    MoveX(10);
+    Undo([&] { xm_ = 1; });
+    Redo([&] { xm_ = 10; });
+    MouseScale(1.5, 7, -1);
+    Undo([&] {
+        scale_ = 3;
+        xm_ = 10;
+        ym_ = 1;
+    });
+    Undo([&] { xm_ = 1; });
+    Undo([&] { scale_ = 1.0/2.2; });
+    Undo([&] {
+        scale_ = 1;
+        xm_ = 0;
+        ym_ = 0;
+    });
+}
+
+TEST_F(CommandTest, mouse_wheel_2) {
+    MouseScale(2.2, 1, 1);
+    MouseMoveXY(4, 5);
+    Undo([&] {
+        xm_ = 1;
+        ym_ = 1;
+    });
+    sleep(1);
+    MouseScale(0.7, -4, -5);
+    sleep(1);
+    MouseScale(2.2, 2, 2);
+    Undo([&] {
+        scale_ *= 2.2;
+        xm_ -= 2;
+        ym_ -= 2;
+    });
+    MouseMoveXY(3, 4);
 }
 
 // TEST_F(CommandTest, over_buffer) {

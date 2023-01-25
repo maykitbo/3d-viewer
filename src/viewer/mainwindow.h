@@ -8,7 +8,6 @@
 #include <QIcon>
 
 #include <ostream>
-// #include <functional>
 
 #include "../Helpers/Helpers.h"
 #include "../Controller/Controller.h"
@@ -40,7 +39,7 @@ class MainWindow : public QMainWindow {
         }
 
     private slots:
-        void test() { std::cout << "test color\n"; }
+        void ChangeVisible();
 
 
     private:
@@ -54,28 +53,12 @@ class MainWindow : public QMainWindow {
         void Styles();
         void Events();
         const std::string current_path_ = std::filesystem::current_path().string();
-        QIcon Icon(std::string path) const { return QIcon(QString((current_path_+ path).data())); }
+        QIcon Icon(std::string path) const;
         std::string FileDialog();
         void closeEvent(QCloseEvent * event) override;
-        // Color ColorButton(QPushButton *qpb);
-        // void keyPressEvent(QKeyEvent *event) override;
-        // Color QtoMColor(const QColor &col) const { return Color(col.redF(), col.greenF(), col.blueF()); }
-        // QColor MtoQColor(Color &col) const { return QColor(col.red, col.green, col.blue); }
-        void NoSignal(QDoubleSpinBox *object, double val) {
-            object->blockSignals(true);
-            object->setValue(val);
-            object->blockSignals(false);
-        }
-        void NoSignal(QComboBox *object, int val) {
-            object->blockSignals(true);
-            object->setCurrentIndex(val);
-            object->blockSignals(false);
-        }
-        void NoSignal(QSpinBox *object, double val) {
-            object->blockSignals(true);
-            object->setValue(val);
-            object->blockSignals(false);
-        }
+        void NoSignal(QDoubleSpinBox *object, double val);
+        void NoSignal(QComboBox *object, int val);
+        void NoSignal(QSpinBox *object, double val);
 
 };
 

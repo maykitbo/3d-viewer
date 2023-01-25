@@ -16,6 +16,7 @@ class ZoomCommand : public OneValCommand<float, ZoomCommand, DefultValues::Scale
     ZoomCommand() : OneValCommand() {}
     ZoomCommand(std::fstream &file) : OneValCommand() {}
     ZoomCommand(float val) : OneValCommand(val) {}
+    ZoomCommand(bool f, float val) : OneValCommand(f, val) {}
     virtual void Execute() override { mediator_->Scale(value_); }
     void Cancel() override { mediator_->SetScale(value_); }
     bool Cleanable() override { return true; }
@@ -23,48 +24,48 @@ class ZoomCommand : public OneValCommand<float, ZoomCommand, DefultValues::Scale
 template<>
 struct OpenCleanable<ZoomCommand> { const static bool value = true; };
 
-class MouseZoomCommand : public ZoomCommand {
-  public:
-    MouseZoomCommand(float val, float x, float y) : ZoomCommand(last_.Get()->GetVal() / val) {}
-    void Execute() override { mediator_->SetScale(value_); }
-};
-
-// class MouseZoomCommand : public StackCommand<MouseZoomCommand> {
-//   private:
-//     ZoomCommand *zoom_;
-//     MouseMoveXYCommand *move_;
+// class MouseZoomCommand : public ZoomCommand {
 //   public:
-//     MouseZoomCommand(float val, float x, float y) : StackCommand(this) {
-//       zoom_ = new ZoomCommand(zoom_->last_.Get()->GetVal() / val);
-//       move_ = new MouseMoveXYCommand(x, y);
-//       // std::cout << "zoom created\n";
-//       // history_.base_->pop_front();
-//       // history_.base_->pop_front();
-//       move_->Erase();
-//       zoom_->Erase();
-//       // history_.base_->push_front((HistoryCommand*)this);
-//       // history_.iter_ = history_.base_->begin();
-//       Create();
-//     }
-//     void Execute() override {
-//       // mediator_->SetScale(value_);
-//       zoom_->Execute();
-//       move_->Execute();
-//       // mediator_->SetMove(x, y, );
-//     }
-//     void Cancel() override {
-//       Execute();
-//     }
-//     void Undo() override {
-//       zoom_->Undo();
-//       move_->Undo();
-//     }
-//     void PopPrev() override {
-//       zoom_->PopPrev();
-//       move_->PopPrev();
-//     }
-//     bool Cleanable() override { return true; }
+//     MouseZoomCommand(float val, float x, float y) : ZoomCommand(last_.Get()->GetVal() / val) {}
+//     void Execute() override { mediator_->SetScale(value_); }
 // };
+
+
+
+class MouseZoomCommand : public StackCommand<MouseZoomCommand> {
+  private:
+    ZoomCommand *zoom_ = nullptr;
+    MouseMoveXYCommand *move_ = nullptr;
+  public:
+    void ToFile(std::fstream &file) const {}
+    MouseZoomCommand() : StackCommand<MouseZoomCommand>() {
+      zoom_ = zoom_->last_.Get();
+      move_ = (MouseMoveXYCommand*)move_->last_.Get();
+    }
+    MouseZoomCommand(std::fstream &file) : MouseZoomCommand::MouseZoomCommand() {}
+    MouseZoomCommand(float val, float x, float y) : StackCommand<MouseZoomCommand>(this) {
+      bool merge = last_.GetPrev() != nullptr && IsMerge();
+      zoom_ = new ZoomCommand(merge, zoom_->last_.Get()->GetVal() / val);
+      move_ = new MouseMoveXYCommand(merge, x, y);
+    }
+    void Execute() override {
+      zoom_->Cancel();
+      move_->Execute();
+    }
+    void Cancel() override {
+      zoom_->Cancel();
+      move_->Cancel();
+    }
+    void Undo() override {
+      zoom_->Undo();
+      move_->Undo();
+    }
+    bool Cleanable() override { return true; }
+    void MultiCommandDeleteLast() override {
+      zoom_->DeleteLast();
+      move_->DeleteLast();
+    }
+};
 
 class BackgroundColorCommand : public ColorCommand<BackgroundColorCommand, DefultValues::BackgroundColor> {
   public:

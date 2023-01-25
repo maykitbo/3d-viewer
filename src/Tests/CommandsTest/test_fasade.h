@@ -11,6 +11,10 @@ class BackFasade;
 
 class ModelTest {
   protected:
+    float RotateCool(float x) {
+        while (x < 0) x += 360.0;
+        return std::fmod(x, 360);
+    }
     friend class BackFasade;
     float xr_, xm_, yr_, ym_, zr_, zm_, scale_;
     int vs_, es_;

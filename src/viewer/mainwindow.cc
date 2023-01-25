@@ -100,6 +100,7 @@ void MainWindow::Connects() {
     connect(ui->renderButton, &QPushButton::clicked, [&]\
             { control_->Render(RenderType(ui->renderBox->currentIndex()), ui->timeSpin->value(), ui->fpsSpin->value()); } );
     connect(ui->resetButton, &QPushButton::clicked, control_, &Controller::Reset);
+    connect(control_, &Controller::ChangeVisible, this, &MainWindow::ChangeVisible);
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {
@@ -117,3 +118,30 @@ MainWindow::~MainWindow() {
     control_->SaveSettings(ui->saveCheck->isChecked());
     delete ui;
 }
+
+QIcon MainWindow::Icon(std::string path) const {
+    return QIcon(QString((current_path_+ path).data()));
+}
+
+void MainWindow::NoSignal(QDoubleSpinBox *object, double val) {
+    object->blockSignals(true);
+    object->setValue(val);
+    object->blockSignals(false);
+}
+
+void MainWindow::NoSignal(QComboBox *object, int val) {
+    object->blockSignals(true);
+    object->setCurrentIndex(val);
+    object->blockSignals(false);
+}
+
+void MainWindow::NoSignal(QSpinBox *object, double val) {
+    object->blockSignals(true);
+    object->setValue(val);
+    object->blockSignals(false);
+}
+
+void MainWindow::ChangeVisible() {
+    ui->frame->setVisible(!ui->handButton->isVisible());
+}
+

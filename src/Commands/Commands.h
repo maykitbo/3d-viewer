@@ -92,7 +92,10 @@ class Shell {
       // const int buffer_size_ = 2000;
       using Path = std::filesystem::path;
       const Path config_path_ = std::filesystem::current_path() += Path("/.config/.settings.comm");
-      using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, LineSizeCommand, LineTypeCommand,\
+      // using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, LineSizeCommand, LineTypeCommand,\
+      //   VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
+      //     LineColorCommand, BackgroundColorCommand>;
+      using MainComBase = MainBase<RotateCommand, MoveCommand, ZoomCommand, MouseZoomCommand, LineSizeCommand, LineTypeCommand,\
         VerticesSizeCommand, VerticesTypeCommand, ProjectionCommand, RotateTypeCommand, VerticesColorCommand,\
           LineColorCommand, BackgroundColorCommand>;
       AbstractMediator *model_ = nullptr;
